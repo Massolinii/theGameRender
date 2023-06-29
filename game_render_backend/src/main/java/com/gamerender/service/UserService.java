@@ -40,8 +40,8 @@ public class UserService {
     }
 
     public User updateUser(User user) {
-        if (!userRepository.existsById(user.getUserID())) {
-            throw new UserNotFoundException("User with ID " + user.getUserID() + " not found.");
+        if (!userRepository.existsById(user.getId())) {
+            throw new UserNotFoundException("User with ID " + user.getId() + " not found.");
         }
         return userRepository.save(user);
     }
@@ -55,7 +55,7 @@ public class UserService {
 
     public List<User> findUsersByLikedImage(Long imageId) {
     	Image image = imageService.findImageById(imageId);
-        return userRepository.findUsersByLikedImages(image);
+        return userRepository.findUsersByFavoriteImages(image);
     }
 	
 }

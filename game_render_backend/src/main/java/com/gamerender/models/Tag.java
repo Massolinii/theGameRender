@@ -1,6 +1,7 @@
 package com.gamerender.models;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,5 +30,5 @@ public class Tag {
 	protected String tagName;
 	
 	@ManyToMany(mappedBy = "tags")
-    private List<Image> images;
+    private Set<Image> images = new HashSet<>();
 }

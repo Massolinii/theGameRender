@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 
 import com.gamerender.security.enumerates.UserRole;
 import com.gamerender.security.models.Role;
-import com.gamerender.security.models.SecUser;
 import com.gamerender.security.repositories.RoleRepository;
-import com.gamerender.security.repositories.SecUserRepository;
+import com.gamerender.models.User;
+import com.gamerender.repository.UserRepository;
 import com.gamerender.security.services.AuthService;
 
 @Component
@@ -22,7 +22,7 @@ public class AuthRunner implements ApplicationRunner {
 	@Autowired
 	RoleRepository roleRepository;
 	@Autowired
-	SecUserRepository secUserRepository;
+	UserRepository userRepository;
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -35,7 +35,7 @@ public class AuthRunner implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		System.out.println("Authentication is running...");
+		System.out.println("Run...");
 		setRoleDefault();
 		saveUserDefault();
 	}
@@ -64,26 +64,26 @@ public class AuthRunner implements ApplicationRunner {
 	}
 
 	public void saveUserDefault() {
-		if (secUserRepository.findByEmail("andrea.ragalzi@epicode.com").isEmpty()) {
-			SecUser admin = new SecUser();
-			admin.setUsername("andrea.ragalzi");
-			admin.setEmail("andrea.ragalzi@epicode.com");
+		if (userRepository.findByEmail("masso.lini@epicode.com").isEmpty()) {
+			User admin = new User();
+			admin.setUsername("masso.lini");
+			admin.setEmail("masso.lini@epicode.com");
 			admin.setPassword(passwordEncoder.encode("root"));
-			admin.setFirstname("Andrea");
-			admin.setLastname("Ragalzi");
+			admin.setFirstname("Massimiliano");
+			admin.setLastname("Esposito");
 			admin.setRoles(adminRole);
-			secUserRepository.save(admin);
+			userRepository.save(admin);
 		}
 
-		if (secUserRepository.findByEmail("lucy.parsons@epicode.com").isEmpty()) {
-			SecUser secUser = new SecUser();
-			secUser.setUsername("lucy.parsons");
-			secUser.setEmail("lucy.parsons@epicode.com");
-			secUser.setPassword(passwordEncoder.encode("user"));
-			secUser.setFirstname("Lucy");
-			secUser.setLastname("Parsons");
-			secUser.setRoles(userRole);
-			secUserRepository.save(secUser);
+		if (userRepository.findByEmail("lucy.parsons@epicode.com").isEmpty()) {
+			User user = new User();
+			user.setUsername("lucy.parsons");
+			user.setEmail("lucy.parsons@epicode.com");
+			user.setPassword(passwordEncoder.encode("user"));
+			user.setFirstname("Lucy");
+			user.setLastname("Parsons");
+			user.setRoles(userRole);
+			userRepository.save(user);
 		}
 
 	}

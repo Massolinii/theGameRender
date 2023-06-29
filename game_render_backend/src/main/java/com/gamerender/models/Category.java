@@ -30,8 +30,8 @@ public class Category {
     protected String categoryName;
 
     @OneToMany(mappedBy="category")
-    private Set<Image> images = new HashSet<>();
-
-    @OneToMany(mappedBy="category")
     private Set<Collection> collections = new HashSet<>();
+    
+    @OneToMany(mappedBy = "category")
+    private Set<Image> images = new HashSet<>();
 }

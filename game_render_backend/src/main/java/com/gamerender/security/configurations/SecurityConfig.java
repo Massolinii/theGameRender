@@ -42,15 +42,14 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
-    @SuppressWarnings("removal")
-	@CrossOrigin
+    @CrossOrigin
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/api/**").permitAll()
-                        .requestMatchers("/api/test/**").permitAll()
+                        .requestMatchers("/api/invoices/**").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint(authenticationEntryPoint))

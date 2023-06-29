@@ -36,15 +36,15 @@ public class Image {
     @Column(nullable = false, name = "prompt_text")
     protected String promptText;
     
-    @ManyToOne
-    @JoinColumn(name="category_id", nullable=false)
-    protected Category category;
-    
-    @ManyToMany(mappedBy = "likedImages")
-    private Set<User> likedByUsers = new HashSet<>();
+    @ManyToMany(mappedBy = "favoriteImages")
+    private Set<User> favoriteImages = new HashSet<>();
 
     @ManyToMany(mappedBy = "images")
     private Set<Collection> collections = new HashSet<>();
+    
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
     
     @ManyToMany
     @JoinTable(

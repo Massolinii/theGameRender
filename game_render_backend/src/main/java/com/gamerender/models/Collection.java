@@ -32,13 +32,16 @@ public class Collection {
 	@Column(nullable = false)
 	protected String title;
 	
-	@ManyToOne
-    @JoinColumn(name="category_id", nullable=false)
-	protected Category category;
+    @ManyToMany
+    @JoinTable(name = "collections_images",
+    joinColumns = @JoinColumn(name = "collection_id"),
+    inverseJoinColumns = @JoinColumn(name = "image_id"))
+    private Set<Image> images = new HashSet<>();
 
-	@ManyToMany
-	@JoinTable(name = "collection_images",
-	           joinColumns = @JoinColumn(name = "collection_id"),
-	           inverseJoinColumns = @JoinColumn(name = "image_id"))
-	 private Set<Image> images = new HashSet<>();
+    @ManyToMany(mappedBy = "favoriteCollections")
+    private Set<User> favoriteCollections = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 }

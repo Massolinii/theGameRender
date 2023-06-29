@@ -14,30 +14,30 @@ import org.springframework.stereotype.Service;
 import com.gamerender.security.enumerates.UserRole;
 import com.gamerender.security.exceptions.MyAPIException;
 import com.gamerender.security.models.Role;
-import com.gamerender.security.models.SecUser;
 import com.gamerender.security.payloads.LoginDto;
 import com.gamerender.security.payloads.RegisterDto;
 import com.gamerender.security.repositories.RoleRepository;
-import com.gamerender.security.repositories.SecUserRepository;
+import com.gamerender.models.User;
+import com.gamerender.repository.UserRepository;
 import com.gamerender.security.security.JwtTokenProvider;
 
 @Service
 public class AuthServiceImpl implements AuthService {
 
     private AuthenticationManager authenticationManager;
-    private SecUserRepository secUserRepository;
+    private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
     private JwtTokenProvider jwtTokenProvider;
 
 
     public AuthServiceImpl(AuthenticationManager authenticationManager,
-                           SecUserRepository secUserRepository,
+                           UserRepository userRepository,
                            RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder,
                            JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
-        this.secUserRepository = secUserRepository;
+        this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
@@ -63,21 +63,21 @@ public class AuthServiceImpl implements AuthService {
     public String register(RegisterDto registerDto) {
 
         // add check for username exists in database
-        if(secUserRepository.existsByUsername(registerDto.getUsername())){
-            throw new MyAPIException(HttpStatus.BAD_REQUEST, "This username has already been taken!");
+        if(userRepository.existsByUsername(registerDto.getUsername())){
+            throw new MyAPIException(HttpStatus.BAD_REQUEST, "Username already exists!");
         }
 
         // add check for email exists in database
-        if(secUserRepository.existsByEmail(registerDto.getEmail())){
-            throw new MyAPIException(HttpStatus.BAD_REQUEST, "This email is already in use!");
+        if(userRepository.existsByEmail(registerDto.getEmail())){
+            throw new MyAPIException(HttpStatus.BAD_REQUEST, "Email already exists!");
         }
 
-        SecUser secUser = new SecUser();
-        secUser.setUsername(registerDto.getUsername());
-        secUser.setEmail(registerDto.getEmail());
-        secUser.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-        secUser.setFirstname(registerDto.getFirstname());
-        secUser.setLastname(registerDto.getLastname());
+        User user = new User();
+        user.setUsername(registerDto.getUsername());
+        user.setEmail(registerDto.getEmail());
+        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+        user.setFirstname(registerDto.getFirstname());
+        user.setLastname(registerDto.getLastname());
         Set<Role> roles = new HashSet<>();
         
         if(registerDto.getRoles() != null) {
@@ -90,9 +90,9 @@ public class AuthServiceImpl implements AuthService {
         	roles.add(userRole);
         }
         
-        secUser.setRoles(roles);
-        System.out.println(secUser);
-        secUserRepository.save(secUser);
+        user.setRoles(roles);
+        System.out.println(user);
+        userRepository.save(user);
 
         return "User registered successfully!.";
     }

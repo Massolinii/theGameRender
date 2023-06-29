@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.gamerender.security.models.SecUser;
-import com.gamerender.security.repositories.SecUserRepository;
+import com.gamerender.models.User;
+import com.gamerender.repository.UserRepository;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,25 +16,25 @@ import java.util.stream.Collectors;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private SecUserRepository secUserRepository;
+    private UserRepository userRepository;
 
-    public CustomUserDetailsService(SecUserRepository secUserRepository) {
-        this.secUserRepository = secUserRepository;
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        SecUser secUser = secUserRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
+        User user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "User not found with username or email: " + usernameOrEmail));
 
-        Set<GrantedAuthority> authorities = secUser
+        Set<GrantedAuthority> authorities = user
                 .getRoles()
                 .stream()
                 .map((role) -> new SimpleGrantedAuthority(role.getRole().toString())).collect(Collectors.toSet());
 
-        return new org.springframework.security.core.userdetails.User(secUser.getEmail(),
-                secUser.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),
+                user.getPassword(),
                 authorities);
     }
 }
