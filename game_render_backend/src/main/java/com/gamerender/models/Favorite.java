@@ -28,10 +28,10 @@ public class Favorite {
 	protected User user;
 	
 	@ManyToOne
-    @JoinColumn(name="image_id", nullable=true)
+    @JoinColumn(name="image_id", nullable=false)
 	protected Image image;
 
     @ManyToOne
-    @JoinColumn(name="collection_id", nullable=true)
+    @JoinColumn(name="collection_id")
 	protected Collection collection;
 }

@@ -25,11 +25,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/collections")
 public class CollectionController {
 
-    @Autowired private final CollectionService collectionService;
-    
-    public CollectionController(CollectionService collectionService) {
-        this.collectionService = collectionService;
-    }
+    @Autowired CollectionService collectionService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Collection> getCollection(@PathVariable Long id) {
@@ -62,7 +58,7 @@ public class CollectionController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     
-    // GET ALL Collections from Category
+    // GET ALL collections FROM category
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<Collection>> getCollectionsByCategory(@PathVariable Long categoryId) {
         List<Collection> collections = collectionService.findCollectionsByCategory(categoryId);

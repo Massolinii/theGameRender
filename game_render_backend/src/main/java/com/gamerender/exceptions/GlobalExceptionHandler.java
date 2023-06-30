@@ -1,5 +1,8 @@
 package com.gamerender.exceptions;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +12,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
+	 private final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
 	
 	 	@ExceptionHandler(UserNotFoundException.class)
 	    public ResponseEntity<String> handleUserNotFoundException(UserNotFoundException ex) {
@@ -50,15 +55,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 		    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 		}
 
-	    @ExceptionHandler(DataIntegrityViolationException.class)
+		@ExceptionHandler(DataIntegrityViolationException.class)
 	    public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+	        // Log the exception
+	        logger.error("Data integrity violation", ex);
+
 	        // This exception is thrown when there is a violation of a database constraint
 	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid data provided.");
 	    }
 
-
-	    @ExceptionHandler(Exception.class)
+		@ExceptionHandler(Exception.class)
 	    public ResponseEntity<String> handleGeneralException(Exception ex) {
+	        // Log the exception
+	        logger.error("General error", ex);
+
 	        // This is a general exception handler that will catch any exception not caught by the other handlers
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
 	    }

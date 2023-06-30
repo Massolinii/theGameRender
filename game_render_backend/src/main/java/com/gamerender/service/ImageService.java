@@ -13,9 +13,9 @@ import com.gamerender.repository.ImageRepository;
 @Service
 public class ImageService {
 	
-	@Autowired private ImageRepository imageRepository;
+	@Autowired ImageRepository imageRepository;
 	
-	 public Image createImage(Image image) {
+	public Image createImage(Image image) {
 	        if (imageRepository.findById(image.getImageID()).isPresent()) {
 	            throw new ImageAlreadyExistsException("Image with ID " + image.getImageID() + " already exists.");
 	        }
@@ -43,5 +43,6 @@ public class ImageService {
         }
     	imageRepository.deleteById(id);
     }
+    
 	
 }

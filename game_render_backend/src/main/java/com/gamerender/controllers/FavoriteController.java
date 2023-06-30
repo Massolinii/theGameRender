@@ -15,8 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gamerender.models.Collection;
 import com.gamerender.models.Favorite;
+import com.gamerender.models.Image;
+import com.gamerender.models.User;
+import com.gamerender.service.CollectionService;
 import com.gamerender.service.FavoriteService;
+import com.gamerender.service.ImageService;
+import com.gamerender.service.UserService;
 
 import jakarta.validation.Valid;
 
@@ -25,7 +31,10 @@ import jakarta.validation.Valid;
 @RequestMapping("/favorites")
 public class FavoriteController {
 
-	@Autowired private final FavoriteService favoriteService;
+	@Autowired FavoriteService favoriteService;
+	@Autowired UserService userService;
+	@Autowired ImageService imageService;
+	@Autowired CollectionService collectionService;
 
     public FavoriteController(FavoriteService favoriteService) {
         this.favoriteService = favoriteService;
@@ -44,9 +53,17 @@ public class FavoriteController {
     }
     
     @PostMapping
-    public ResponseEntity<Favorite> createFavorite(@Valid @RequestBody Favorite favorite) {
+    public ResponseEntity<Favorite> createFavorite(@RequestBody Favorite favorite) {
+        User user = userService.findUserById(favorite.getUser().getId());
+        Image image = imageService.findImageById(favorite.getImage().getImageID());
+        Collection collection = collectionService.findCollectionById(favorite.getCollection().getCollectionID());
+
+        favorite.setUser(user);
+        favorite.setImage(image);
+        favorite.setCollection(collection);
+
         Favorite createdFavorite = favoriteService.createFavorite(favorite);
-        return new ResponseEntity<>(createdFavorite, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdFavorite);
     }
 
     @PutMapping("/{id}")

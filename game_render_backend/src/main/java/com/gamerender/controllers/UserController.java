@@ -25,11 +25,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/users")
 public class UserController {
 
-	@Autowired private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+	@Autowired UserService userService;
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {

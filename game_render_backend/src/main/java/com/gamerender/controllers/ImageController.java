@@ -25,11 +25,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/images")
 public class ImageController {
 
-	@Autowired private final ImageService imageService;
-
-    public ImageController(ImageService imageService) {
-        this.imageService = imageService;
-    }
+	@Autowired ImageService imageService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Image> getImage(@PathVariable Long id) {

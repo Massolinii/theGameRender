@@ -30,7 +30,7 @@ public class Collection {
 	protected Long collectionID;
 	
 	@Column(nullable = false)
-	protected String title;
+	protected String collectionName;
 	
     @ManyToMany
     @JoinTable(name = "collections_images",

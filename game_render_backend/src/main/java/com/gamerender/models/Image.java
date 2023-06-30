@@ -33,6 +33,9 @@ public class Image {
     @Column(nullable = false)
     protected String title;
     
+    @Column(nullable = true, length = 64)
+    private String photos;
+    
     @Column(nullable = false, name = "prompt_text")
     protected String promptText;
     

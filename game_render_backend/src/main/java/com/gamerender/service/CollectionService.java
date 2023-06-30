@@ -17,6 +17,8 @@ public class CollectionService {
     @Autowired private CategoryService categoryService;
 
     public Collection createCollection(Collection collection) {
+        Category category = categoryService.findCategoryById(collection.getCategory().getCategoryID());
+        collection.setCategory(category);
         return collectionRepository.save(collection);
     }
 

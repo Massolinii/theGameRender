@@ -23,11 +23,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/tags")
 public class TagController {
 
-	@Autowired private final TagService tagService;
-
-    public TagController(TagService tagService) {
-        this.tagService = tagService;
-    }
+	@Autowired TagService tagService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Tag> getTag(@PathVariable Long id) {
@@ -60,7 +56,7 @@ public class TagController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     
-    // Get all tags by image
+    // GET ALL tags BY image
     @GetMapping("/image/{imageId}")
     public ResponseEntity<List<Tag>> getTagsByImage(@PathVariable Long imageId) {
         List<Tag> tags = tagService.findTagsByImageId(imageId);
