@@ -34,7 +34,7 @@ public class Image {
     protected String title;
     
     @Column(nullable = true, length = 64)
-    private String photos;
+    private String url;
     
     @Column(nullable = false, name = "prompt_text")
     protected String promptText;
@@ -42,12 +42,9 @@ public class Image {
     @ManyToMany(mappedBy = "favoriteImages")
     private Set<User> favoriteImages = new HashSet<>();
 
-    @ManyToMany(mappedBy = "images")
-    private Set<Collection> collections = new HashSet<>();
-    
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "collection_id", nullable = false)
+    private Collection collection;
     
     @ManyToMany
     @JoinTable(
@@ -55,4 +52,11 @@ public class Image {
         joinColumns = @JoinColumn(name = "image_id"),
         inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags;
+    
+    public Image(String title, String url, String promptText, Collection collection) {
+        this.title = title;
+        this.url = url;
+        this.promptText = promptText;
+        this.collection = collection;
+    }
 }

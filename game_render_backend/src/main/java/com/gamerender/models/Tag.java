@@ -31,4 +31,8 @@ public class Tag {
 	
 	@ManyToMany(mappedBy = "tags")
     private Set<Image> images = new HashSet<>();
+	
+	public Tag(String tagName) {
+	    this.tagName = tagName;
+	}
 }

@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class Category {
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     protected Long categoryID;
@@ -32,6 +32,8 @@ public class Category {
     @OneToMany(mappedBy="category")
     private Set<Collection> collections = new HashSet<>();
     
-    @OneToMany(mappedBy = "category")
-    private Set<Image> images = new HashSet<>();
+	public Category(String categoryName) {
+	    this.categoryName = categoryName;
+	}
+
 }

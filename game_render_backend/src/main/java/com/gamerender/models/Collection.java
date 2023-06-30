@@ -9,9 +9,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,19 +23,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Collection {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "collection_id")
-	protected Long collectionID;
-	
-	@Column(nullable = false)
-	protected String collectionName;
-	
-    @ManyToMany
-    @JoinTable(name = "collections_images",
-    joinColumns = @JoinColumn(name = "collection_id"),
-    inverseJoinColumns = @JoinColumn(name = "image_id"))
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "collection_id")
+    protected Long collectionID;
+    
+    @Column(nullable = false)
+    protected String collectionName;
+    
+    @OneToMany(mappedBy = "collection")
     private Set<Image> images = new HashSet<>();
 
     @ManyToMany(mappedBy = "favoriteCollections")
@@ -44,4 +41,9 @@ public class Collection {
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+    
+    public Collection(String collectionName, Category category) {
+        this.collectionName = collectionName;
+        this.category = category;
+    }
 }

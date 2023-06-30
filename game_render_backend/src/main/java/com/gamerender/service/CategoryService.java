@@ -45,7 +45,4 @@ public class CategoryService {
         categoryRepository.deleteById(id);
     }
     
-    public List<Image> findImagesByCategoryId(Long categoryId) {
-        return categoryRepository.findImagesByCategoryId(categoryId);
-    }
 }
