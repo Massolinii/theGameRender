@@ -3,6 +3,7 @@ package com.gamerender.runner;
 import com.gamerender.models.*;
 import com.gamerender.repository.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -14,24 +15,21 @@ import java.util.Optional;
 @Component
 public class AppRunner implements ApplicationRunner {
 
-	private final UserRepository userRepository;
-	private final ImageRepository imageRepository;
-	private final CollectionRepository collectionRepository;
-	private final CategoryRepository categoryRepository;
-	private final TagRepository tagRepository;
-
-	public AppRunner(UserRepository userRepository, ImageRepository imageRepository, 
-	                CollectionRepository collectionRepository, CategoryRepository categoryRepository,
-	                TagRepository tagRepository) {
-	    this.userRepository = userRepository;
-	    this.imageRepository = imageRepository;
-	    this.collectionRepository = collectionRepository;
-	    this.categoryRepository = categoryRepository;
-	    this.tagRepository = tagRepository;
-	}
+	@Autowired UserRepository userRepository;
+	@Autowired ImageRepository imageRepository;
+	@Autowired CollectionRepository collectionRepository;
+	@Autowired CategoryRepository categoryRepository;
+	@Autowired TagRepository tagRepository;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
+	    // Check if the control email is already present
+	    Optional<User> existingControlUser = userRepository.findByEmail("safetytest@impossiblemail.com");
+	    if (existingControlUser.isPresent()) {
+	        System.out.println("Control email found - No database initialization.");
+	        return;
+	    }
+	    
 	    // Create some categories
 	    Category category1 = new Category("category1");
 	    Category category2 = new Category("category2");
@@ -60,14 +58,8 @@ public class AppRunner implements ApplicationRunner {
 	    imageRepository.save(image1);
 	    imageRepository.save(image2);
 
-	    // Check if mail is already present
-	    Optional<User> existingUser = userRepository.findByEmail("user1@gmail.com");
-	    if (existingUser.isPresent()) {
-	        System.out.println("Not first initialization");
-	        return;
-	    }
-	    // or else makes random users
-	    User user1 = new User("user1", "user1@gmail.com", "password1", "firstname1", "lastname1");
+	    // Create some users
+	    User user1 = new User("user1", "safetytest@impossiblemail.com", "password1", "firstname1", "lastname1");
 	    User user2 = new User("user2", "user2@gmail.com", "password2", "firstname2", "lastname2");
 	    userRepository.save(user1);
 	    userRepository.save(user2);

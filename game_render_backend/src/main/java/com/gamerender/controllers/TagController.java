@@ -25,16 +25,16 @@ public class TagController {
 
 	@Autowired TagService tagService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Tag> getTag(@PathVariable Long id) {
-        Tag tag = tagService.findTagById(id);
-        return new ResponseEntity<>(tag, HttpStatus.OK);
-    }
-
     @GetMapping
     public ResponseEntity<List<Tag>> getAllTags() {
         List<Tag> tags =tagService.findAllTags();
         return new ResponseEntity<>(tags, HttpStatus.OK);
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Tag> getTag(@PathVariable Long id) {
+        Tag tag = tagService.findTagById(id);
+        return new ResponseEntity<>(tag, HttpStatus.OK);
     }
     
     @PostMapping
