@@ -27,16 +27,16 @@ public class CollectionController {
 
     @Autowired CollectionService collectionService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Collection> getCollection(@PathVariable Long id) {
-        Collection collection = collectionService.findCollectionById(id);
-        return new ResponseEntity<>(collection, HttpStatus.OK);
-    }
-
     @GetMapping
     public ResponseEntity<List<Collection>> getAllCollections() {
         List<Collection> collections = collectionService.findAllCollections();
         return new ResponseEntity<>(collections, HttpStatus.OK);
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Collection> getCollection(@PathVariable Long id) {
+        Collection collection = collectionService.findCollectionById(id);
+        return new ResponseEntity<>(collection, HttpStatus.OK);
     }
     
     @PostMapping

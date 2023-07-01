@@ -31,16 +31,16 @@ public class CategoryController {
 	
 	@Autowired CategoryService categoryService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategory(@PathVariable Long id) {
-        Category category = categoryService.findCategoryById(id);
-        return new ResponseEntity<>(category, HttpStatus.OK);
-    }
-
     @GetMapping
     public ResponseEntity<List<Category>> getAllCategories() {
         List<Category> categories = categoryService.findAllCategories();
         return new ResponseEntity<>(categories, HttpStatus.OK);
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Category> getCategory(@PathVariable Long id) {
+        Category category = categoryService.findCategoryById(id);
+        return new ResponseEntity<>(category, HttpStatus.OK);
     }
     
     @PostMapping

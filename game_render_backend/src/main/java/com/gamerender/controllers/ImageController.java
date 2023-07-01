@@ -31,16 +31,16 @@ public class ImageController {
 	@Autowired ImageService imageService;
 	@Autowired CloudinaryService cloudinaryService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Image> getImage(@PathVariable Long id) {
-        Image image = imageService.findImageById(id);
-        return new ResponseEntity<>(image, HttpStatus.OK);
-    }
-
     @GetMapping
     public ResponseEntity<List<Image>> getAllImages() {
         List<Image> images = imageService.findAllImages();
         return new ResponseEntity<>(images, HttpStatus.OK);
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Image> getImage(@PathVariable Long id) {
+        Image image = imageService.findImageById(id);
+        return new ResponseEntity<>(image, HttpStatus.OK);
     }
     
     @PostMapping
