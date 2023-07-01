@@ -24,7 +24,8 @@ public class CloudinaryService {
             "api_secret", "tmPyKLsLXpYVOeHXS-hIdVA6i2M"));
     }
 
-    public String uploadFile(MultipartFile file) {
+    @SuppressWarnings("rawtypes")
+	public String uploadFile(MultipartFile file) {
         try {
             Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
             return (String) uploadResult.get("url");
