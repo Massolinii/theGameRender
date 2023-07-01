@@ -35,11 +35,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
 	    }
 
-	    @ExceptionHandler(FavoriteNotFoundException.class)
-	    public ResponseEntity<String> handleFavoriteNotFoundException(FavoriteNotFoundException ex) {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-	    }
-
 	    @ExceptionHandler(TagNotFoundException.class)
 	    public ResponseEntity<String> handleTagNotFoundException(TagNotFoundException ex) {
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());

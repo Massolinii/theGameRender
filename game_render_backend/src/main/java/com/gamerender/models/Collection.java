@@ -35,9 +35,6 @@ public class Collection {
     @OneToMany(mappedBy = "collection")
     private Set<Image> images = new HashSet<>();
 
-    @ManyToMany(mappedBy = "favoriteCollections")
-    private Set<User> favoriteCollections = new HashSet<>();
-
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;

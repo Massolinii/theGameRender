@@ -42,49 +42,49 @@ public class MyRunner implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-	    // Crea alcune categorie
+	    // Create some categories
 	    Category category1 = new Category("category1");
 	    Category category2 = new Category("category2");
 	    categoryRepository.save(category1);
 	    categoryRepository.save(category2);
 	    
-	    // Crea alcune collezioni
+	    // Create some collections
 	    Collection collection1 = new Collection("Collection 1", category1);;
 	    Collection collection2 = new Collection("Collection 2", category2);
 	    collectionRepository.save(collection1);
 	    collectionRepository.save(collection2);
 
-	    // Crea alcune immagini
+	    // Create some images
 	    Image image1 = new Image("Image 1", "url1", "prompt1", collection1);
 	    Image image2 = new Image("Image 2", "url2", "prompt2", collection2);
 	    imageRepository.save(image1);
 	    imageRepository.save(image2);
 
-	    // Crea un tag
+	    // Create some tags
 	    Tag tag1 = new Tag("Tag 1");
 	    tagRepository.save(tag1);
 
-	    // Aggiungi il tag alle immagini
+	    // Add tags to images
 	    image1.setTags(Arrays.asList(tag1));
 	    image2.setTags(Arrays.asList(tag1));
 	    imageRepository.save(image1);
 	    imageRepository.save(image2);
 
+	    // Check if mail is already present
 	    Optional<User> existingUser = userRepository.findByEmail("user1@gmail.com");
 	    if (existingUser.isPresent()) {
 	        System.out.println("L'indirizzo email è già in uso.");
 	        return;
 	    }
+	    // or else makes random users
 	    User user1 = new User("user1", "user1@gmail.com", "password1", "firstname1", "lastname1");
 	    User user2 = new User("user2", "user2@gmail.com", "password2", "firstname2", "lastname2");
 	    userRepository.save(user1);
 	    userRepository.save(user2);
 
-	    // Aggiungi le immagini e le collezioni preferite agli utenti
+	    // Add favorite images to user's collections
 	    user1.setFavoriteImages(new HashSet<>(Arrays.asList(image1)));
-	    user1.setFavoriteCollections(new HashSet<>(Arrays.asList(collection1)));
 	    user2.setFavoriteImages(new HashSet<>(Arrays.asList(image2)));
-	    user2.setFavoriteCollections(new HashSet<>(Arrays.asList(collection2)));
 	    userRepository.save(user1);
 	    userRepository.save(user2);
 

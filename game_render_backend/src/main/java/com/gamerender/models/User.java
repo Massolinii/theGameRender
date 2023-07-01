@@ -62,12 +62,6 @@ public class User {
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "image_id"))
     private Set<Image> favoriteImages = new HashSet<>();
-
-    @ManyToMany
-    @JoinTable(name = "favorite_collections",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "collection_id"))
-    private Set<Collection> favoriteCollections = new HashSet<>();
     
     public User(String username, String email, String password, String firstname, String lastname) {
         this.username = username;
