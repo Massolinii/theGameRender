@@ -1,6 +1,7 @@
 package com.gamerender.security.exceptions;
 import org.springframework.http.HttpStatus;
 
+@SuppressWarnings("serial")
 public class MyAPIException extends RuntimeException {
 	
 	private HttpStatus status;

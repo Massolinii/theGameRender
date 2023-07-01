@@ -27,7 +27,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class User {
 
-    public User(String string, String string2, HashSet hashSet, HashSet hashSet2, HashSet hashSet3) {
+    @SuppressWarnings("rawtypes")
+	public User(String string, String string2, HashSet hashSet, HashSet hashSet2, HashSet hashSet3) {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -42,7 +42,8 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
-    @CrossOrigin
+    @SuppressWarnings("removal")
+	@CrossOrigin
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 

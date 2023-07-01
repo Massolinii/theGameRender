@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.gamerender.exceptions.CategoryAlreadyExistsException;
 import com.gamerender.exceptions.CategoryNotFoundException;
 import com.gamerender.models.Category;
-import com.gamerender.models.Image;
 import com.gamerender.repository.CategoryRepository;
 
 @Service

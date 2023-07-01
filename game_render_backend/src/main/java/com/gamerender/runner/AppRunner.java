@@ -7,15 +7,12 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Component
-public class MyRunner implements ApplicationRunner {
+public class AppRunner implements ApplicationRunner {
 
 	private final UserRepository userRepository;
 	private final ImageRepository imageRepository;
@@ -23,14 +20,7 @@ public class MyRunner implements ApplicationRunner {
 	private final CategoryRepository categoryRepository;
 	private final TagRepository tagRepository;
 
-	// Create class-level variables
-	private List<Category> categories;
-	private List<Tag> tags;
-	private List<Image> images;
-	private List<Collection> collections;
-	private List<User> users;
-
-	public MyRunner(UserRepository userRepository, ImageRepository imageRepository, 
+	public AppRunner(UserRepository userRepository, ImageRepository imageRepository, 
 	                CollectionRepository collectionRepository, CategoryRepository categoryRepository,
 	                TagRepository tagRepository) {
 	    this.userRepository = userRepository;
@@ -73,7 +63,7 @@ public class MyRunner implements ApplicationRunner {
 	    // Check if mail is already present
 	    Optional<User> existingUser = userRepository.findByEmail("user1@gmail.com");
 	    if (existingUser.isPresent()) {
-	        System.out.println("L'indirizzo email è già in uso.");
+	        System.out.println("Not first initialization");
 	        return;
 	    }
 	    // or else makes random users
@@ -89,6 +79,6 @@ public class MyRunner implements ApplicationRunner {
 	    userRepository.save(user2);
 
 	    // Log a console
-	    System.out.println("Database inizializzato con successo!");
+	    System.out.println("Database successfully started");
 	}
 }
