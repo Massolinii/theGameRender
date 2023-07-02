@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.gamerender.exceptions.CategoryAlreadyExistsException;
 import com.gamerender.exceptions.CategoryNotFoundException;
 import com.gamerender.models.Category;
-import com.gamerender.repository.CategoryRepository;
+import com.gamerender.repositories.CategoryRepository;
 
 @Service
 public class CategoryService {
@@ -37,11 +37,13 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public void deleteCategory(Long id) {
+    public String deleteCategory(Long id) {
         if (!categoryRepository.existsById(id)) {
             throw new CategoryNotFoundException("Category with ID " + id + " not found.");
         }
         categoryRepository.deleteById(id);
+        return "Category removed";
+        
     }
     
 }

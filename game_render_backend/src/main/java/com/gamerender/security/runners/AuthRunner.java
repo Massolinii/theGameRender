@@ -13,7 +13,7 @@ import com.gamerender.security.enumerates.UserRole;
 import com.gamerender.security.models.Role;
 import com.gamerender.security.repositories.RoleRepository;
 import com.gamerender.models.User;
-import com.gamerender.repository.UserRepository;
+import com.gamerender.repositories.UserRepository;
 import com.gamerender.security.services.AuthService;
 
 @Component
