@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.gamerender.exceptions.CollectionNotFoundException;
 import com.gamerender.models.Category;
 import com.gamerender.models.Collection;
-import com.gamerender.repository.CollectionRepository;
+import com.gamerender.repositories.CollectionRepository;
 
 @Service
 public class CollectionService {
@@ -37,11 +37,12 @@ public class CollectionService {
         return collectionRepository.save(collection);
     }
 
-    public void deleteCollection(Long id) {
+    public String deleteCollection(Long id) {
         if (!collectionRepository.existsById(id)) {
             throw new CollectionNotFoundException("Collection with ID " + id + " not found.");
         }
         collectionRepository.deleteById(id);
+        return "Collection removed";
     }
     
     public List<Collection> findCollectionsByCategory(Long categoryId) {

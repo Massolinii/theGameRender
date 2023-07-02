@@ -18,7 +18,7 @@ import com.gamerender.security.payloads.LoginDto;
 import com.gamerender.security.payloads.RegisterDto;
 import com.gamerender.security.repositories.RoleRepository;
 import com.gamerender.models.User;
-import com.gamerender.repository.UserRepository;
+import com.gamerender.repositories.UserRepository;
 import com.gamerender.security.security.JwtTokenProvider;
 
 @Service

@@ -1,4 +1,4 @@
-package com.gamerender.repository;
+package com.gamerender.repositories;
 
 import java.util.List;
 import java.util.Optional;

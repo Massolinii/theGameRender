@@ -1,7 +1,7 @@
 package com.gamerender.runner;
 
 import com.gamerender.models.*;
-import com.gamerender.repository.*;
+import com.gamerender.repositories.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;

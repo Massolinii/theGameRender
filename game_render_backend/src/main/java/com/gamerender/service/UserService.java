@@ -10,7 +10,7 @@ import com.gamerender.exceptions.UserEmailAlreadyExistsException;
 import com.gamerender.exceptions.UserNotFoundException;
 import com.gamerender.models.Image;
 import com.gamerender.models.User;
-import com.gamerender.repository.UserRepository;
+import com.gamerender.repositories.UserRepository;
 
 import jakarta.validation.ConstraintViolationException;
 
@@ -46,11 +46,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void deleteUser(Long id) {
+    public String deleteUser(Long id) {
         if (!userRepository.existsById(id)) {
             throw new UserNotFoundException("User with ID " + id + " not found.");
         }
         userRepository.deleteById(id);
+        return "Category removed";
     }
 
     public List<User> findUsersByLikedImage(Long imageId) {

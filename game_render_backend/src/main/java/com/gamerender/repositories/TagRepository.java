@@ -1,4 +1,4 @@
-package com.gamerender.repository;
+package com.gamerender.repositories;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +15,7 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 	@Query("SELECT t FROM Tag t JOIN t.images i WHERE i.id = :imageId")
 	List<Tag> findTagsByImageId(@Param("imageId") Long imageId);
     
-    Optional<Category> findByTagName(String tagName);
+    Optional<Tag> findByTagName(String tagName);
     
     @Query("SELECT t.images FROM Tag t WHERE t.tagID = :tagId")
     List<Image> findImagesByTagId(@Param("tagId") Long tagId);

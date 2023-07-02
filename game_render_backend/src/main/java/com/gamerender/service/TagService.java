@@ -9,7 +9,7 @@ import com.gamerender.exceptions.TagAlreadyExistsException;
 import com.gamerender.exceptions.TagNotFoundException;
 import com.gamerender.models.Image;
 import com.gamerender.models.Tag;
-import com.gamerender.repository.TagRepository;
+import com.gamerender.repositories.TagRepository;
 
 @Service
 public class TagService {
@@ -38,11 +38,12 @@ public class TagService {
         return tagRepository.save(tag);
     }
 
-    public void deleteTag(Long id) {
+    public String deleteTag(Long id) {
         if (!tagRepository.existsById(id)) {
             throw new TagNotFoundException("Tag with ID " + id + " not found.");
         }
         tagRepository.deleteById(id);
+        return "Tag removed";
     }
     
     public List<Tag> findTagsByImageId(Long imageId) {

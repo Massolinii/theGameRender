@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gamerender.models.Collection;
@@ -28,24 +30,30 @@ public class CollectionController {
     @Autowired CollectionService collectionService;
 
     @GetMapping
+    @ResponseBody
     public ResponseEntity<List<Collection>> getAllCollections() {
         List<Collection> collections = collectionService.findAllCollections();
         return new ResponseEntity<>(collections, HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
+    @ResponseBody
     public ResponseEntity<Collection> getCollection(@PathVariable Long id) {
         Collection collection = collectionService.findCollectionById(id);
         return new ResponseEntity<>(collection, HttpStatus.OK);
     }
     
     @PostMapping
+    @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Collection> createCollection(@Valid @RequestBody Collection collection) {
         Collection createdCollection = collectionService.createCollection(collection);
         return new ResponseEntity<>(createdCollection, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
+    @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Collection> updateCollection(@PathVariable Long id, @Valid @RequestBody Collection collection) {
         collection.setCollectionID(id);
         Collection updatedCollection = collectionService.updateCollection(collection);
@@ -53,6 +61,8 @@ public class CollectionController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteCollection(@PathVariable Long id) {
         collectionService.deleteCollection(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -60,6 +70,7 @@ public class CollectionController {
     
     // GET ALL collections FROM category
     @GetMapping("/category/{categoryId}")
+    @ResponseBody
     public ResponseEntity<List<Collection>> getCollectionsByCategory(@PathVariable Long categoryId) {
         List<Collection> collections = collectionService.findCollectionsByCategory(categoryId);
         return new ResponseEntity<>(collections, HttpStatus.OK);
