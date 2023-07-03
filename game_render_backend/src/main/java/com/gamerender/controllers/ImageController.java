@@ -45,13 +45,6 @@ public class ImageController {
         return new ResponseEntity<>(images, HttpStatus.OK);
     }
     
-//    @GetMapping("/{id}")
-//    @ResponseBody
-//    public ResponseEntity<Image> getImage(@PathVariable Long id) {
-//        Image image = imageService.findImageById(id);
-//        return new ResponseEntity<>(image, HttpStatus.OK);
-//    }
-    
     @GetMapping("/{id}")
     public ResponseEntity<?> getImage(@PathVariable Long id) {
         Optional<Image> dbImage = imageRepository.findById(id);
@@ -96,6 +89,17 @@ public class ImageController {
     public ResponseEntity<?> getImageTags(@PathVariable Long id) {
         List<Tag> tags = imageService.getImageTags(id);
         return ResponseEntity.status(HttpStatus.OK).body(tags);
+    }
+    
+    @PostMapping("/uploadImage")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> uploadImage(
+    		@RequestParam("image") MultipartFile imageFile, 
+            @RequestParam("promptText") String promptText,
+            @RequestParam("collectionId") Long collectionId,
+            @RequestParam("tags") List<Tag> tags) throws IOException {
+        String imageUrl = imageService.uploadImage(imageFile, promptText, collectionId, tags);
+        return new ResponseEntity<>(imageUrl, HttpStatus.OK);
     }
 
 }

@@ -4,6 +4,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +24,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "images")
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "imageID")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -33,7 +40,7 @@ public class Image {
     @Column(nullable = false)
     protected String title;
     
-    @Column(nullable = true, length = 64)
+    @Column(nullable = true, length = 256)
     private String url;
     
     @Column(nullable = false, name = "prompt_text")
@@ -43,7 +50,8 @@ public class Image {
     private Set<User> favoriteImages = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "collection_id", nullable = false)
+    @JoinColumn(name = "collection_id", nullable = true)
+    @JsonBackReference
     private Collection collection;
     
     @ManyToMany

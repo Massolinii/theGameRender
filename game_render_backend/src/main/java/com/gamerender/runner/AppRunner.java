@@ -37,26 +37,26 @@ public class AppRunner implements ApplicationRunner {
 	    categoryRepository.save(category2);
 	    
 	    // Create some collections
-	    Collection collection1 = new Collection("Collection 1", category1);;
-	    Collection collection2 = new Collection("Collection 2", category2);
-	    collectionRepository.save(collection1);
-	    collectionRepository.save(collection2);
-
-	    // Create some images
-	    Image image1 = new Image("Image 1", "url1", "prompt1", collection1);
-	    Image image2 = new Image("Image 2", "url2", "prompt2", collection2);
-	    imageRepository.save(image1);
-	    imageRepository.save(image2);
-
-	    // Create some tags
-	    Tag tag1 = new Tag("Tag 1");
-	    tagRepository.save(tag1);
-
-	    // Add tags to images
-	    image1.setTags(Arrays.asList(tag1));
-	    image2.setTags(Arrays.asList(tag1));
-	    imageRepository.save(image1);
-	    imageRepository.save(image2);
+//	    Collection collection1 = new Collection("Collection 1", category1);;
+//	    Collection collection2 = new Collection("Collection 2", category2);
+//	    collectionRepository.save(collection1);
+//	    collectionRepository.save(collection2);
+//
+//	    // Create some images
+//	    Image image1 = new Image("Image 1", "url1", "prompt1", collection1);
+//	    Image image2 = new Image("Image 2", "url2", "prompt2", collection2);
+//	    imageRepository.save(image1);
+//	    imageRepository.save(image2);
+//
+//	    // Create some tags
+//	    Tag tag1 = new Tag("Tag 1");
+//	    tagRepository.save(tag1);
+//
+//	    // Add tags to images
+//	    image1.setTags(Arrays.asList(tag1));
+//	    image2.setTags(Arrays.asList(tag1));
+//	    imageRepository.save(image1);
+//	    imageRepository.save(image2);
 
 	    // Create some users
 	    User user1 = new User("user1", "safetytest@impossiblemail.com", "password1", "firstname1", "lastname1");
@@ -65,10 +65,10 @@ public class AppRunner implements ApplicationRunner {
 	    userRepository.save(user2);
 
 	    // Add favorite images to user's collections
-	    user1.setFavoriteImages(new HashSet<>(Arrays.asList(image1)));
-	    user2.setFavoriteImages(new HashSet<>(Arrays.asList(image2)));
-	    userRepository.save(user1);
-	    userRepository.save(user2);
+//	    user1.setFavoriteImages(new HashSet<>(Arrays.asList(image1)));
+//	    user2.setFavoriteImages(new HashSet<>(Arrays.asList(image2)));
+//	    userRepository.save(user1);
+//	    userRepository.save(user2);
 
 	    // Log a console
 	    System.out.println("Database successfully started");
