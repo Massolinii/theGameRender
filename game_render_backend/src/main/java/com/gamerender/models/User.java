@@ -46,12 +46,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String firstname;
-
-    @Column(nullable = false)
-    private String lastname;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles",  
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), 
@@ -68,7 +62,5 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
     }
 }

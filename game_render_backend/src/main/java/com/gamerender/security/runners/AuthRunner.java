@@ -69,8 +69,6 @@ public class AuthRunner implements ApplicationRunner {
 			admin.setUsername("masso.lini");
 			admin.setEmail("masso.lini@epicode.com");
 			admin.setPassword(passwordEncoder.encode("root"));
-			admin.setFirstname("Massimiliano");
-			admin.setLastname("Esposito");
 			admin.setRoles(adminRole);
 			userRepository.save(admin);
 		}
@@ -80,8 +78,6 @@ public class AuthRunner implements ApplicationRunner {
 			user.setUsername("lucy.parsons");
 			user.setEmail("lucy.parsons@epicode.com");
 			user.setPassword(passwordEncoder.encode("user"));
-			user.setFirstname("Lucy");
-			user.setLastname("Parsons");
 			user.setRoles(userRole);
 			userRepository.save(user);
 		}
