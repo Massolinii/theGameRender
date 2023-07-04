@@ -27,11 +27,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class User {
 
-    @SuppressWarnings("rawtypes")
-	public User(String string, String string2, HashSet hashSet, HashSet hashSet2, HashSet hashSet3) {
-		// TODO Auto-generated constructor stub
-	}
-
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -58,7 +53,7 @@ public class User {
     inverseJoinColumns = @JoinColumn(name = "image_id"))
     private Set<Image> favoriteImages = new HashSet<>();
     
-    public User(String username, String email, String password, String firstname, String lastname) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;

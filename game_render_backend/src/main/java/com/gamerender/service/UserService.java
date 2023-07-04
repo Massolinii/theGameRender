@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.gamerender.exceptions.UserEmailAlreadyExistsException;
 import com.gamerender.exceptions.UserNotFoundException;
-import com.gamerender.models.Image;
 import com.gamerender.models.User;
 import com.gamerender.repositories.UserRepository;
 
@@ -18,7 +17,6 @@ import jakarta.validation.ConstraintViolationException;
 public class UserService {
 	
 	@Autowired private UserRepository userRepository;
-	@Autowired private ImageService imageService;
 	
 	public User createUser(User user) {
 		 try {
@@ -52,11 +50,6 @@ public class UserService {
         }
         userRepository.deleteById(id);
         return "Category removed";
-    }
-
-    public List<User> findUsersByLikedImage(Long imageId) {
-    	Image image = imageService.findImageById(imageId);
-        return userRepository.findUsersByFavoriteImages(image);
     }
 	
 }

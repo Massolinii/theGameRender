@@ -1,9 +1,11 @@
 package com.gamerender.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,94 +13,81 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.gamerender.configurations.CloudinaryConfig;
 import com.gamerender.exceptions.ImageNotFoundException;
+import com.gamerender.exceptions.ImageUploadException;
 import com.gamerender.models.Collection;
 import com.gamerender.models.Image;
-import com.gamerender.models.Tag;
-import com.gamerender.repositories.CollectionRepository;
 import com.gamerender.repositories.ImageRepository;
-import com.gamerender.repositories.TagRepository;
 
 @Service
 public class ImageService {
 	
-	@Autowired ImageRepository imageRepository;
-	@Autowired TagRepository tagRepository;
-	@Autowired CollectionRepository collectionRepository;
+	@Autowired private Cloudinary cloudinary;
+	@Autowired private ImageRepository imageRepository;
 	
-	@Autowired
-	public ImageService(CloudinaryConfig cloudinaryConfig, ImageRepository imageRepository, TagRepository tagRepository) {
-	    this.cloudinary = cloudinaryConfig.cloudinary();
-	    this.imageRepository = imageRepository;
-	    this.tagRepository = tagRepository;
-	}
-	
-	Cloudinary cloudinary;
-	
-    
-	public Image createImage(MultipartFile imageFile, String prompt, List<String> tags) throws IOException {
-	    Map uploadResult = cloudinary.uploader().upload(imageFile.getBytes(), ObjectUtils.emptyMap());
-	    
-	    Image image = new Image();
-	    image.setTitle(imageFile.getOriginalFilename());
-	    image.setUrl(uploadResult.get("url").toString());
-	    image.setPromptText(prompt);
-	    
-	    List<Tag> imageTags = new ArrayList<Tag>();
-	    for (String tagName : tags) {
-	        // Retrieve the tag from the database if it exists, otherwise create a new one
-	        Tag tag = tagRepository.findByTagName(tagName).orElse(new Tag(tagName));
-	        imageTags.add(tag);
-	    }
-	    image.setTags(imageTags);
-	    
-	    return imageRepository.save(image);
-	}
-
-    public Image findImageById(Long id) {
-        return imageRepository.findById(id).orElseThrow(() -> new ImageNotFoundException("Image with ID " + id + " not found."));
-    }
-
-    public List<Image> findAllImages() {
+	// GET
+    public List<Image> getAllImages() {
         return imageRepository.findAll();
     }
-
-    public Image updateImage(Image image) {
-    	if (!imageRepository.existsById(image.getImageID())) {
-            throw new ImageNotFoundException("Image with ID " + image.getImageID() + " not found.");
+    
+	public Image getImageById(Long id) {
+        Optional<Image> Image = imageRepository.findById(id);
+        if (Image.isPresent()) {
+            return Image.get();
+        } else {
+            throw new ImageNotFoundException(
+                    "Image not found with ID: " + id);
         }
-        return imageRepository.save(image);
     }
-
-    public String deleteImage(Long id) {
-    	if (!imageRepository.existsById(id)) {
-            throw new ImageNotFoundException("Image with ID " + id + " not found.");
-        }
-    	imageRepository.deleteById(id);
-        return "Image removed";
+	
+    public List<Image> getImagesByCategory(Collection collection) {
+        return imageRepository.findImagesByCollection(collection);
     }
     
-    public String uploadImage(MultipartFile imageFile, String promptText, Long collectionId, List<Tag> tags) throws IOException {
+    public List<Image> getImagesByTag(String tag) {
+        return imageRepository.findImagesByTag(tag);
+    }
+	
+
+	// POST
+    public Image createImage(MultipartFile imageFile, String prompt, Collection collection, Set<String> tags) {
         @SuppressWarnings("rawtypes")
-		Map uploadResult = cloudinary.uploader().upload(imageFile.getBytes(), ObjectUtils.emptyMap());
-        
-        Image imageToSave = new Image();
-        imageToSave.setTitle(imageFile.getOriginalFilename());
-        imageToSave.setUrl(uploadResult.get("url").toString());
-        imageToSave.setPromptText(promptText);
-        Collection collection = collectionRepository.findById(collectionId).orElseThrow(() -> new RuntimeException("Collection not found"));
-        imageToSave.setCollection(collection);
-        imageToSave.setTags(tags);
-        collection.addImage(imageToSave);
-        
-        imageRepository.save(imageToSave);
-        
-        return (String) uploadResult.get("url");
+		Map uploadResult = null;
+        try {
+            uploadResult = cloudinary.uploader().upload(imageFile.getBytes(), ObjectUtils.emptyMap());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ImageUploadException("Failed to upload image");
+        }
+        String imageUrl = (String) uploadResult.get("url");
+
+        Image newImage = new Image();
+        newImage.setUrl(imageUrl);
+        newImage.setPromptText(prompt);
+        newImage.setTags(new HashSet<String>(tags));
+        newImage.setCollection(collection);
+
+        return imageRepository.save(newImage);
     }
-    
-    public List<Tag> getImageTags(Long id) {
-        Image image = findImageById(id);
-        return image.getTags();
+
+    // PUT
+    public Image updateImage(Image Image) {
+        if (imageRepository.existsById(Image.getImageID())) {
+        	return imageRepository.save(Image);
+        } else {
+            throw new ImageNotFoundException(
+                    "Image not found with ID: " + Image.getImageID());
+        }
+    }
+
+    // DELETE
+    public String deleteImage(Long id) {
+        if (imageRepository.existsById(id)) {
+        	imageRepository.deleteById(id);
+        	return ("Image eliminated.");
+        } else {
+            throw new ImageNotFoundException(
+                    "Image not found with ID: " + id);
+        }       
     }
 }
