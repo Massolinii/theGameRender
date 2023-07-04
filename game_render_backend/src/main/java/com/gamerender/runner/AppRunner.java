@@ -44,9 +44,9 @@ public class AppRunner implements ApplicationRunner {
 	        return;
 	    } else {
 	    	System.out.println("Run...");
-			setRoleDefault();
-			saveUserDefault();
-			initializeDatabase();
+//			setRoleDefault();
+//			saveUserDefault();
+//			initializeDatabase();
 	    }
 	}  
 	
