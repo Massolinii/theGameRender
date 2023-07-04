@@ -6,18 +6,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
 @Setter
-@ToString
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class LoginDto {
     private String username;
     private String password;
 }
 
-// this is the correct payload for login 
+//Il client dovrà inviare un oggetto JSON nel body con questa forma
 /*{
-    "username": "mario.rossi",
+    "username": "francescaneri",
     "password": "qwerty"
 }*/

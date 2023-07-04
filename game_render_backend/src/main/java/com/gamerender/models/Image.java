@@ -23,9 +23,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "images")
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "imageID")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

@@ -13,9 +13,10 @@ import com.gamerender.security.payloads.LoginDto;
 import com.gamerender.security.payloads.RegisterDto;
 import com.gamerender.security.services.AuthService;
 
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     private AuthService authService;
