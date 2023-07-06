@@ -1,16 +1,12 @@
 package com.gamerender.repositories;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.gamerender.models.Image;
 import com.gamerender.models.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-	
-    List<User> findUsersByFavoriteImages(Image image);
 
     Optional<User> findByEmail(String email);
 
@@ -21,4 +17,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByUsername(String username);
 
     Boolean existsByEmail(String email);
+    
 }

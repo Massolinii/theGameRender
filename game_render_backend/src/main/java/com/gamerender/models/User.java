@@ -27,11 +27,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class User {
 
-    @SuppressWarnings("rawtypes")
-	public User(String string, String string2, HashSet hashSet, HashSet hashSet2, HashSet hashSet3) {
-		// TODO Auto-generated constructor stub
-	}
-
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -46,12 +41,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String firstname;
-
-    @Column(nullable = false)
-    private String lastname;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles",  
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), 
@@ -64,11 +53,9 @@ public class User {
     inverseJoinColumns = @JoinColumn(name = "image_id"))
     private Set<Image> favoriteImages = new HashSet<>();
     
-    public User(String username, String email, String password, String firstname, String lastname) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
     }
 }

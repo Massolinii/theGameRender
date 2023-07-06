@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.gamerender.models.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-	
-	Optional<Category> findByCategoryName(String categoryName);
+
+	public Optional<Category> findByCategoryName(String categoryName);
 	
 }

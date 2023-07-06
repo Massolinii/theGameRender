@@ -67,12 +67,4 @@ public class UserController {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    
-    // Get all users who liked a specific image
-    @GetMapping("/likes/{imageId}")
-    @ResponseBody
-    public ResponseEntity<List<User>> getUsersWhoLikedImage(@PathVariable Long imageId) {
-        List<User> users = userService.findUsersByLikedImage(imageId);
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
 }

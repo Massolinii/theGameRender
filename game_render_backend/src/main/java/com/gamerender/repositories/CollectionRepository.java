@@ -8,5 +8,7 @@ import com.gamerender.models.Category;
 import com.gamerender.models.Collection;
 
 public interface CollectionRepository extends JpaRepository<Collection, Long> {
-	List<Collection> findCollectionsByCategory(Category category);
+	
+    List<Collection> findCollectionsByCategory(Category category);
+	
 }

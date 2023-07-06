@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,34 +23,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gamerender.models.Collection;
 import com.gamerender.models.Image;
-import com.gamerender.models.Tag;
 import com.gamerender.repositories.ImageRepository;
+import com.gamerender.service.CollectionService;
 import com.gamerender.service.ImageService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(maxAge = 30)
 @RestController
 @RequestMapping("/images")
 public class ImageController {
 
 	@Autowired ImageService imageService;
 	@Autowired ImageRepository imageRepository;
+	@Autowired CollectionService collectionService;
 
     @GetMapping
     @ResponseBody
     public ResponseEntity<List<Image>> getAllImages() {
-        List<Image> images = imageService.findAllImages();
+        List<Image> images = imageService.getAllImages();
         return new ResponseEntity<>(images, HttpStatus.OK);
     }
-    
-//    @GetMapping("/{id}")
-//    @ResponseBody
-//    public ResponseEntity<Image> getImage(@PathVariable Long id) {
-//        Image image = imageService.findImageById(id);
-//        return new ResponseEntity<>(image, HttpStatus.OK);
-//    }
     
     @GetMapping("/{id}")
     public ResponseEntity<?> getImage(@PathVariable Long id) {
@@ -66,19 +60,29 @@ public class ImageController {
         }
     }
     
+    @GetMapping("/tags/{tag}")
+    public ResponseEntity<List<Image>> getImagesByTag(@PathVariable String tag) {
+        List<Image> images = imageService.getImagesByTag(tag);
+        return new ResponseEntity<>(images, HttpStatus.OK);
+    }
+    
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createImage(@RequestParam("image") MultipartFile imageFile, 
-    									 @RequestParam("prompt") String prompt, 
-    									 @RequestParam("tags") List<String> tags) throws IOException {
-        Image createdImage = imageService.createImage(imageFile, prompt, tags);
+                                         @RequestParam("prompt") String prompt, 
+                                         @RequestParam("collectionId") Long collectionId,
+                                         @RequestParam("tags") Set<String> tags) throws IOException {
+        Collection collection = collectionService.getCollectionById(collectionId);
+        Image createdImage = imageService.createImage(imageFile, prompt, collection, tags);
         return new ResponseEntity<>(createdImage, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     @ResponseBody
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Image> updateImage(@PathVariable Long id, @Valid @RequestBody Image image) {
+    public ResponseEntity<Image> updateImage(
+    		@PathVariable Long id, 
+    		@Valid @RequestBody Image image) {
         image.setImageID(id);
         Image updatedImage = imageService.updateImage(image);
         return new ResponseEntity<>(updatedImage, HttpStatus.OK);
@@ -90,12 +94,6 @@ public class ImageController {
     public ResponseEntity<Void> deleteImage(@PathVariable Long id) {
         imageService.deleteImage(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-    
-    @GetMapping("/{id}/tags")
-    public ResponseEntity<?> getImageTags(@PathVariable Long id) {
-        List<Tag> tags = imageService.getImageTags(id);
-        return ResponseEntity.status(HttpStatus.OK).body(tags);
     }
 
 }
