@@ -1,5 +1,7 @@
 package com.gamerender.security.exceptions;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -20,6 +22,8 @@ import java.util.Map;
 
 @ControllerAdvice
 public class SecurityExceptionHandler extends ResponseEntityExceptionHandler {
+	
+	private static final Logger logger = LoggerFactory.getLogger(SecurityExceptionHandler.class);
 
     // handle specific exceptions
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -74,10 +78,17 @@ public class SecurityExceptionHandler extends ResponseEntityExceptionHandler {
 //    }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ErrorDetails> handleAccessDeniedException(AccessDeniedException exception,
-                                                                        WebRequest webRequest){
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(),
-                webRequest.getDescription(false));
-        return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<String> handleAccessDeniedException(AccessDeniedException ex) {
+        logger.error("User not authenticated for this operation.", ex);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated for this operation.");
+    }
+    
+    @ExceptionHandler(NoAdminRoleException.class)
+    public ResponseEntity<String> handleNoAdminRoleException(NoAdminRoleException ex) {
+        // Log the exception
+        logger.error("User not authenticated for this operation.", ex);
+
+        // This is a general exception handler that will catch any exception not caught by the other handlers
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }
