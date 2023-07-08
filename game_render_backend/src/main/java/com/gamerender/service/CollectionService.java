@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gamerender.exceptions.CategoryNotFoundException;
+import com.gamerender.exceptions.CollectionAlreadyExistsException;
 import com.gamerender.exceptions.CollectionNotFoundException;
 import com.gamerender.models.Category;
 import com.gamerender.models.Collection;
@@ -14,7 +16,10 @@ import com.gamerender.repositories.CollectionRepository;
 @Service
 public class CollectionService {
 	
-	@Autowired private CollectionRepository collectionRepository;
+	@Autowired
+	private CollectionRepository collectionRepository;
+	@Autowired
+	private CategoryService categoryService;
 	
 	// GET
     public List<Collection> getAllCollections() {
@@ -26,8 +31,7 @@ public class CollectionService {
         if (collection.isPresent()) {
             return collection.get();
         } else {
-            throw new CollectionNotFoundException(
-                    "Collection not found with ID: " + id);
+            throw new CollectionNotFoundException("Collection not found with ID: " + id);
         }
     }
 	
@@ -40,18 +44,23 @@ public class CollectionService {
     }
 	
 
-	// POST
+ // POST
     public Collection createCollection(Collection collection) {
-    	return collectionRepository.save(collection);
+        if (collectionRepository.existsById(collection.getCollectionID())) {
+            throw new CollectionAlreadyExistsException("Collection already exists with ID: " + collection.getCollectionID());
+        }
+        validateCategory(collection.getCategory());
+        return collectionRepository.save(collection);
     }
+
 
     // PUT
     public Collection updateCollection(Collection collection) {
         if (collectionRepository.existsById(collection.getCollectionID())) {
+        	validateCategory(collection.getCategory());
         	return collectionRepository.save(collection);
         } else {
-            throw new CollectionNotFoundException(
-                    "Collection not found with ID: " + collection.getCollectionID());
+            throw new CollectionNotFoundException("Collection not found with ID: " + collection.getCollectionID());
         }
     }
 
@@ -59,10 +68,15 @@ public class CollectionService {
     public String deleteCollection(Long id) {
         if (collectionRepository.existsById(id)) {
         	collectionRepository.deleteById(id);
-        	return ("Collection eliminated.");
+        	return "Collection eliminated.";
         } else {
-            throw new CollectionNotFoundException(
-                    "Collection not found with ID: " + id);
+            throw new CollectionNotFoundException("Collection not found with ID: " + id);
         }       
+    }
+
+    private void validateCategory(Category category) {
+        if (category == null || !categoryService.existsById(category.getCategoryID())) {
+            throw new CategoryNotFoundException("Invalid category.");
+        }
     }
 }

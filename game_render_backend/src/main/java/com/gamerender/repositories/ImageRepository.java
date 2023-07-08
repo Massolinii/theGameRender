@@ -14,5 +14,8 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
 	List<Image> findImagesByCollection(Collection collection);
 
 	 @Query("SELECT i FROM Image i WHERE :tag MEMBER OF i.tags")
-	    List<Image> findImagesByTag(@Param("tag") String tag);
+	List<Image> findImagesByTags(String tag);
+	 
+	 @Query("SELECT DISTINCT tag FROM Image i JOIN i.tags tag")
+	    List<String> findAllUniqueTags();
 }

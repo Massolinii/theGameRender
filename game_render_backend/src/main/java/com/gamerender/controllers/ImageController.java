@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gamerender.exceptions.ImageAlreadyExistsException;
+import com.gamerender.exceptions.ImageNotFoundException;
 import com.gamerender.models.Collection;
 import com.gamerender.models.Image;
 import com.gamerender.repositories.ImageRepository;
@@ -56,25 +58,41 @@ public class ImageController {
             response.put("promptText", image.getPromptText());
             return ResponseEntity.status(HttpStatus.OK).body(response);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new ImageNotFoundException("Image not found with id " + id);
         }
     }
     
     @GetMapping("/tags/{tag}")
-    public ResponseEntity<List<Image>> getImagesByTag(@PathVariable String tag) {
-        List<Image> images = imageService.getImagesByTag(tag);
+    public ResponseEntity<List<Image>> getImagesByTags(@PathVariable String tag) {
+        List<Image> images = imageService.getImagesByTags(tag);
         return new ResponseEntity<>(images, HttpStatus.OK);
+    }
+    
+    @GetMapping("/collection/{collection}")
+    public ResponseEntity<List<Image>> getImagesByCollection(@PathVariable Collection collection) {
+        List<Image> images = imageService.getImagesByCollection(collection);
+        return new ResponseEntity<>(images, HttpStatus.OK);
+    }
+    
+    @GetMapping("/tags")
+    public ResponseEntity<List<String>> getAllTags() {
+        List<String> tags = imageService.getAllUniqueTags();
+        return new ResponseEntity<>(tags, HttpStatus.OK);
     }
     
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createImage(@RequestParam("image") MultipartFile imageFile, 
-                                         @RequestParam("prompt") String prompt, 
+                                         @RequestParam("promptText") String promptText, 
                                          @RequestParam("collectionId") Long collectionId,
                                          @RequestParam("tags") Set<String> tags) throws IOException {
-        Collection collection = collectionService.getCollectionById(collectionId);
-        Image createdImage = imageService.createImage(imageFile, prompt, collection, tags);
-        return new ResponseEntity<>(createdImage, HttpStatus.CREATED);
+    	 try {
+             Collection collection = collectionService.getCollectionById(collectionId);
+             Image createdImage = imageService.createImage(imageFile, promptText, collection, tags);
+             return new ResponseEntity<>(createdImage, HttpStatus.CREATED);
+         } catch (Exception e) {
+             throw new ImageAlreadyExistsException("Image already exists");
+         }
     }
 
     @PutMapping("/{id}")

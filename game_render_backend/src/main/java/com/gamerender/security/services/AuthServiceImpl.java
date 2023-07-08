@@ -17,6 +17,8 @@ import com.gamerender.security.models.Role;
 import com.gamerender.security.payloads.LoginDto;
 import com.gamerender.security.payloads.RegisterDto;
 import com.gamerender.security.repositories.RoleRepository;
+import com.gamerender.exceptions.UserEmailAlreadyExistsException;
+import com.gamerender.exceptions.UsernameAlreadyExistsException;
 import com.gamerender.models.User;
 import com.gamerender.repositories.UserRepository;
 import com.gamerender.security.security.JwtTokenProvider;
@@ -64,12 +66,12 @@ public class AuthServiceImpl implements AuthService {
 
         // add check for username exists in database
         if(userRepository.existsByUsername(registerDto.getUsername())){
-            throw new MyAPIException(HttpStatus.BAD_REQUEST, "Username already exists!");
+            throw new UsernameAlreadyExistsException("Username already exists!");
         }
 
         // add check for email exists in database
         if(userRepository.existsByEmail(registerDto.getEmail())){
-            throw new MyAPIException(HttpStatus.BAD_REQUEST, "Email already exists!");
+            throw new UserEmailAlreadyExistsException("Email already exists!");
         }
 
         User user = new User();

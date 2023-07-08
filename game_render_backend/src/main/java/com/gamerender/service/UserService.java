@@ -1,6 +1,8 @@
 package com.gamerender.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -8,29 +10,44 @@ import org.springframework.stereotype.Service;
 
 import com.gamerender.exceptions.UserEmailAlreadyExistsException;
 import com.gamerender.exceptions.UserNotFoundException;
+import com.gamerender.exceptions.UsernameAlreadyExistsException;
+import com.gamerender.models.Image;
 import com.gamerender.models.User;
+import com.gamerender.repositories.ImageRepository;
 import com.gamerender.repositories.UserRepository;
-
-import jakarta.validation.ConstraintViolationException;
 
 @Service
 public class UserService {
 	
 	@Autowired private UserRepository userRepository;
 	
+	@Autowired private ImageRepository imageRepository;
+	
+	 public Set<Image> getUserFavoriteImages(Long id) {
+	        Optional<User> user = userRepository.findById(id);
+	        if (user.isPresent()) {
+	            return user.get().getFavoriteImages();
+	        } else {
+	            throw new UserNotFoundException("User not found with id: " + id);
+	        }
+	    }
+	
 	public User createUser(User user) {
 		 try {
 		        return userRepository.save(user);
 		    } catch (DataIntegrityViolationException ex) {
-		        if (ex.getCause() instanceof ConstraintViolationException) {
+		        if (ex.getCause() instanceof UserEmailAlreadyExistsException) {
 		            throw new UserEmailAlreadyExistsException("User with email " + user.getEmail() + " already exists.", ex);
+		        } else if (ex.getCause() instanceof UsernameAlreadyExistsException) {
+		            throw new UsernameAlreadyExistsException("User with name " + user.getUsername() + " already exists.", ex);
 		        }
 		        throw ex;
 		    }
     }
 
     public User findUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User with ID " + id + " not found."));
+        return userRepository.findById(id)
+        		.orElseThrow(() -> new UserNotFoundException("User with ID " + id + " not found."));
     }
 
     public List<User> findAllUsers() {
@@ -50,6 +67,55 @@ public class UserService {
         }
         userRepository.deleteById(id);
         return "Category removed";
+    }
+    
+    public User toggleFavoriteImage(Long userId, Long imageId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<Image> imageOptional = imageRepository.findById(imageId);
+
+        if(userOptional.isPresent() && imageOptional.isPresent()) {
+            User user = userOptional.get();
+            Image image = imageOptional.get();
+
+            if(user.getFavoriteImages().contains(image)) {
+                user.getFavoriteImages().remove(image);
+            } else {
+                user.getFavoriteImages().add(image);
+            }
+            return userRepository.save(user);
+        } else {
+            throw new RuntimeException("User or image not found");
+        }
+    }
+    
+    public User addFavoriteImage(Long userId, Long imageId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<Image> imageOptional = imageRepository.findById(imageId);
+
+        if(userOptional.isPresent() && imageOptional.isPresent()) {
+            User user = userOptional.get();
+            Image image = imageOptional.get();
+
+            user.getFavoriteImages().add(image);
+            return userRepository.save(user);
+        } else {
+            throw new RuntimeException("User or image not found");
+        }
+    }
+ 
+    public User removeFavoriteImage(Long userId, Long imageId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<Image> imageOptional = imageRepository.findById(imageId);
+
+        if(userOptional.isPresent() && imageOptional.isPresent()) {
+            User user = userOptional.get();
+            Image image = imageOptional.get();
+
+            user.getFavoriteImages().remove(image);
+            return userRepository.save(user);
+        } else {
+            throw new RuntimeException("User or image not found");
+        }
     }
 	
 }

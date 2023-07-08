@@ -22,8 +22,12 @@ import com.gamerender.repositories.ImageRepository;
 @Service
 public class ImageService {
 	
-	@Autowired private Cloudinary cloudinary;
-	@Autowired private ImageRepository imageRepository;
+	@Autowired
+	private Cloudinary cloudinary;
+	@Autowired
+	private ImageRepository imageRepository;
+	@Autowired
+	private CollectionService collectionService;
 	
 	// GET
     public List<Image> getAllImages() {
@@ -31,28 +35,33 @@ public class ImageService {
     }
     
 	public Image getImageById(Long id) {
-        Optional<Image> Image = imageRepository.findById(id);
-        if (Image.isPresent()) {
-            return Image.get();
+        Optional<Image> image = imageRepository.findById(id);
+        if (image.isPresent()) {
+            return image.get();
         } else {
-            throw new ImageNotFoundException(
-                    "Image not found with ID: " + id);
+            throw new ImageNotFoundException("Image not found withID: " + id);
         }
     }
 	
-    public List<Image> getImagesByCategory(Collection collection) {
+    public List<Image> getImagesByCollection(Collection collection) {
         return imageRepository.findImagesByCollection(collection);
     }
     
-    public List<Image> getImagesByTag(String tag) {
-        return imageRepository.findImagesByTag(tag);
+    public List<Image> getImagesByTags(String tag) {
+        return imageRepository.findImagesByTags(tag);
+            
     }
-	
+    
+    public List<String> getAllUniqueTags() {
+        return imageRepository.findAllUniqueTags();
+    }
 
 	// POST
     public Image createImage(MultipartFile imageFile, String prompt, Collection collection, Set<String> tags) {
+        validateCollection(collection);
         @SuppressWarnings("rawtypes")
 		Map uploadResult = null;
+        
         try {
             uploadResult = cloudinary.uploader().upload(imageFile.getBytes(), ObjectUtils.emptyMap());
         } catch (IOException e) {
@@ -70,13 +79,13 @@ public class ImageService {
         return imageRepository.save(newImage);
     }
 
-    // PUT
-    public Image updateImage(Image Image) {
-        if (imageRepository.existsById(Image.getImageID())) {
-        	return imageRepository.save(Image);
+ // PUT
+    public Image updateImage(Image image) {
+        if (imageRepository.existsById(image.getImageID())) {
+        	validateCollection(image.getCollection());
+        	return imageRepository.save(image);
         } else {
-            throw new ImageNotFoundException(
-                    "Image not found with ID: " + Image.getImageID());
+            throw new ImageNotFoundException("Image not found with ID: " + image.getImageID());
         }
     }
 
@@ -84,10 +93,15 @@ public class ImageService {
     public String deleteImage(Long id) {
         if (imageRepository.existsById(id)) {
         	imageRepository.deleteById(id);
-        	return ("Image eliminated.");
+        	return "Image eliminated.";
         } else {
-            throw new ImageNotFoundException(
-                    "Image not found with ID: " + id);
+            throw new ImageNotFoundException("Image not found with ID: " + id);
         }       
+    }
+
+    private void validateCollection(Collection collection) {
+        if (collection == null || !collectionService.existsById(collection.getCollectionID())) {
+            throw new ImageNotFoundException("Invalid collection.");
+        }
     }
 }

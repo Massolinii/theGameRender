@@ -22,11 +22,10 @@ public class Category {
     @Column(name = "category_id")
     private Long categoryID;
     
-    @Column(nullable = false, name = "category_name")
+    @Column(nullable = false, name = "category_name", unique = true)
     private String categoryName;
 
 	public Category(String categoryName) {
-		super();
 		this.categoryName = categoryName;
 	}       
 }
