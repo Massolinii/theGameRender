@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +30,7 @@ import com.gamerender.service.CollectionService;
 import jakarta.validation.Valid;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/collections")
 public class CollectionController {
 
@@ -74,15 +76,18 @@ public class CollectionController {
     }
 
     @PostMapping
-    @ResponseBody
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Collection> createCollection(@Valid @RequestBody Collection collection) {
         try {
-            Collection createdCollection = collectionService.createCollection(collection);
-            
+            Category category = categoryService.getCategoryById(collection.getCategory().getCategoryID());
+            if (category == null) {
+                throw new CategoryNotFoundException(HttpStatus.NOT_FOUND, "Category not found");
+            }
+            collection.setCategory(category);
+            Collection createdCollection = collectionService.createCollection(collection.getCollectionName(), collection.getCategory().getCategoryID());
             return new ResponseEntity<>(createdCollection, HttpStatus.CREATED);
         } catch(Exception e) {
-            throw new CollectionNotFoundException(HttpStatus.BAD_REQUEST, "Collection could not be created");
+            throw new CollectionNotFoundException("Collection could not be created. " + e.getMessage());
         }
     }
 
