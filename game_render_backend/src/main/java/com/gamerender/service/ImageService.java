@@ -1,6 +1,7 @@
 package com.gamerender.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import com.gamerender.exceptions.ImageNotFoundException;
 import com.gamerender.exceptions.ImageUploadException;
 import com.gamerender.models.Collection;
 import com.gamerender.models.Image;
+import com.gamerender.repositories.CollectionRepository;
 import com.gamerender.repositories.ImageRepository;
 
 @Service
@@ -28,6 +30,8 @@ public class ImageService {
 	private ImageRepository imageRepository;
 	@Autowired
 	private CollectionService collectionService;
+	@Autowired
+	private CollectionRepository collectionRepository;
 	
 	// GET
     public List<Image> getAllImages() {
@@ -47,6 +51,17 @@ public class ImageService {
         return imageRepository.findImagesByCollection(collection);
     }
     
+    public List<Image> getImagesByCategory(Long categoryId) {
+        List<Collection> collections = collectionRepository.findCollectionsByCategory(categoryId);
+        List<Image> images = new ArrayList<>();
+
+        for (Collection collection : collections) {
+            images.addAll(getImagesByCollection(collection));
+        }
+
+        return images;
+    }
+    
     public List<Image> getImagesByTags(String tag) {
         return imageRepository.findImagesByTags(tag);
             
@@ -62,21 +77,23 @@ public class ImageService {
         @SuppressWarnings("rawtypes")
 		Map uploadResult = null;
         
-        try {
+        try {     
+            Image newImage = new Image();
+              
+            newImage.setPromptText(prompt);
+            newImage.setTags(new HashSet<String>(tags));
+            newImage.setCollection(collection);
+            
             uploadResult = cloudinary.uploader().upload(imageFile.getBytes(), ObjectUtils.emptyMap());
+            String imageUrl = (String) uploadResult.get("url");
+            newImage.setUrl(imageUrl);
+            
+            return imageRepository.save(newImage);
         } catch (IOException e) {
             e.printStackTrace();
             throw new ImageUploadException("Failed to upload image");
         }
-        String imageUrl = (String) uploadResult.get("url");
-
-        Image newImage = new Image();
-        newImage.setUrl(imageUrl);
-        newImage.setPromptText(prompt);
-        newImage.setTags(new HashSet<String>(tags));
-        newImage.setCollection(collection);
-
-        return imageRepository.save(newImage);
+        
     }
 
  // PUT

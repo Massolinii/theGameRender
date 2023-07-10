@@ -16,3 +16,4 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 game_render_backend/logs/application.log
+game_render_backend/logs/application.log

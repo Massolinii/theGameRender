@@ -3,9 +3,6 @@ package com.gamerender.models;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -14,7 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -33,10 +29,10 @@ public class Image {
     @Column(name = "image_id")
     protected Long imageID;
     
-    @Column(nullable = true, length = 256)
+    @Column(nullable = true, length = 100)
     private String url;
     
-    @Column(nullable = false, name = "prompt_text")
+    @Column(nullable = false, name = "prompt_text", length = 512) // MAX LENGHT FOR A PROMPT
     protected String promptText;
 
     @ManyToOne

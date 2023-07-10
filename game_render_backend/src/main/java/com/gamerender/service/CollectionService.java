@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.gamerender.exceptions.CategoryNotFoundException;
@@ -45,12 +46,22 @@ public class CollectionService {
 	
 
  // POST
-    public Collection createCollection(Collection collection) {
-        if (collectionRepository.existsById(collection.getCollectionID())) {
-            throw new CollectionAlreadyExistsException("Collection already exists with ID: " + collection.getCollectionID());
+    public Collection createCollection(String collectionName, Long categoryId) {
+        try {
+            if (collectionRepository.existsByCollectionName(collectionName)) {
+                throw new CollectionAlreadyExistsException("Collection already exists with Name: " + collectionName);
+            } else {
+                Category category = categoryService.getCategoryById(categoryId);
+                Collection collection = new Collection(collectionName, category);
+                return collectionRepository.save(collection);
+            }   
+        } catch (DataIntegrityViolationException e) {
+            // This exception is thrown if there are database errors, like unique constraint violations.
+            throw new RuntimeException("Database error: " + e.getMessage());
+        } catch (Exception e) {
+            // This catches any other exceptions
+            throw new RuntimeException("Unexpected error: " + e.getMessage());
         }
-        validateCategory(collection.getCategory());
-        return collectionRepository.save(collection);
     }
 
 

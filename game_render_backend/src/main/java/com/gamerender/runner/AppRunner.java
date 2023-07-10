@@ -83,26 +83,58 @@ public class AppRunner implements ApplicationRunner {
     }
     
 	public void initializeDatabase() {   
+		// Initializing categories
+		Category category_environment = null;
+		Category category_object = null;
+		Category category_chars = null;
 		
-		 Category category1 = null;
-		 Category category2 = null;
-		 Category category3 = null;
-		 Collection collection1 = null;
-		 Collection collection2 = null;
-		 Collection collection3 = null;
-		 Image image1 = null;
-		 Image image2 = null;
-		 Image image3 = null;
+		// Initializing collections
+		// FIRST CATEGORY : Environment's collections
+		Collection natural = null;
+		Collection medieval = null;
+		Collection asian = null;
+		Collection scifi = null;
+		Collection misc = null;
+		// SECOND CATEGORY : Object's collections
+		Collection tools = null;
+		Collection items = null;
+		Collection gemsstones = null;	
+		// THIRD CATEGORY : Character's collections
+		Collection heroes = null;
+		Collection baddies = null;
+		Collection npc = null;
+		
+		// Initializing images
+		// NATURAL images
+		Image image1 = null;
+		// SIMPLEBUILDING images
+		Image image2 = null;
+		// SCIFI images
+		Image image3 = null;
+		
+		// TOOLS images;
+		Image image4 = null;
+		// PROPS images;
+		Image image5 = null;
+		// COLLECTIBLES images;
+		Image image6 = null;
+		
+		// HEROES images
+		Image image7 = null;
+		// BADDIES images
+		Image image8 = null;
+		// NPC images
+		Image image9 = null;
 		    
 	    // Check if categories already exist
 	    if (categoryRepository.count() > 0) {
 	        System.out.println("Categories already exist - No need to initialize categories.");
 	    } else {
-	        // Create some categories
-	         category1 = new Category("Category 1");
-	         category2 = new Category("Category 2");
-	         category3 = new Category("Category 3");
-	        categoryRepository.saveAll(Arrays.asList(category1, category2, category3));
+	       // Create some categories
+	    	category_environment = new Category("Environments");
+	    	category_object = new Category("Objects");
+	    	category_chars = new Category("Characters");
+	        categoryRepository.saveAll(Arrays.asList(category_environment, category_object, category_chars));
 	    }
 	    
 	    // Check if collections already exist
@@ -110,10 +142,22 @@ public class AppRunner implements ApplicationRunner {
 	        System.out.println("Collections already exist - No need to initialize collections.");
 	    } else {
 	        // Create some collections
-	         collection1 = new Collection("Collection 1", category1);
-	         collection2 = new Collection("Collection 2", category2);
-	         collection3 = new Collection("Collection 3", category3);
-	        collectionRepository.saveAll(Arrays.asList(collection1, collection2, collection3));
+	    	natural = new Collection("Natural", category_environment);
+	    	medieval = new Collection("Medieval", category_environment);
+	    	asian = new Collection("Asian", category_environment);
+	    	scifi = new Collection("Sci-Fi", category_environment);
+	    	misc = new Collection("Miscellaneous", category_environment);
+	    	collectionRepository.saveAll(Arrays.asList(natural, medieval, scifi, asian, misc));
+	    	
+	    	tools = new Collection("Tools", category_object);
+	    	items = new Collection("Props", category_object);
+	    	gemsstones = new Collection("Gems and Stones", category_object);
+	    	collectionRepository.saveAll(Arrays.asList(tools, items, gemsstones));
+	    	
+	    	heroes = new Collection("Heroes", category_chars);
+	    	baddies = new Collection("Baddies", category_chars);
+	    	npc = new Collection("Npc", category_chars);
+	    	collectionRepository.saveAll(Arrays.asList(heroes, baddies, npc));
 	    }
 	    
 	    // Check if images already exist
@@ -121,17 +165,34 @@ public class AppRunner implements ApplicationRunner {
 	        System.out.println("Images already exist - No need to initialize images.");
 	    } else {
 	        // Create some images with tags
-	         image1 = new Image("url1", "prompt1", collection1, new HashSet<>(Arrays.asList("dark", "cozy")));
-	         image2 = new Image("url2", "prompt2", collection2, new HashSet<>(Arrays.asList("light", "pixel")));
-	         image3 = new Image("url3", "prompt3", collection3, new HashSet<>(Arrays.asList("realistic", "clay")));
-	        imageRepository.saveAll(Arrays.asList(image1, image2, image3));
+	         image1 = new Image("http://res.cloudinary.com/dfqlb8zrq/image/upload/v1688982308/pbggzjxqpdahddtsmbys.jpg",
+	        		 "game assets for a mmorpg game, plants textures, high detail, hd",
+	        		 natural, new HashSet<>(Arrays.asList("light", "realistic")));
+	         image2 = new Image("http://res.cloudinary.com/dfqlb8zrq/image/upload/v1688986805/pvdpaz3zdafjublrbbix.jpg",
+	        		 "seperated game asset, isometric view of a small factory on a square patch of grass, cut out game asset, cory loftis, james gilleard, atey ghailan, makoto shinkai, goro fujita, studio ghibli, rim light, exquisite lighting, clear focus, very coherent, plain background, high definition",
+	        		 medieval, new HashSet<>(Arrays.asList("cozy", "cartoon", "stone")));
+	         image3 = new Image("http://res.cloudinary.com/dfqlb8zrq/image/upload/v1688987064/tdp3jzwvjeauq5tn7yu7.webp",
+	        		 "game asset of exterior modular, in gouache detailed paintings, props, stylized, 2 d sprites, kitbash, arcane, overwatch, blue and pink color scheme, 8 k, close up",
+	        		 scifi, new HashSet<>(Arrays.asList("blue", "purple", "alien", "stone")));
+	         image4 = new Image("http://res.cloudinary.com/dfqlb8zrq/image/upload/v1688999832/qjq5yqeksnxazryewyre.jpg",
+	        		 "polygonal 3d model of an old traditional japanese house, in the style of hauntingly beautiful illustrations, 2d game art, brushwork exploration, realistic and hyper-detailed renderings, isometric, delicately rendered landscapes, dark teal and light orange",
+	        		 asian, new HashSet<>(Arrays.asList("blue", "purple", "alien", "stone")));
+	         image5 = new Image("http://res.cloudinary.com/dfqlb8zrq/image/upload/v1689000228/cydkwcpgasmwh8vej5bt.jpg",
+	        		 "polygonal 3d model of a game item, a big hammer, bright and vivid colorful, 2d game art, 3D rendering, C4D",
+	    	         tools, new HashSet<>(Arrays.asList("magic, weapon, tool, kingdom hearts, spelunky")));
+	        
+	        		
+	        //image1 = new Image("",
+	        //		 "",
+	        //		 natural, new HashSet<>(Arrays.asList("")));
+	        imageRepository.saveAll(Arrays.asList(image1, image2, image3, image4, image5));
 	    }
 
 	 // Add favorite images to user's collections
         User admin = userRepository.findByEmail("masso.lini@epicode.com").orElseThrow(() -> new RuntimeException("Admin not found"));
         User user = userRepository.findByEmail("lucy.parsons@epicode.com").orElseThrow(() -> new RuntimeException("User not found"));
-        admin.setFavoriteImages(new HashSet<>(Arrays.asList(image1, image2)));
-        user.setFavoriteImages(new HashSet<>(Arrays.asList(image2, image3)));
+        admin.setFavoriteImages(new HashSet<>(Arrays.asList(image1, image2, image3)));
+        user.setFavoriteImages(new HashSet<>(Arrays.asList(image4, image5, image6)));
         userRepository.saveAll(Arrays.asList(admin, user));
 	    
 	    // Log in console
