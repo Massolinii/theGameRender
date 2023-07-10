@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gamerender.exceptions.CollectionNotFoundException;
 import com.gamerender.exceptions.ImageAlreadyExistsException;
 import com.gamerender.exceptions.ImageNotFoundException;
 import com.gamerender.models.Collection;
@@ -34,6 +36,7 @@ import com.gamerender.service.ImageService;
 import jakarta.validation.Valid;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/images")
 public class ImageController {
 
@@ -70,7 +73,18 @@ public class ImageController {
     
     @GetMapping("/collection/{collection}")
     public ResponseEntity<List<Image>> getImagesByCollection(@PathVariable Collection collection) {
-        List<Image> images = imageService.getImagesByCollection(collection);
+    	 try {
+             List<Image> images = imageService.getImagesByCollection(collection);
+             return new ResponseEntity<>(images, HttpStatus.OK);
+         } catch (Exception e) {
+             throw new CollectionNotFoundException("There was an error with your request" + e);
+         }
+        
+    }
+    
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<Image>> getImagesByCategory(@PathVariable Long categoryId) {
+        List<Image> images = imageService.getImagesByCategory(categoryId);
         return new ResponseEntity<>(images, HttpStatus.OK);
     }
     
@@ -91,7 +105,7 @@ public class ImageController {
              Image createdImage = imageService.createImage(imageFile, promptText, collection, tags);
              return new ResponseEntity<>(createdImage, HttpStatus.CREATED);
          } catch (Exception e) {
-             throw new ImageAlreadyExistsException("Image already exists");
+             throw new ImageAlreadyExistsException("Image already exists" + e);
          }
     }
 

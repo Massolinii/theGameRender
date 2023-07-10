@@ -29,10 +29,10 @@ public class Image {
     @Column(name = "image_id")
     protected Long imageID;
     
-    @Column(nullable = true, length = 256)
+    @Column(nullable = true, length = 100)
     private String url;
     
-    @Column(nullable = false, name = "prompt_text")
+    @Column(nullable = false, name = "prompt_text", length = 512) // MAX LENGHT FOR A PROMPT
     protected String promptText;
 
     @ManyToOne

@@ -42,6 +42,7 @@ public class CategoryController {
             throw new CategoryNotFoundException("Categories not found");
         }
     }
+ 
 
     @GetMapping("/{id}")
     public ResponseEntity<Category> getCategory(@PathVariable Long id) {
