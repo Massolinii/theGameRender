@@ -1,0 +1,51 @@
+.hero-section {
+  background-color: #010d14;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-content {
+  text-align: center;
+}
+
+.heroTitleContainer {
+  position: absolute;
+  top: 28%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.hero-section.show .heroTitleContainer {
+  opacity: 1;
+}
+
+.heroLogo {
+  height: auto;
+  margin: auto;
+  max-height: 200px;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 1.3s ease-in-out, transform 1.7s ease-in-out;
+}
+
+.heroTitle {
+  font-family: "Space Mono", monospace;
+  font-size: clamp(3rem, 5vw, 5rem);
+  color: rgb(204, 204, 204);
+  padding: 0rem clamp(1rem, 2vw, 3rem);
+  border-radius: clamp(0.4rem, 0.75vw, 1rem);
+  margin-top: 1rem;
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
+}
+
+.hero-section.show .heroLogo,
+.hero-section.show .heroTitle {
+  opacity: 1;
+}

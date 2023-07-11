@@ -64,7 +64,7 @@ function Category() {
           </div>
         ))}
       </div>
-      <a href="/home">Go Back</a>
+      <a href="/">Go Back</a>
     </div>
   );
 }

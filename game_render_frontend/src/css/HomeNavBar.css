@@ -1,0 +1,44 @@
+.navbar-section {
+  height: 12vh;
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+/* Animazione per il titolo */
+.title-animation {
+  animation: slideIn 1s ease-out forwards;
+}
+
+.link-animation-1 {
+  animation: slideIn 1s 0.5s ease-out forwards;
+}
+
+.link-animation-2 {
+  animation: slideIn 1s 1s ease-out forwards;
+}
+
+.link-animation-3 {
+  animation: slideIn 1s 1.5s ease-out forwards;
+}
+
+.link-animation-4 {
+  animation: slideIn 1s 2s ease-out forwards;
+}
+
+.separator-animation {
+  animation: slideIn 1s 2.5s ease-out forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
