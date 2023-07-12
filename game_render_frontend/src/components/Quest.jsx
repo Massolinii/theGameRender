@@ -1,4 +1,4 @@
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, } from "react-bootstrap";
 import "../css/Quest.css";
 
 function Quest() {
@@ -14,18 +14,16 @@ function Quest() {
           via Midjourney to use as a reference for various artists.
         </p>
         <p className="quest-text px-3 pb-4">
-          <span className="magic">Q : Our mission?</span>
+          Q : Our mission?
           <br />
-          <span className="magic">
-            A : to help you create epic game assets.
-          </span>
+          A : to help you create epic game assets.
         </p>
-        <Row>
-          <Col className="card-group">
-            <div class="big-card"></div>
-          </Col>
-        </Row>
+        <p className="quest-text px-3 m-0">
+          You can be a 3D blender designer, a 2D isometric artist or a Dungeon&Dragons master. Let ideas flow!
+        </p>
+        <br />
       </div>
+      <div className="spacer spacer-two"></div>
     </div>
   );
 }

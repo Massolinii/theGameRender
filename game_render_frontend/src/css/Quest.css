@@ -1,3 +1,20 @@
+.spacer {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.spacer-one {
+  aspect-ratio: 960/100;
+  background-image: url("./wave-hero-start.svg");
+}
+
+.spacer-two {
+  aspect-ratio: 480/50;
+  background-image: url("./pixel_quest_end.svg");
+}
+
 .quest-bg {
   background-image: url("./quest_grass_wallpaper.png");
   background-repeat: repeat;
@@ -17,16 +34,4 @@
 
 .quest-text > .magic {
   font-size: xx-large;
-}
-
-.spacer {
-  aspect-ratio: 960/100;
-  width: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-
-.spacer-one {
-  background-image: url("./wave-hero-start.svg");
 }

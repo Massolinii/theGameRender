@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 .hero-section {
   background-color: #010d14;
   height: 100vh;
@@ -35,7 +37,7 @@
 }
 
 .heroTitle {
-  font-family: "Space Mono", monospace;
+  font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(2rem, 5vw, 6rem);
   color: rgb(204, 204, 204);
   padding: 0rem clamp(1rem, 2vw, 3rem);

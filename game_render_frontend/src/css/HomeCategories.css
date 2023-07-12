@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Chela+One&display=swap');
+
+.environment-bg {
+    background-image: url("./category_wallpaper_environment.jpg");
+    background-position: left;
+    background-size: cover;
+    padding: 50px 50px;
+}
+
+.category-name {
+    font-family: 'Chela One', cursive;
+    font-size: clamp(2rem, 3rem, 4rem);
+    color: rgb(228, 224, 224);
+
+}
+
+.title {
+    
+}
