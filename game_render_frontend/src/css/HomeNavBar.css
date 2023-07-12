@@ -42,3 +42,21 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 991px) {
+  .separator-animation {
+    display: none !important;
+  }
+}
+
+@media (max-width: 991px) {
+  #responsive-navbar-nav
+    > div
+    > a.hidden.link-animation-1.navbar-toggle-padding.nav-link,
+  a.hidden.link-animation-2.navbar-toggle-padding.nav-link,
+  a.hidden.link-animation-3.navbar-toggle-padding.nav-link,
+  a.hidden.link-animation-4.navbar-toggle-padding.nav-link {
+    padding-bottom: 0;
+    padding-top: 6px;
+  }
+}

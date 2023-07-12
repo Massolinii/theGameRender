@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navbar, Nav, NavItem } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import classnames from "classnames";
 import "../css/HomeNavBar.css";
 
@@ -35,30 +35,46 @@ function HomeNavBar() {
 
   return (
     <tt>
-      <Navbar bg="dark" variant="dark" sticky="top" className="px-3">
+      <Navbar bg="dark" variant="dark" fixed="top" expand="lg" className="px-3">
         <Navbar.Brand href="/" className={titleClasses}>
           the game render
         </Navbar.Brand>
-        <Navbar.Brand href="/" className={separatorClasses}>
-          ||
-        </Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link href="/" className={linkClasses(1)}>
-            Home
-          </Nav.Link>
-          <Nav.Link className={separatorClasses}>|</Nav.Link>
-          <Nav.Link href="/category/1" className={linkClasses(2)}>
-            Environments
-          </Nav.Link>
-          <Nav.Link className={separatorClasses}>|</Nav.Link>
-          <Nav.Link href="/category/1" className={linkClasses(3)}>
-            Objects and Tools
-          </Nav.Link>
-          <Nav.Link className={separatorClasses}>|</Nav.Link>
-          <Nav.Link href="/category/1" className={linkClasses(4)}>
-            Characters
-          </Nav.Link>
-        </Nav>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Navbar.Brand href="/" className={separatorClasses}>
+            ||
+          </Navbar.Brand>
+
+          <Nav className="mr-auto">
+            <Nav.Link
+              href="/"
+              className={classnames(linkClasses(1), "navbar-toggle-padding")}
+            >
+              Home
+            </Nav.Link>
+            <Nav.Link className={separatorClasses}>|</Nav.Link>
+            <Nav.Link
+              href="/category/1"
+              className={classnames(linkClasses(2), "navbar-toggle-padding")}
+            >
+              Environments
+            </Nav.Link>
+            <Nav.Link className={separatorClasses}>|</Nav.Link>
+            <Nav.Link
+              href="/category/1"
+              className={classnames(linkClasses(3), "navbar-toggle-padding")}
+            >
+              Objects and Tools
+            </Nav.Link>
+            <Nav.Link className={separatorClasses}>|</Nav.Link>
+            <Nav.Link
+              href="/category/1"
+              className={classnames(linkClasses(4), "navbar-toggle-padding")}
+            >
+              Characters
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
     </tt>
   );

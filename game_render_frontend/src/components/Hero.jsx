@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import "../css/Hero.css";
 import { Row } from "react-bootstrap";
 
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 function Hero({ show }) {
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const h1Ref = useRef();
   const logoRef = useRef();
   const [logoAnimationCompleted, setLogoAnimationCompleted] = useState(false);

@@ -1,0 +1,32 @@
+.quest-bg {
+  background-image: url("./quest_grass_wallpaper.png");
+  background-repeat: repeat;
+}
+
+.quest-title {
+  font-family: "Space Mono", monospace;
+  font-size: clamp(3rem, 4vw, 4rem);
+  color: rgb(204, 204, 204);
+}
+
+.quest-text {
+  font-family: "Space Mono", monospace;
+  font-size: clamp(1rem, 1.4rem, 1.8rem);
+  color: rgb(204, 204, 204);
+}
+
+.quest-text > .magic {
+  font-size: xx-large;
+}
+
+.spacer {
+  aspect-ratio: 960/100;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.spacer-one {
+  background-image: url("./wave-hero-start.svg");
+}
