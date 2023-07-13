@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Chela+One&display=swap");
+
+.category-page-name {
+  font-family: "Chela One", cursive;
+  font-size: clamp(1.5rem, 3rem, 4rem);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.8); /* Black w/opacity*/
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  z-index: 2;
+  padding: 20px;
+}
+
+.category-page-bg {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: black;
+  padding: 80px 30px 80px 30px;
+  border-bottom: 5px solid rgb(0, 0, 0);
+}
+
+.go-back-home {
+  font-family: "Chela One", cursive;
+  font-size: clamp(1rem, 1.5rem, 2rem);
+  color: white;
+  font-weight: bold;
+  z-index: 2;
+  text-decoration: none;
+}
+
+.go-back-home-container {
+  background-color: rgb(182, 182, 182);
+}
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.image-in-category {
+  max-height: 300px;
+  max-width: 300px;
+  aspect-ratio: 1/1;
+  padding: 10px;
+}
+
+.prompt-text {
+  width: 300px;
+  padding-left: 10px;
+  padding-right: 10px;
+}

@@ -38,6 +38,7 @@ public class CollectionController {
     @Autowired CollectionService collectionService;
     @Autowired CategoryService categoryService;
 
+    @CrossOrigin(origins = "*")
     @GetMapping
     @ResponseBody
     public ResponseEntity<List<Collection>> getAllCollections() {

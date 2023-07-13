@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import HomeNavBar from "./HomeNavBar";
 import Hero from "./Hero";
 import Quest from "./Quest";
 import HomeCategories from "./HomeCategories";
@@ -13,7 +12,6 @@ function HomePage() {
   return (
     <div>
       <Container fluid className="p-0">
-        <HomeNavBar show={showHero} />
         <Hero show={showHero} />
         <Quest />
         <HomeCategories />

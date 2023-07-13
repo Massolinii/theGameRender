@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../css/HomeCategories.css";
 import { Col, Container, Row } from "react-bootstrap";
 

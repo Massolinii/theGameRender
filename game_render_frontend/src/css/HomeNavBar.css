@@ -7,12 +7,18 @@
   transform: translateY(-100%);
 }
 
-/* Animazione per il titolo */
+/* Title Animation */
 .title-animation {
   animation: slideIn 1s ease-out forwards;
 }
 
-.link-animation-1 {
+.link-animation-6 {
+  color: red;
+}
+
+.link-animation-1,
+.link-animation-5,
+.link-animation-6 {
   animation: slideIn 1s 0.5s ease-out forwards;
 }
 
