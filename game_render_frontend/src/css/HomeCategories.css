@@ -1,19 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Chela+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Chela+One&display=swap");
 
-.environment-bg {
-    background-image: url("./category_wallpaper_environment.jpg");
-    background-position: left;
-    background-size: cover;
-    padding: 50px 50px;
+.categories-bg {
+  background-position: right;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: black;
+  padding: 80px 30px;
+  border-top: 4px solid black;
+}
+
+.obj-category-bg {
+  background-image: url("./wallpapers/category_wallpaper.object.jpg");
+}
+
+.env-category-bg {
+  background-image: url("./wallpapers/category_wallpaper_environment.jpg");
+}
+
+.char-category-bg {
+  background-image: url("./wallpapers/category_wallpaper_characters.jpg");
+  background-position: top;
+  border-bottom: 4px solid black;
 }
 
 .category-name {
-    font-family: 'Chela One', cursive;
-    font-size: clamp(2rem, 3rem, 4rem);
-    color: rgb(228, 224, 224);
-
+  font-family: "Chela One", cursive;
+  font-size: clamp(1.5rem, 3rem, 4rem);
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  z-index: 2;
+  padding: 20px;
 }
 
-.title {
-    
+.home-categories-link {
+  text-decoration: none;
+  color: rgb(228, 224, 224);
 }

@@ -1,4 +1,4 @@
-import { Col, Row, } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import "../css/Quest.css";
 
 function Quest() {
@@ -15,11 +15,11 @@ function Quest() {
         </p>
         <p className="quest-text px-3 pb-4">
           Q : Our mission?
-          <br />
-          A : to help you create epic game assets.
+          <br />A : to help you create epic game assets.
         </p>
         <p className="quest-text px-3 m-0">
-          You can be a 3D blender designer, a 2D isometric artist or a Dungeon&Dragons master. Let ideas flow!
+          You can be a 3D blender designer, a 2D isometric artist or a
+          Dungeon&Dragons master. Let ideas flow!
         </p>
         <br />
       </div>
