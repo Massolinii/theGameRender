@@ -3,20 +3,19 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  aspect-ratio: 960/100;
 }
 
 .spacer-one {
-  aspect-ratio: 960/100;
-  background-image: url("./wave-hero-start.svg");
+  background-image: url("./svg/wave_hero_start.svg");
 }
 
 .spacer-two {
-  aspect-ratio: 480/50;
-  background-image: url("./pixel_quest_end.svg");
+  background-image: url("./svg/wave_quest_end.svg");
 }
 
 .quest-bg {
-  background-image: url("./quest_grass_wallpaper.png");
+  background-image: url("./wallpapers/quest_grass_wallpaper.png");
   background-repeat: repeat;
 }
 

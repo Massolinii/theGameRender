@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import classnames from "classnames";
 import "../css/HomeNavBar.css";
+import { AuthContext } from "../AuthContext";
 
 function HomeNavBar() {
+  const { user, logout } = useContext(AuthContext);
   const [showTitle, setShowTitle] = useState(false);
   const [showLinks, setShowLinks] = useState(false);
 
@@ -61,18 +63,48 @@ function HomeNavBar() {
             </Nav.Link>
             <Nav.Link className={separatorClasses}>|</Nav.Link>
             <Nav.Link
-              href="/category/1"
+              href="/category/2"
               className={classnames(linkClasses(3), "navbar-toggle-padding")}
             >
               Objects and Tools
             </Nav.Link>
             <Nav.Link className={separatorClasses}>|</Nav.Link>
             <Nav.Link
-              href="/category/1"
+              href="/category/3"
               className={classnames(linkClasses(4), "navbar-toggle-padding")}
             >
               Characters
             </Nav.Link>
+          </Nav>
+          <Nav className="ml-auto">
+            {user && !user.loading ? (
+              <>
+                <Nav.Link
+                  className={classnames(
+                    linkClasses(5),
+                    "navbar-toggle-padding"
+                  )}
+                >
+                  Welcome, {user.username}.
+                </Nav.Link>
+                <Nav.Link
+                  onClick={logout}
+                  className={classnames(
+                    linkClasses(6),
+                    "navbar-toggle-padding"
+                  )}
+                >
+                  Logout
+                </Nav.Link>
+              </>
+            ) : (
+              <Nav.Link
+                href="/login"
+                className={classnames(linkClasses(6), "navbar-toggle-padding")}
+              >
+                Login
+              </Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

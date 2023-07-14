@@ -83,18 +83,6 @@ public class UserController {
         User updatedUser = userService.toggleFavoriteImage(userId, imageId);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
-    
-//    @PutMapping("/{userId}/addFavorite/{imageId}")
-//    public ResponseEntity<User> addFavorite(@PathVariable Long userId, @PathVariable Long imageId) {
-//        User updatedUser = userService.addFavoriteImage(userId, imageId);
-//        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
-//    }
-//
-//    @PutMapping("/{userId}/removeFavorite/{imageId}")
-//    public ResponseEntity<User> removeFavorite(@PathVariable Long userId, @PathVariable Long imageId) {
-//        User updatedUser = userService.removeFavoriteImage(userId, imageId);
-//        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
-//    }
 
     @DeleteMapping("/{id}")
     @ResponseBody
