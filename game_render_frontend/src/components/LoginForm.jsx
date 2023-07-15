@@ -31,20 +31,23 @@ const LoginForm = () => {
       }),
     });
 
-    const data = await response.json();
-
-    console.log(data);
-
     if (response.ok) {
+      const data = await response.json();
+      setError(null);
+
+      console.log(data);
+
       login({
-        token: data.token,
+        token: data.accessToken,
         username: data.username,
+        roles: data.roles,
       });
       /*setTimeout(() => {
         window.location.replace("/");
       }, 5000);*/
     } else {
-      setError(data.message || "An error occurred during login");
+      console.log("Server error:", response.statusText);
+      setError("Username or password are not correct");
     }
   };
 
@@ -79,6 +82,7 @@ const LoginForm = () => {
             placeholder="insert password.."
           />
         </Form.Group>
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <Button
           type="submit"
           className="btn btn-dark btn-outline-warning my-2 w-25 "

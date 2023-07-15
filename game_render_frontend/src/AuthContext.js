@@ -9,9 +9,11 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     if (token) {
       const username = localStorage.getItem("username");
+      const roles = JSON.parse(localStorage.getItem("roles"));
       setUser({
         token,
         username,
+        roles,
         loading: false,
       });
     }
@@ -21,9 +23,10 @@ export const AuthProvider = ({ children }) => {
     console.log(userData);
     localStorage.setItem("token", userData.token);
     localStorage.setItem("username", userData.username);
+    localStorage.setItem("roles", JSON.stringify(Array.from(userData.roles)));
+    const roles = new Set(JSON.parse(localStorage.getItem("roles")));
     setUser({
-      token: userData.token,
-      username: userData.username,
+      ...userData,
       loading: false,
     });
   };
@@ -31,6 +34,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
+    localStorage.removeItem("roles");
     setUser(null);
   };
 

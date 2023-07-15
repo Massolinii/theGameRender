@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   fetchCategory,
@@ -7,6 +7,8 @@ import {
 } from "../api";
 import "../css/CategoryPage.css";
 import ImageUploadModal from "./ImageUploadModal";
+import { Alert } from "react-bootstrap";
+import { AuthContext } from "../AuthContext";
 
 const categoryToBgClass = {
   1: "env-category-bg",
@@ -21,6 +23,8 @@ function CategoryPage() {
   const [collections, setCollections] = useState([]);
   const [images, setImages] = useState([]);
   const [selectedImages, setSelectedImages] = useState([]);
+  const [uploadMessage, setUploadMessage] = useState(null);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     (async () => {
@@ -69,6 +73,17 @@ function CategoryPage() {
     return <div>Loading...</div>;
   }
 
+  const handleUploadSuccess = async (message) => {
+    setUploadMessage(message);
+
+    try {
+      const images = await fetchImagesFromCategory(id);
+      setImages(images);
+    } catch (error) {
+      console.error("Failed to fetch images:", error);
+    }
+  };
+
   return (
     <div className="pt-5">
       <div className={`category-page-bg ${bgClass}`}>
@@ -79,10 +94,15 @@ function CategoryPage() {
         <Link className="go-back-home" to={"/"}>
           Return Home
         </Link>
-        <button onClick={openUploadModal}>Upload Image</button>
+        {user && user.roles.includes("ROLE_ADMIN") && (
+          <button onClick={openUploadModal}>Upload Image</button>
+        )}
+        {uploadMessage && <Alert variant="success">{uploadMessage}</Alert>}
+
         <ImageUploadModal
           isOpen={isUploadModalOpen}
           onClose={closeUploadModal}
+          onUploadSuccess={handleUploadSuccess}
         />
 
         <h2 className="pt-3">Collections:</h2>

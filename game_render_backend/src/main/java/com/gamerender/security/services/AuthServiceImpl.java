@@ -5,8 +5,10 @@ import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,18 +49,17 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String login(LoginDto loginDto) {
-        
-    	Authentication authentication = authenticationManager.authenticate(
-        		new UsernamePasswordAuthenticationToken(
-        				loginDto.getUsername(), loginDto.getPassword()
-        		)
-        ); 
-    	System.out.println(authentication);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String token = jwtTokenProvider.generateToken(authentication);
-        System.out.println(token);
-        return token;
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginDto.getUsername(), loginDto.getPassword()
+                    )
+            );
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            return jwtTokenProvider.generateToken(authentication);
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException("Invalid username or password");
+        }
     }
 
     @Override

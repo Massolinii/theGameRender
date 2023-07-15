@@ -1,7 +1,9 @@
+import { readAndCompressImage } from "browser-image-resizer";
 import React, { useEffect, useState } from "react";
+import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
-const ImageUploadModal = ({ isOpen, onClose }) => {
+const ImageUploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState("");
   const [promptText, setPromptText] = useState("");
@@ -31,23 +33,35 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
       .catch((error) => console.error("Fetch error:", error));
   }, []);
 
-  const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    const config = {
+      quality: 0.8,
+      maxWidth: 800,
+      maxHeight: 800,
+      debug: true,
+    };
+    try {
+      const compressedFile = await readAndCompressImage(file, config);
+      setSelectedFile(compressedFile);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleUpload = async (e) => {
     e.preventDefault();
 
     if (!selectedFile || !promptText || !selectedCollection) {
-      setError("All fields are required");
+      setError("Image, prompt and collection are required.");
       return;
     }
 
     const formData = new FormData();
-    formData.append("file", selectedFile);
+    formData.append("image", selectedFile);
     formData.append("promptText", promptText);
     formData.append("tags", tags);
-    formData.append("collection", selectedCollection);
+    formData.append("collectionId", selectedCollection);
 
     const response = await fetch("http://localhost:8080/images", {
       method: "POST",
@@ -59,7 +73,7 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
 
     if (response.ok) {
       onClose();
-      return "";
+      onUploadSuccess("The image was upload successfully");
     } else {
       const data = await response.json();
       setError(data.message || "An error occurred during file upload");
@@ -67,43 +81,76 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div>
-      {isOpen && (
-        <div>
-          <h2>Upload Image</h2>
-          <form onSubmit={handleUpload}>
-            <input type="file" accept="image/*" onChange={handleFileChange} />
-            <input
+    <Modal show={isOpen} onHide={onClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Upload Image </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form className="" onSubmit={handleUpload}>
+          <Form.Group>
+            <Form.Label>Image</Form.Label>
+            <Form.Control
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+          </Form.Group>
+          <hr />
+          <Form.Group>
+            <Form.Label>
+              Prompt Text <span className="text-muted">(Max lenght 512)</span>
+            </Form.Label>
+            <Form.Control
               type="text"
               placeholder="Prompt Text"
               value={promptText}
               onChange={(e) => setPromptText(e.target.value)}
             />
-            <input
+          </Form.Group>
+          <hr />
+          <Form.Group>
+            <Form.Label>
+              Tags <span className="text-muted">(separated by " ; ")</span>
+            </Form.Label>
+            <Form.Control
               type="text"
-              placeholder="Tags (separate by ';')"
+              placeholder="Tags"
               value={tags}
               onChange={(e) => setTags(e.target.value)}
             />
-            <select
+          </Form.Group>
+          <hr />
+          <Form.Group>
+            <Form.Label>Collection</Form.Label>
+            <Form.Control
+              as="select"
               value={selectedCollection}
               onChange={(e) => setSelectedCollection(e.target.value)}
             >
               {collections.map((collection, index) => (
-                <option key={collection.id} value={collection.id}>
+                <option
+                  key={collection.collectionID}
+                  value={collection.collectionID}
+                >
                   {collection.category.categoryName +
                     " - " +
                     collection.collectionName}
                 </option>
               ))}
-            </select>
-            {error && <p>{error}</p>}
-            <button type="submit">Upload</button>
-            <button onClick={onClose}>Close</button>
-          </form>
-        </div>
-      )}
-    </div>
+            </Form.Control>
+          </Form.Group>
+          <hr />
+
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Button type="submit">Upload</Button>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={onClose}>
+          Close
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 
