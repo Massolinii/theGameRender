@@ -17,21 +17,24 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-color: black;
+  margin-top: 1vh;
   padding: 80px 30px 80px 30px;
+  border-top: 5px solid rgb(0, 0, 0);
   border-bottom: 5px solid rgb(0, 0, 0);
 }
 
 .go-back-home {
-  font-family: "Chela One", cursive;
   font-size: clamp(1rem, 1.5rem, 2rem);
   color: white;
   font-weight: bold;
   z-index: 2;
   text-decoration: none;
+  text-align: right;
+  padding-left: 30px;
 }
 
-.go-back-home-container {
-  background-color: rgb(182, 182, 182);
+.category-page-container {
+  background-color: #010d14;
 }
 
 .image-container {
@@ -47,8 +50,40 @@
   padding: 10px;
 }
 
+.image-in-category:hover {
+  box-shadow: 0 0 50px 5px rgba(255, 255, 255, 0.1);
+}
+
 .prompt-text {
-  width: 300px;
-  padding-left: 10px;
-  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 280px;
+  margin: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  min-height: 1.5em;
+  opacity: 0;
+  max-height: 1.5em;
+  transition: opacity 0.5s ease-in-out, max-height 0s 0.5s;
+  overflow: hidden;
+}
+
+.prompt-text.visible {
+  opacity: 1;
+  max-height: 300px;
+  transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+}
+
+.copy-section {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.copy-icon {
+  position: relative;
+  left: 3px;
+}
+
+.copy-text {
+  position: relative;
+  left: 8px;
 }

@@ -7,8 +7,11 @@ import {
 } from "../api";
 import "../css/CategoryPage.css";
 import ImageUploadModal from "./ImageUploadModal";
-import { Alert } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 import { AuthContext } from "../AuthContext";
+import copy from 'clipboard-copy';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCopy, faPlus, faCheck, faCircleLeft } from '@fortawesome/free-solid-svg-icons'
 
 const categoryToBgClass = {
   1: "env-category-bg",
@@ -25,6 +28,7 @@ function CategoryPage() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [uploadMessage, setUploadMessage] = useState(null);
   const { user } = useContext(AuthContext);
+  const [copiedImageId, setCopiedImageId] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -69,6 +73,12 @@ function CategoryPage() {
     }
   };
 
+  const handleCopyClick = (text, id) => {
+    copy(text);
+    setCopiedImageId(id);
+    setTimeout(() => setCopiedImageId(null), 4000);  // l'icona torna alla copia dopo 4 secondi
+  };
+
   if (!category) {
     return <div>Loading...</div>;
   }
@@ -85,18 +95,29 @@ function CategoryPage() {
   };
 
   return (
+    <tt>
     <div className="pt-5">
       <div className={`category-page-bg ${bgClass}`}>
         <h1 className="category-page-name">{category.categoryName}</h1>
       </div>
 
-      <div className="ps-5 go-back-home-container">
+      <div className="category-page-container text-white">
+
         <Link className="go-back-home" to={"/"}>
-          Return Home
+        <FontAwesomeIcon icon={faCircleLeft} /> Return Home
         </Link>
-        {user && user.roles.includes("ROLE_ADMIN") && (
-          <button onClick={openUploadModal}>Upload Image</button>
-        )}
+        
+        <h3 className="pt-4 ps-2">Collections</h3>
+        <ul>
+          {collections.map((collection) => (
+            <li key={collection.collectionID}>{collection.collectionName}</li>
+          ))}
+        </ul>
+
+        <h3 className="pt-4 ps-2">All {category.categoryName} images {user && user.roles.includes("ROLE_ADMIN") && (
+          <Button className="add-image" variant="outline-light" onClick={openUploadModal}><FontAwesomeIcon icon={faPlus} /></Button>
+        )}</h3>
+        
         {uploadMessage && <Alert variant="success">{uploadMessage}</Alert>}
 
         <ImageUploadModal
@@ -104,15 +125,6 @@ function CategoryPage() {
           onClose={closeUploadModal}
           onUploadSuccess={handleUploadSuccess}
         />
-
-        <h2 className="pt-3">Collections:</h2>
-        <ul>
-          {collections.map((collection) => (
-            <li key={collection.collectionID}>{collection.collectionName}</li>
-          ))}
-        </ul>
-
-        <h2>Images:</h2>
         <div className="image-container">
           {images.map((image) => (
             <div key={image.imageID}>
@@ -122,14 +134,30 @@ function CategoryPage() {
                 className="image-in-category"
                 onClick={() => handleImageClick(image.imageID)}
               />
-              {selectedImages.includes(image.imageID) && (
-                <p className="prompt-text">{image.promptText}</p>
+             <div className={`prompt-text ${selectedImages.includes(image.imageID) ? 'visible' : ''}`}>
+              {image.promptText}
+              <br />
+              {copiedImageId === image.imageID ? (
+                <div className="copy-section">
+                  <FontAwesomeIcon icon={faCheck} className='copy-icon' />
+                  <span className="copy-text">Copied!</span>
+                </div>
+              ) : (
+                <div className="copy-section">
+                  <FontAwesomeIcon icon={faCopy} onClick={() => handleCopyClick(image.promptText, image.imageID)} className='copy-icon' />
+                  <span className="copy-text">Copy</span>
+                </div>
               )}
             </div>
+           </div>
           ))}
         </div>
+        <Link className="go-back-home" to={"/"}>
+        <FontAwesomeIcon icon={faCircleLeft} /> Return Home
+        </Link>
       </div>
     </div>
+    </tt>
   );
 }
 
