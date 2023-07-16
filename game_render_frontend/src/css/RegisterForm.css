@@ -1,0 +1,24 @@
+.register-form-background {
+  height: 100vh;
+  background-color: #010d14;
+}
+
+.register-form-logo {
+  height: 20vh;
+}
+
+.register-form-field {
+  width: 100%;
+}
+
+.register-form-button {
+  width: 100%;
+}
+
+.register-form-error {
+  color: red;
+}
+
+.register-form-success {
+  color: green;
+}

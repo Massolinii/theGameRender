@@ -4,40 +4,36 @@ import classnames from "classnames";
 import "../css/HomeNavBar.css";
 import { AuthContext } from "../AuthContext";
 
-function HomeNavBar() {
+function HomeNavBar({ show }) {
   const { user, logout } = useContext(AuthContext);
-  const [showTitle, setShowTitle] = useState(false);
-  const [showLinks, setShowLinks] = useState(false);
+
+  const [isLgScreen, setIsLgScreen] = useState(window.innerWidth >= 992);
 
   useEffect(() => {
-    const titleTimeout = setTimeout(() => {
-      setShowTitle(true);
-    }, 3000);
+    const handleResize = () => {
+      setIsLgScreen(window.innerWidth >= 992);
+    };
 
-    const linksTimeout = setTimeout(() => {
-      setShowLinks(true);
-    }, 3000);
-
+    window.addEventListener("resize", handleResize);
     return () => {
-      clearTimeout(titleTimeout);
-      clearTimeout(linksTimeout);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   const titleClasses = classnames("navbar-brand", "hidden", {
-    "title-animation": showTitle,
+    "title-animation": show,
   });
 
   const linkClasses = (index) =>
-    classnames("hidden", { [`link-animation-${index}`]: showLinks });
+    classnames("hidden", { [`link-animation-${index}`]: show });
 
   const separatorClasses = classnames("hidden", {
-    "separator-animation": showLinks,
+    "separator-animation": show,
   });
 
   return (
     <tt>
-      <Navbar bg="dark" variant="dark" fixed="top" expand="lg" className="px-3">
+      <Navbar bg="dark" variant="dark" fixed="top" expand="sm" className="px-3">
         <Navbar.Brand href="/" className={titleClasses}>
           the game render
         </Navbar.Brand>
@@ -48,62 +44,62 @@ function HomeNavBar() {
           </Navbar.Brand>
 
           <Nav className="mr-auto">
-            <Nav.Link
-              href="/"
-              className={classnames(linkClasses(1), "navbar-toggle-padding")}
-            >
+            <Nav.Link href="/" className={linkClasses(1)}>
               Home
             </Nav.Link>
             <Nav.Link className={separatorClasses}>|</Nav.Link>
-            <Nav.Link
-              href="/category/1"
-              className={classnames(linkClasses(2), "navbar-toggle-padding")}
-            >
-              Environments
-            </Nav.Link>
-            <Nav.Link className={separatorClasses}>|</Nav.Link>
-            <Nav.Link
-              href="/category/2"
-              className={classnames(linkClasses(3), "navbar-toggle-padding")}
-            >
-              Objects and Tools
-            </Nav.Link>
-            <Nav.Link className={separatorClasses}>|</Nav.Link>
-            <Nav.Link
-              href="/category/3"
-              className={classnames(linkClasses(4), "navbar-toggle-padding")}
-            >
-              Characters
-            </Nav.Link>
+
+            {/* Categories Dropdown */}
+            {isLgScreen && (
+              <>
+                <Nav.Link href="/category/1" className={linkClasses(2)}>
+                  Environments
+                </Nav.Link>
+                <Nav.Link className={separatorClasses}>|</Nav.Link>
+                <Nav.Link href="/category/2" className={linkClasses(3)}>
+                  Objects and Tools
+                </Nav.Link>
+                <Nav.Link className={separatorClasses}>|</Nav.Link>
+                <Nav.Link href="/category/3" className={linkClasses(4)}>
+                  Characters
+                </Nav.Link>
+              </>
+            )}
+
+            {!isLgScreen && (
+              <NavDropdown title="Categories" className={linkClasses(2)}>
+                <NavDropdown.Item href="/category/1">
+                  Environments
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/category/2">
+                  Objects and Tools
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/category/3">
+                  Characters
+                </NavDropdown.Item>
+              </NavDropdown>
+            )}
           </Nav>
-          <Nav className="ml-auto">
+
+          <Nav className="ms-auto">
             {user && !user.loading ? (
               <>
-                <Nav.Link
-                  className={classnames(
-                    linkClasses(5),
-                    "navbar-toggle-padding"
-                  )}
-                >
-                  Welcome, {user.username}.
-                </Nav.Link>
-                <Nav.Link
-                  onClick={logout}
-                  className={classnames(
-                    linkClasses(6),
-                    "navbar-toggle-padding"
-                  )}
-                >
+                <Nav.Link className={linkClasses(5)}>{user.username}</Nav.Link>
+                <Nav.Link className={separatorClasses}>|</Nav.Link>
+                <Nav.Link onClick={logout} className={linkClasses(6)}>
                   Logout
                 </Nav.Link>
               </>
             ) : (
-              <Nav.Link
-                href="/login"
-                className={classnames(linkClasses(6), "navbar-toggle-padding")}
-              >
-                Login
-              </Nav.Link>
+              <>
+                <Nav.Link href="/login" className={linkClasses(6)}>
+                  Login
+                </Nav.Link>
+                <Nav.Link className={separatorClasses}>|</Nav.Link>
+                <Nav.Link href="/register" className={linkClasses(6)}>
+                  Register
+                </Nav.Link>
+              </>
             )}
           </Nav>
         </Navbar.Collapse>

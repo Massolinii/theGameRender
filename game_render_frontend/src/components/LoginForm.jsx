@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../AuthContext";
+import "../css/LoginForm.css";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -42,9 +43,9 @@ const LoginForm = () => {
         username: data.username,
         roles: data.roles,
       });
-      /*setTimeout(() => {
+      setTimeout(() => {
         window.location.replace("/");
-      }, 5000);*/
+      }, 3000);
     } else {
       console.log("Server error:", response.statusText);
       setError("Username or password are not correct");
@@ -52,27 +53,26 @@ const LoginForm = () => {
   };
 
   return (
-    <div
-      className="py-5 bg-dark"
-      style={{ display: "block", height: "100vh", vhposition: "initial" }}
-    >
+    <div className="d-flex flex-column align-items-center justify-content-center login-form-background">
       <img
-        src="https://epicode.com/wp-content/uploads/2022/06/EPICODE-2.0-LOGO-15.png"
-        style={{ width: "30%" }}
+        src={process.env.PUBLIC_URL + "/logo-transparent-upscaled.png"}
+        className="login-form-logo"
         alt="epicode Logo"
       ></img>
-      <p className="text-light">Welcome on Epic Energy ⚡️</p>
+      <p className="text-light">
+        Welcome to <span>THE_GAME_RENDER</span>
+      </p>
 
       <Form onSubmit={handleSubmit} className="mt-5">
         <Form.Group
-          className="mb-3 w-25 mx-auto"
+          className="mb-3 login-form-field"
           controlId="username"
           onChange={handleUsername}
         >
           <Form.Control required type="text" placeholder="insert username.." />
         </Form.Group>
         <Form.Group
-          className="mb-3 w-25 mx-auto"
+          className="mb-3 login-form-field"
           controlId="password"
           onChange={handlePassword}
         >
@@ -82,24 +82,26 @@ const LoginForm = () => {
             placeholder="insert password.."
           />
         </Form.Group>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        <br />
+        <br />
+        {error && <p className="login-form-error">{error}</p>}
         <Button
           type="submit"
-          className="btn btn-dark btn-outline-warning my-2 w-25 "
+          className="btn btn-dark btn-outline-success my-2 login-form-button"
         >
           Login
         </Button>
+        <br />
+        <Button
+          type="button"
+          className="btn btn-dark btn-outline-warning my-2 login-form-button"
+          onClick={() => {
+            window.location.replace("/register");
+          }}
+        >
+          Register now!
+        </Button>
       </Form>
-
-      <button
-        type="button"
-        className="btn btn-outline-success my-2 w-25 "
-        onClick={() => {
-          window.location.replace("/register");
-        }}
-      >
-        Register now!
-      </button>
     </div>
   );
 };

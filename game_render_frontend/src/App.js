@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import HomeNavBar from "./components/HomeNavBar";
 import LoginForm from "./components/LoginForm";
 import { AuthProvider } from "./AuthContext";
+import RegisterForm from "./components/RegisterForm";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<RegisterForm />} />
             <Route path="/category/:id" element={<CategoryPage />} />
           </Routes>
         </Router>
