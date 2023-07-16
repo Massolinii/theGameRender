@@ -114,7 +114,11 @@ function CategoryPage() {
           <h3 className="pt-4 ps-2">Collections</h3>
           <ul>
             {collections.map((collection) => (
-              <li key={collection.collectionID}>{collection.collectionName}</li>
+              <li key={collection.collectionID}>
+                <Link to={`/collection/${collection.collectionID}`}>
+                  {collection.collectionName}
+                </Link>
+              </li>
             ))}
           </ul>
 

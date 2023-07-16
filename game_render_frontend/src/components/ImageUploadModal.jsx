@@ -2,6 +2,7 @@ import { readAndCompressImage } from "browser-image-resizer";
 import React, { useEffect, useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import { fetchCollections, uploadImage } from "../api.js";
 
 const ImageUploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -12,25 +13,18 @@ const ImageUploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
   const [selectedCollection, setSelectedCollection] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:8080/collections", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (!Array.isArray(data)) {
-          console.error("Data is not an array:", data);
-          return;
-        }
-        setCollections(data);
-      })
-      .catch((error) => console.error("Fetch error:", error));
+    if (localStorage.getItem("token")) {
+      // Check if user is authenticated
+      fetchCollections()
+        .then((data) => {
+          if (!Array.isArray(data)) {
+            console.error("Data is not an array:", data);
+            return;
+          }
+          setCollections(data);
+        })
+        .catch((error) => console.error("Fetch error:", error));
+    }
   }, []);
 
   const handleFileChange = async (e) => {
@@ -63,13 +57,7 @@ const ImageUploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
     formData.append("tags", tags);
     formData.append("collectionId", selectedCollection);
 
-    const response = await fetch("http://localhost:8080/images", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body: formData,
-    });
+    const response = await uploadImage(formData);
 
     if (response.ok) {
       onClose();

@@ -6,18 +6,13 @@ import HomeCategories from "./HomeCategories";
 import HomeNavBar from "./HomeNavBar";
 
 function HomePage() {
-  const [showHero, setShowHero] = useState(false); // Show the Hero component immediately
+  const [showHero, setShowHero] = useState(false);
   const [showNavBar, setShowNavBar] = useState(false);
 
   useEffect(() => {
     setShowHero(true);
     setShowNavBar(true);
-    const navBarTimeout = setTimeout(() => {}, 3000);
-
-    return () => {
-      clearTimeout(navBarTimeout);
-    };
-  }, []);
+  });
 
   return (
     <div>

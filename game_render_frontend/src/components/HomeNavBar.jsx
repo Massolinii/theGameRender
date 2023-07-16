@@ -3,9 +3,13 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import classnames from "classnames";
 import "../css/HomeNavBar.css";
 import { AuthContext } from "../AuthContext";
+import { useLocation } from "react-router-dom";
 
 function HomeNavBar({ show }) {
   const { user, logout } = useContext(AuthContext);
+
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   const [isLgScreen, setIsLgScreen] = useState(window.innerWidth >= 992);
 
@@ -21,14 +25,19 @@ function HomeNavBar({ show }) {
   }, []);
 
   const titleClasses = classnames("navbar-brand", "hidden", {
-    "title-animation": show,
+    "title-animation": isHomePage,
+    visible: !isHomePage,
   });
 
   const linkClasses = (index) =>
-    classnames("hidden", { [`link-animation-${index}`]: show });
+    classnames("hidden", {
+      [`link-animation-${index}`]: isHomePage,
+      visible: !isHomePage,
+    });
 
   const separatorClasses = classnames("hidden", {
-    "separator-animation": show,
+    "separator-animation": isHomePage,
+    visible: !isHomePage,
   });
 
   return (

@@ -8,18 +8,20 @@ import HomeNavBar from "./components/HomeNavBar";
 import LoginForm from "./components/LoginForm";
 import { AuthProvider } from "./AuthContext";
 import RegisterForm from "./components/RegisterForm";
+import CollectionPage from "./components/CollectionPage";
 
 function App() {
   return (
     <AuthProvider>
       <div className="App">
-        <HomeNavBar />
         <Router>
+          <HomeNavBar />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/category/:id" element={<CategoryPage />} />
+            <Route path="/collection/:id" element={<CollectionPage />} />
           </Routes>
         </Router>
       </div>
