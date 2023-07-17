@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+.footer-background {
+  color: white;
+  background: rgb(33, 37, 41);
+}
+
+.footer-text {
+  font-family: "Bebas Neue", sans-serif;
+}
+
+a {
+  color: white;
+}

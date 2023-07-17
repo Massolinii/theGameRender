@@ -5,6 +5,11 @@ export async function fetchCategory(id) {
   return response.json();
 }
 
+export async function fetchCategories() {
+  const response = await fetch("http://localhost:8080/categories");
+  return response.json();
+}
+
 export async function fetchCollection(id) {
   const response = await fetch(`http://localhost:8080/collections/${id}`);
   return response.json();
@@ -40,6 +45,18 @@ export async function uploadImage(formData) {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: formData,
+  });
+  return response;
+}
+
+export async function createCollection(collectionData) {
+  const response = await fetch("http://localhost:8080/collections", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: JSON.stringify(collectionData),
   });
   return response;
 }

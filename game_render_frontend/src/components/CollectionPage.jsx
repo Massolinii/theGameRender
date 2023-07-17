@@ -12,7 +12,14 @@ import {
   faPlus,
   faCheck,
   faCircleLeft,
+  faHouseChimney,
 } from "@fortawesome/free-solid-svg-icons";
+
+const categoryToBgClass = {
+  1: "env-category-bg",
+  2: "obj-category-bg",
+  3: "char-category-bg",
+};
 
 const CollectionPage = () => {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
@@ -68,7 +75,7 @@ const CollectionPage = () => {
     return <div>Loading...</div>;
   }
 
-  const bgClass = `collection-category-bg ${collection.categoryName}-category-bg`;
+  const bgClass = categoryToBgClass[collection.category.categoryID];
 
   const handleUploadSuccess = async (message) => {
     setUploadMessage(message);
@@ -82,18 +89,29 @@ const CollectionPage = () => {
   };
 
   return (
-    <div>
+    <div className="category-page-container pt-5">
       <div className={`category-page-bg ${bgClass}`}>
-        <h1 className="category-page-name">{collection.collectionName}</h1>
+        <h1 className="category-page-name">
+          {collection.category.categoryName} - {collection.collectionName}
+        </h1>
       </div>
 
-      <div className="category-page-container text-white">
-        <Link className="go-back-home" to={"/"}>
-          <FontAwesomeIcon icon={faCircleLeft} /> Return Home
+      <div className="text-white pt-2">
+        <Link
+          className="go-back-home p-3"
+          to={`/category/${collection.category.categoryID}`}
+        >
+          <FontAwesomeIcon icon={faCircleLeft} /> Return to{" "}
+          {collection.category.categoryName}
+        </Link>
+        <br />
+        <Link className="go-back-home p-3" to={"/"}>
+          <FontAwesomeIcon icon={faHouseChimney} /> Return Home
         </Link>
 
-        <h3 className="pt-4 ps-2">
-          All {collection.collectionName} images{" "}
+        <h3 className="mt-5 px-3 py-1 to-color">
+          All {collection.category.categoryName} - {collection.collectionName}{" "}
+          images{" "}
           {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
             <Button
               className="add-image"
@@ -104,6 +122,7 @@ const CollectionPage = () => {
             </Button>
           )}
         </h3>
+        <p className="px-3 h3-subtitle">Click on an image to see the prompt </p>
 
         {uploadMessage && <Alert variant="success">{uploadMessage}</Alert>}
 
@@ -128,29 +147,38 @@ const CollectionPage = () => {
               >
                 {image.promptText}
                 <br />
-                {copiedImageId === image.imageID ? (
-                  <div className="copy-section">
-                    <FontAwesomeIcon icon={faCheck} className="copy-icon" />
-                    <span className="copy-text">Copied!</span>
-                  </div>
-                ) : (
-                  <div className="copy-section">
-                    <FontAwesomeIcon
-                      icon={faCopy}
-                      onClick={() =>
-                        handleCopyClick(image.promptText, image.imageID)
-                      }
-                      className="copy-icon"
-                    />
-                    <span className="copy-text">Copy</span>
-                  </div>
-                )}
+                <div
+                  className="copy-section"
+                  onClick={() =>
+                    handleCopyClick(image.promptText, image.imageID)
+                  }
+                >
+                  {copiedImageId === image.imageID ? (
+                    <>
+                      <FontAwesomeIcon icon={faCheck} className="copy-icon" />
+                      <span className="copy-text">Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <FontAwesomeIcon icon={faCopy} className="copy-icon" />
+                      <span className="copy-text">Copy</span>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           ))}
         </div>
-        <Link className="go-back-home" to={"/"}>
-          <FontAwesomeIcon icon={faCircleLeft} /> Return Home
+        <Link
+          className="go-back-home p-3"
+          to={`/category/${collection.category.categoryID}`}
+        >
+          <FontAwesomeIcon icon={faCircleLeft} /> Return to{" "}
+          {collection.category.categoryName}
+        </Link>
+        <br />
+        <Link className="go-back-home p-3" to={"/"}>
+          <FontAwesomeIcon icon={faHouseChimney} /> Return Home
         </Link>
       </div>
     </div>

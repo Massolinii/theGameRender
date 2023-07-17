@@ -42,7 +42,7 @@ function HomeNavBar({ show }) {
 
   return (
     <tt>
-      <Navbar bg="dark" variant="dark" fixed="top" expand="sm" className="px-3">
+      <Navbar bg="dark" variant="dark" fixed="top" expand="md" className="px-3">
         <Navbar.Brand href="/" className={titleClasses}>
           the game render
         </Navbar.Brand>

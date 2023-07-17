@@ -9,6 +9,7 @@ import LoginForm from "./components/LoginForm";
 import { AuthProvider } from "./AuthContext";
 import RegisterForm from "./components/RegisterForm";
 import CollectionPage from "./components/CollectionPage";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/category/:id" element={<CategoryPage />} />
             <Route path="/collection/:id" element={<CollectionPage />} />
           </Routes>
+          <Footer />
         </Router>
       </div>
     </AuthProvider>

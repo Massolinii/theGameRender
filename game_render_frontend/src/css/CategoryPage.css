@@ -30,11 +30,20 @@
   z-index: 2;
   text-decoration: none;
   text-align: right;
-  padding-left: 30px;
 }
 
 .category-page-container {
   background-color: #010d14;
+}
+
+.h3-subtitle {
+  color: rgb(209, 190, 190);
+}
+
+.category-page-collection-list {
+  color: white;
+  font-size: x-large;
+  padding: 10px;
 }
 
 .image-container {
@@ -71,12 +80,16 @@
 
 .prompt-text.visible {
   opacity: 1;
-  max-height: 300px;
+  max-height: 350px;
   transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
 }
 
 .copy-section {
-  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
 }
 
 .copy-icon {
@@ -87,4 +100,13 @@
 .copy-text {
   position: relative;
   left: 8px;
+}
+
+.copy-text:hover,
+.copy-icon:hover {
+  cursor: pointer;
+}
+
+.open-section {
+  text-decoration: none;
 }
