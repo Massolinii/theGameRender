@@ -51,7 +51,7 @@
   font-weight: bold;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
-  background: -webkit-linear-gradient(57deg, #7b1fa2, #7788e7, #b8315e);
+  background: -webkit-linear-gradient(57deg, #7b1fa2, #485497, #aa204e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

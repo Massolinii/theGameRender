@@ -11,11 +11,11 @@ function HomeNavBar({ show }) {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
-  const [isLgScreen, setIsLgScreen] = useState(window.innerWidth >= 992);
+  const [isLgScreen, setIsLgScreen] = useState(window.innerWidth >= 1200);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsLgScreen(window.innerWidth >= 992);
+      setIsLgScreen(window.innerWidth >= 1200);
     };
 
     window.addEventListener("resize", handleResize);
@@ -94,6 +94,8 @@ function HomeNavBar({ show }) {
             {user && !user.loading ? (
               <>
                 <Nav.Link className={linkClasses(5)}>{user.username}</Nav.Link>
+                <Nav.Link className={separatorClasses}>|</Nav.Link>
+                <Nav.Link className={linkClasses(6)}>Favorites</Nav.Link>
                 <Nav.Link className={separatorClasses}>|</Nav.Link>
                 <Nav.Link onClick={logout} className={linkClasses(6)}>
                   Logout

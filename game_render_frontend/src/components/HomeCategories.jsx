@@ -5,7 +5,8 @@ import { Col, Container, Row } from "react-bootstrap";
 function HomeCategories() {
   return (
     <Container fluid className="position-relative">
-      <Row className="categories-bg env-category-bg">
+      <Row className="categories-bg">
+        <div className="background-image env-category-bg"></div>
         <Col className="d-flex align-items-center justify-content-start">
           <Link to={"/category/1"} className="home-categories-link">
             <h2 className="category-name">Environment</h2>
@@ -13,7 +14,8 @@ function HomeCategories() {
         </Col>
       </Row>
 
-      <Row className="categories-bg  obj-category-bg">
+      <Row className="categories-bg">
+        <div className="background-image obj-category-bg"></div>
         <Col className="d-flex align-items-center justify-content-start">
           <Link to={"/category/2"} className="home-categories-link">
             <h2 className="category-name">Objects & Tools</h2>
@@ -21,7 +23,8 @@ function HomeCategories() {
         </Col>
       </Row>
 
-      <Row className="categories-bg char-category-bg">
+      <Row className="categories-bg">
+        <div className="background-image char-category-bg"></div>
         <Col className="d-flex align-items-center justify-content-start">
           <Link to={"/category/3"} className="home-categories-link">
             <h2 className="category-name">Characters</h2>

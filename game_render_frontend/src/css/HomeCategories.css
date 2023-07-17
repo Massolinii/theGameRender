@@ -1,12 +1,45 @@
 @import url("https://fonts.googleapis.com/css2?family=Chela+One&display=swap");
 
+@keyframes move-arrow {
+  0% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(-10px);
+  }
+  40% {
+    transform: translateX(-90px);
+  }
+  50% {
+    transform: translateX(-100px);
+  }
+  60% {
+    transform: translateX(-90px);
+  }
+  90% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .categories-bg {
+  position: relative;
+  padding: 7vh 30px;
+  border-top: 4px solid black;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
   background-position: right;
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: black;
-  padding: 7vh 30px;
-  border-top: 4px solid black;
 }
 
 .obj-category-bg {
@@ -23,6 +56,10 @@
   border-bottom: 4px solid black;
 }
 
+.background-image:hover {
+  filter: brightness(120%);
+}
+
 .category-name {
   font-family: "Chela One", cursive;
   font-size: clamp(1.5rem, 3rem, 4rem);
@@ -33,9 +70,18 @@
   border: 3px solid #f1f1f1;
   z-index: 2;
   padding: 20px;
+  position: relative;
 }
 
 .home-categories-link {
   text-decoration: none;
   color: rgb(228, 224, 224);
+}
+
+.categories-bg:hover .category-name::after {
+  content: "←";
+  position: absolute;
+  animation: move-arrow 1.5s linear infinite;
+  right: -60%;
+  top: 15%;
 }
