@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { fetchCollection, fetchImagesFromCollection } from "../api";
-import "../css/CollectionPage.css";
+import "../css/CategoryPage.css";
 import ImageUploadModal from "./ImageUploadModal";
 import { Alert, Button } from "react-bootstrap";
 import { AuthContext } from "../AuthContext";
@@ -14,6 +14,7 @@ import {
   faCircleLeft,
   faHouseChimney,
 } from "@fortawesome/free-solid-svg-icons";
+import ImageCard from "./ImageCard";
 
 const categoryToBgClass = {
   1: "env-category-bg",
@@ -68,7 +69,7 @@ const CollectionPage = () => {
   const handleCopyClick = (text, id) => {
     copy(text);
     setCopiedImageId(id);
-    setTimeout(() => setCopiedImageId(null), 2500);
+    setTimeout(() => setCopiedImageId(null), 3200);
   };
 
   if (!collection) {
@@ -89,99 +90,83 @@ const CollectionPage = () => {
   };
 
   return (
-    <div className="category-page-container pt-5">
-      <div className={`category-page-bg ${bgClass}`}>
-        <h1 className="category-page-name">
-          {collection.category.categoryName} - {collection.collectionName}
-        </h1>
-      </div>
-
-      <div className="text-white pt-2">
-        <Link
-          className="go-back-home p-3"
-          to={`/category/${collection.category.categoryID}`}
-        >
-          <FontAwesomeIcon icon={faCircleLeft} /> Return to{" "}
-          {collection.category.categoryName}
-        </Link>
-        <br />
-        <Link className="go-back-home p-3" to={"/"}>
-          <FontAwesomeIcon icon={faHouseChimney} /> Return Home
-        </Link>
-
-        <h3 className="mt-5 px-3 py-1 to-color">
-          All {collection.category.categoryName} - {collection.collectionName}{" "}
-          images{" "}
-          {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
-            <Button
-              className="add-image"
-              variant="outline-light"
-              onClick={openUploadModal}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-            </Button>
-          )}
-        </h3>
-        <p className="px-3 h3-subtitle">Click on an image to see the prompt </p>
-
-        {uploadMessage && <Alert variant="success">{uploadMessage}</Alert>}
-
-        <ImageUploadModal
-          isOpen={isUploadModalOpen}
-          onClose={closeUploadModal}
-          onUploadSuccess={handleUploadSuccess}
-        />
-        <div className="image-container">
-          {images.map((image) => (
-            <div key={image.imageID}>
-              <img
-                src={image.url}
-                alt=""
-                className="image-in-category"
-                onClick={() => handleImageClick(image.imageID)}
-              />
-              <div
-                className={`prompt-text ${
-                  selectedImages.includes(image.imageID) ? "visible" : ""
-                }`}
-              >
-                {image.promptText}
-                <br />
-                <div
-                  className="copy-section"
-                  onClick={() =>
-                    handleCopyClick(image.promptText, image.imageID)
-                  }
-                >
-                  {copiedImageId === image.imageID ? (
-                    <>
-                      <FontAwesomeIcon icon={faCheck} className="copy-icon" />
-                      <span className="copy-text">Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <FontAwesomeIcon icon={faCopy} className="copy-icon" />
-                      <span className="copy-text">Copy</span>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+    <tt>
+      <div className="category-page-container pt-5 full-screen">
+        <div className={`category-page-bg ${bgClass}`}>
+          <h1 className="category-page-name">
+            {collection.category.categoryName} - {collection.collectionName}
+          </h1>
         </div>
-        <Link
-          className="go-back-home p-3"
-          to={`/category/${collection.category.categoryID}`}
-        >
-          <FontAwesomeIcon icon={faCircleLeft} /> Return to{" "}
-          {collection.category.categoryName}
-        </Link>
-        <br />
-        <Link className="go-back-home p-3" to={"/"}>
-          <FontAwesomeIcon icon={faHouseChimney} /> Return Home
-        </Link>
+
+        <div className="text-white pt-2">
+          <Link
+            className="go-back-home p-3"
+            to={`/category/${collection.category.categoryID}`}
+          >
+            <FontAwesomeIcon icon={faCircleLeft} /> Return to{" "}
+            {collection.category.categoryName}
+          </Link>
+          <br />
+          <Link className="go-back-home p-3" to={"/"}>
+            <FontAwesomeIcon icon={faHouseChimney} /> Return Home
+          </Link>
+
+          <h3 className="mt-5 px-3 py-1 to-color">
+            All {collection.category.categoryName} - {collection.collectionName}{" "}
+            images{" "}
+            {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
+              <Button
+                className="add-image"
+                variant="outline-light"
+                onClick={openUploadModal}
+              >
+                <FontAwesomeIcon icon={faPlus} />
+              </Button>
+            )}
+          </h3>
+          <p className="px-3 h3-subtitle">
+            Click on an image to see the prompt{" "}
+          </p>
+
+          {uploadMessage && <Alert variant="success">{uploadMessage}</Alert>}
+
+          <ImageUploadModal
+            isOpen={isUploadModalOpen}
+            onClose={closeUploadModal}
+            onUploadSuccess={handleUploadSuccess}
+          />
+          <div className="image-container">
+            {images.length > 0 ? (
+              images.map((image) => (
+                <ImageCard
+                  image={image}
+                  key={image.imageID}
+                  handleImageClick={handleImageClick}
+                  handleCopyClick={handleCopyClick}
+                  copiedImageId={copiedImageId}
+                  selectedImages={selectedImages}
+                />
+              ))
+            ) : (
+              <div className="empty-collection-message p-5">
+                <h2>Ops! Looks like this collection is empty.</h2>
+              </div>
+            )}
+          </div>
+          <Link
+            className="go-back-home p-3"
+            to={`/category/${collection.category.categoryID}`}
+          >
+            <FontAwesomeIcon icon={faCircleLeft} /> Return to{" "}
+            {collection.category.categoryName}
+          </Link>
+          <br />
+          <Link className="go-back-home p-3" to={"/"}>
+            <FontAwesomeIcon icon={faHouseChimney} /> Return Home
+          </Link>
+        </div>
       </div>
-    </div>
+    </tt>
   );
 };
 

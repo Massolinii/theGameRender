@@ -4,6 +4,8 @@ import {
   fetchCategory,
   fetchCollectionsFromCategory,
   fetchImagesFromCategory,
+  fetchUserFavorites,
+  toggleFavorite,
 } from "../api";
 import "../css/CategoryPage.css";
 import ImageUploadModal from "./ImageUploadModal";
@@ -19,6 +21,7 @@ import {
   faExternalLinkAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import CollectionCreateModal from "./CollectionCreateModal";
+import ImageCard from "./ImageCard";
 
 const categoryToBgClass = {
   1: "env-category-bg",
@@ -38,6 +41,7 @@ function CategoryPage() {
   const [uploadMessage, setUploadMessage] = useState(null);
   const { user } = useContext(AuthContext);
   const [copiedImageId, setCopiedImageId] = useState(null);
+  const [favoriteImages, setFavoriteImages] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -63,6 +67,19 @@ function CategoryPage() {
       }
     })();
   }, [id]);
+
+  useEffect(() => {
+    (async () => {
+      if (user && user.username) {
+        try {
+          const favoriteImages = await fetchUserFavorites(user.username);
+          setFavoriteImages(favoriteImages);
+        } catch (error) {
+          console.error("Failed to fetch favorite images:", error);
+        }
+      }
+    })();
+  }, [user]);
 
   const bgClass = categoryToBgClass[id];
 
@@ -120,135 +137,111 @@ function CategoryPage() {
     }
   };
 
+  const handleFavoriteToggle = async (imageID) => {
+    try {
+      await toggleFavorite(user.username, imageID);
+      const updatedFavoriteImages = [...favoriteImages];
+      if (updatedFavoriteImages.some((img) => img.imageID === imageID)) {
+        // Remove from favorites
+        const index = updatedFavoriteImages.findIndex(
+          (img) => img.imageID === imageID
+        );
+        updatedFavoriteImages.splice(index, 1);
+      } else {
+        // Add to favorites
+        const image = images.find((img) => img.imageID === imageID);
+        updatedFavoriteImages.push(image);
+      }
+      setFavoriteImages(updatedFavoriteImages);
+    } catch (error) {
+      console.error("Failed to toggle favorite image:", error);
+    }
+  };
+
   return (
-    <tt>
-      <div className="pt-5">
-        <div className={`category-page-bg ${bgClass}`}>
-          <h1 className="category-page-name">{category.categoryName}</h1>
-        </div>
-
-        <div className="category-page-container text-white pt-2">
-          <Link className="go-back-home p-3" to={"/"}>
-            <FontAwesomeIcon icon={faHouseChimney} /> Return Home
-          </Link>
-
-          <h3 className="mt-4 px-3 py-1 to-color">
-            {category.categoryName} Themes
-            {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
-              <Button
-                className="add-collection ms-2 ps-2 pe-2 pt-1 pb-1"
-                variant="outline-light"
-                onClick={openCollectionCreateModal}
-              >
-                <FontAwesomeIcon icon={faPlus} />
-              </Button>
-            )}
-          </h3>
-          <CollectionCreateModal
-            isOpen={isCollectionCreateModalOpen}
-            onClose={closeCollectionCreateModal}
-            onCreateSuccess={handleCollectionCreateSuccess}
-          />
-          <p className="px-3 h3-subtitle">Select a theme </p>
-          <ul className="list-unstyled ps-3">
-            {collections.map((collection) => (
-              <li key={collection.collectionID} className="p-2">
-                <Link
-                  to={`/collection/${collection.collectionID}`}
-                  className="category-page-collection-list "
-                >
-                  {collection.collectionName}
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          <h3 className="mt-4 px-3 py-1 to-color">
-            All {category.categoryName} images{" "}
-            {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
-              <Button
-                className="add-image ps-2 pe-2 pt-1 pb-1"
-                variant="outline-light"
-                onClick={openUploadModal}
-              >
-                <FontAwesomeIcon icon={faPlus} />
-              </Button>
-            )}
-          </h3>
-          <p className="px-3 h3-subtitle">
-            Click on an image to see the prompt{" "}
-          </p>
-
-          {uploadMessage && <Alert variant="success">{uploadMessage}</Alert>}
-
-          <ImageUploadModal
-            isOpen={isUploadModalOpen}
-            onClose={closeUploadModal}
-            onUploadSuccess={handleUploadSuccess}
-          />
-          <div className="image-container">
-            {images.map((image) => (
-              <div key={image.imageID}>
-                <img
-                  src={image.url}
-                  alt=""
-                  className="image-in-category"
-                  onClick={() => handleImageClick(image.imageID)}
-                />
-                <div
-                  className={`prompt-text ${
-                    selectedImages.includes(image.imageID) ? "visible" : ""
-                  }`}
-                >
-                  {image.promptText}
-                  <br />
-                  <div className="copy-section">
-                    <div
-                      onClick={() =>
-                        handleCopyClick(image.promptText, image.imageID)
-                      }
-                    >
-                      {copiedImageId === image.imageID ? (
-                        <>
-                          <FontAwesomeIcon
-                            icon={faCheck}
-                            className="copy-icon"
-                          />
-                          <span className="copy-text">Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <FontAwesomeIcon
-                            icon={faCopy}
-                            className="copy-icon"
-                          />
-                          <span className="copy-text">Copy</span>
-                        </>
-                      )}
-                    </div>
-                    <a
-                      href={image.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="open-section"
-                    >
-                      <FontAwesomeIcon
-                        icon={faExternalLinkAlt}
-                        className="open-icon"
-                      />
-                      <span className="open-text px-1">Open</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <Link className="go-back-home p-3" to={"/"}>
-            <FontAwesomeIcon icon={faHouseChimney} /> Return Home
-          </Link>
-        </div>
+    <div className="pt-5 full-screen">
+      <div className={`category-page-bg ${bgClass}`}>
+        <h1 className="category-page-name">{category.categoryName}</h1>
       </div>
-    </tt>
+
+      <div className="category-page-container text-white pt-2">
+        <Link className="go-back-home p-3" to={"/"}>
+          <FontAwesomeIcon icon={faHouseChimney} /> Return Home
+        </Link>
+
+        <h3 className="mt-4 px-3 py-1 to-color">
+          {category.categoryName} Themes
+          {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
+            <Button
+              className="add-collection ms-2 ps-2 pe-2 pt-1 pb-1"
+              variant="outline-light"
+              onClick={openCollectionCreateModal}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+            </Button>
+          )}
+        </h3>
+        <CollectionCreateModal
+          isOpen={isCollectionCreateModalOpen}
+          onClose={closeCollectionCreateModal}
+          onCreateSuccess={handleCollectionCreateSuccess}
+        />
+        <p className="px-3 h3-subtitle">Select a theme </p>
+        <ul className="list-unstyled ps-3">
+          {collections.map((collection) => (
+            <li key={collection.collectionID} className="p-2">
+              <Link
+                to={`/collection/${collection.collectionID}`}
+                className="category-page-collection-list "
+              >
+                {collection.collectionName}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <h3 className="mt-4 px-3 py-1 to-color">
+          All {category.categoryName} images{" "}
+          {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
+            <Button
+              className="add-image ps-2 pe-2 pt-1 pb-1"
+              variant="outline-light"
+              onClick={openUploadModal}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+            </Button>
+          )}
+        </h3>
+        <p className="px-3 h3-subtitle">Click on an image to see the prompt </p>
+
+        {uploadMessage && <Alert variant="success">{uploadMessage}</Alert>}
+
+        <ImageUploadModal
+          isOpen={isUploadModalOpen}
+          onClose={closeUploadModal}
+          onUploadSuccess={handleUploadSuccess}
+        />
+        <div className="image-container">
+          {images.map((image) => (
+            <ImageCard
+              image={image}
+              key={image.imageID}
+              handleImageClick={handleImageClick}
+              handleCopyClick={handleCopyClick}
+              copiedImageId={copiedImageId}
+              selectedImages={selectedImages}
+              isFavorite={favoriteImages.some(
+                (img) => img.imageID === image.imageID
+              )}
+              handleFavoriteToggle={handleFavoriteToggle}
+            />
+          ))}
+        </div>
+        <Link className="go-back-home p-3" to={"/"}>
+          <FontAwesomeIcon icon={faHouseChimney} /> Return Home
+        </Link>
+      </div>
+    </div>
   );
 }
 

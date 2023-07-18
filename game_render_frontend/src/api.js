@@ -37,6 +37,13 @@ export async function fetchImagesFromCollection(id) {
   return response.json();
 }
 
+export async function fetchUserFavorites(username) {
+  const response = await fetch(
+    `http://localhost:8080/users/favorites/${username}`
+  );
+  return response.json();
+}
+
 // POST
 export async function uploadImage(formData) {
   const response = await fetch("http://localhost:8080/images", {
@@ -60,3 +67,23 @@ export async function createCollection(collectionData) {
   });
   return response;
 }
+
+// PUT
+
+export const toggleFavorite = async (username, imageId) => {
+  const response = await fetch(
+    `http://localhost:8080/users/${username}/toggleFavorite/${imageId}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  return await response.json();
+};

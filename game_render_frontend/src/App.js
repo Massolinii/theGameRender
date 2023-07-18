@@ -10,6 +10,7 @@ import { AuthProvider } from "./AuthContext";
 import RegisterForm from "./components/RegisterForm";
 import CollectionPage from "./components/CollectionPage";
 import Footer from "./components/Footer";
+import FavoritesPage from "./components/FavoritesPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/category/:id" element={<CategoryPage />} />
             <Route path="/collection/:id" element={<CollectionPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
           </Routes>
           <Footer />
         </Router>

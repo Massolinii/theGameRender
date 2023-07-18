@@ -95,7 +95,9 @@ function HomeNavBar({ show }) {
               <>
                 <Nav.Link className={linkClasses(5)}>{user.username}</Nav.Link>
                 <Nav.Link className={separatorClasses}>|</Nav.Link>
-                <Nav.Link className={linkClasses(6)}>Favorites</Nav.Link>
+                <Nav.Link className={linkClasses(6)} href="/favorites">
+                  Favorites
+                </Nav.Link>
                 <Nav.Link className={separatorClasses}>|</Nav.Link>
                 <Nav.Link onClick={logout} className={linkClasses(6)}>
                   Logout

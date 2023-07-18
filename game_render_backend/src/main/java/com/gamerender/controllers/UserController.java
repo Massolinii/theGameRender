@@ -51,9 +51,9 @@ public class UserController {
         }
     }
     
-    @GetMapping("/favorites/{id}")
-    public ResponseEntity<Set<Image>> getUserFavorites(@PathVariable Long id) {
-        Set<Image> favorites = userService.getUserFavoriteImages(id);
+    @GetMapping("/favorites/{username}")
+    public ResponseEntity<Set<Image>> getUserFavorites(@PathVariable String username) {
+        Set<Image> favorites = userService.getUserFavoriteImages(username);
         return new ResponseEntity<>(favorites, HttpStatus.OK);
     }
     
@@ -78,9 +78,9 @@ public class UserController {
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
     
-    @PutMapping("/{userId}/toggleFavorite/{imageId}")
-    public ResponseEntity<User> toggleFavorite(@PathVariable Long userId, @PathVariable Long imageId) {
-        User updatedUser = userService.toggleFavoriteImage(userId, imageId);
+    @PutMapping("/{username}/toggleFavorite/{imageId}")
+    public ResponseEntity<User> toggleFavorite(@PathVariable String username, @PathVariable Long imageId) {
+        User updatedUser = userService.toggleFavoriteImage(username, imageId);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
