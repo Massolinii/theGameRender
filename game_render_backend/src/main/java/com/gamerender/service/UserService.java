@@ -88,7 +88,7 @@ public class UserService {
         }
     }
     
-    public User addFavoriteImage(Long userId, Long imageId) {
+   /* public User addFavoriteImage(Long userId, Long imageId) {
         Optional<User> userOptional = userRepository.findById(userId);
         Optional<Image> imageOptional = imageRepository.findById(imageId);
 
@@ -116,6 +116,6 @@ public class UserService {
         } else {
             throw new RuntimeException("User or image not found");
         }
-    }
+    }*/
 	
 }

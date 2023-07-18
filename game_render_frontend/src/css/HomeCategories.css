@@ -5,7 +5,7 @@
     transform: translateX(0);
   }
   10% {
-    transform: translateX(-10px);
+    transform: translateX(-5px);
   }
   40% {
     transform: translateX(-90px);
@@ -17,7 +17,7 @@
     transform: translateX(-90px);
   }
   90% {
-    transform: translateX(-10px);
+    transform: translateX(-5px);
   }
   100% {
     transform: translateX(0);
@@ -40,6 +40,8 @@
   background-position: right;
   background-size: cover;
   background-repeat: no-repeat;
+  filter: brightness(80%);
+  transition: filter 0.5s ease;
 }
 
 .obj-category-bg {
@@ -54,10 +56,6 @@
   background-image: url("./wallpapers/category_wallpaper_characters.jpg");
   background-position: top;
   border-bottom: 4px solid black;
-}
-
-.background-image:hover {
-  filter: brightness(120%);
 }
 
 .category-name {
@@ -79,9 +77,11 @@
 }
 
 .categories-bg:hover .category-name::after {
-  content: "←";
+  content: url("/public/arrow-removebg-preview.png");
+  transform: scalex(-1);
   position: absolute;
-  animation: move-arrow 1.5s linear infinite;
+  animation: move-arrow 2s linear infinite;
   right: -60%;
   top: 15%;
+  pointer-events: none
 }
