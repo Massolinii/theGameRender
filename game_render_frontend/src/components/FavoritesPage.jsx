@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { fetchUserFavorites } from "../api";
+import { fetchUserFavorites, toggleFavorite } from "../api";
 import { AuthContext } from "../AuthContext";
 import copy from "clipboard-copy";
 import ImageCard from "./ImageCard";
@@ -29,9 +29,32 @@ function FavoritesPage() {
 
   useEffect(() => {
     if (user && user.username) {
-      fetchUserFavorites(user.username).then(setFavorites).catch(console.error);
+      fetchUserFavorites(user.username)
+        .then(setFavorites)
+        .catch(console.error);
     }
   }, [user]);
+
+  const handleFavoriteToggle = async (imageID) => {
+    try {
+      await toggleFavorite(user.username, imageID);
+      const updatedFavorites = [...favorites];
+      if (updatedFavorites.some((img) => img.imageID === imageID)) {
+        // Remove from favorites
+        const index = updatedFavorites.findIndex(
+          (img) => img.imageID === imageID
+        );
+        updatedFavorites.splice(index, 1);
+      } else {
+        // Add to favorites
+        const image = updatedFavorites.find((img) => img.imageID === imageID);
+        updatedFavorites.push(image);
+      }
+      setFavorites(updatedFavorites);
+    } catch (error) {
+      console.error("Failed to toggle favorite image:", error);
+    }
+  };
 
   return (
     <tt>
@@ -62,6 +85,8 @@ function FavoritesPage() {
                     handleCopyClick={handleCopyClick}
                     copiedImageId={copiedImageId}
                     selectedImages={selectedImages}
+                    isFavorite={true}
+                    handleFavoriteToggle={handleFavoriteToggle}
                   />
                 ))}
               </div>

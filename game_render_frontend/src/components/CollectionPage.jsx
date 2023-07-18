@@ -1,6 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { fetchCollection, fetchImagesFromCollection } from "../api";
+import {
+  fetchCollection,
+  fetchImagesFromCollection,
+  fetchUserFavorites,
+  toggleFavorite,
+} from "../api";
 import "../css/CategoryPage.css";
 import ImageUploadModal from "./ImageUploadModal";
 import { Alert, Button } from "react-bootstrap";
@@ -31,6 +36,8 @@ const CollectionPage = () => {
   const [uploadMessage, setUploadMessage] = useState(null);
   const { user } = useContext(AuthContext);
   const [copiedImageId, setCopiedImageId] = useState(null);
+  const [favoriteImages, setFavoriteImages] = useState([]);
+  const [favoriteImageIds, setFavoriteImageIds] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -49,6 +56,28 @@ const CollectionPage = () => {
       }
     })();
   }, [id]);
+
+  useEffect(() => {
+    (async () => {
+      if (user && user.username) {
+        try {
+          const favoriteImages = await fetchUserFavorites(user.username);
+          setFavoriteImages(favoriteImages);
+        } catch (error) {
+          console.error("Failed to fetch favorite images:", error);
+        }
+      }
+    })();
+  }, [user]);
+
+  useEffect(() => {
+    if (favoriteImages.length > 0) {
+      const favoriteImageIds = favoriteImages.map((img) => img.imageID);
+      setFavoriteImageIds(favoriteImageIds);
+    }
+  }, [favoriteImages]);
+
+  const bgClass = categoryToBgClass[collection?.category?.categoryID];
 
   const openUploadModal = () => {
     setIsUploadModalOpen(true);
@@ -76,8 +105,6 @@ const CollectionPage = () => {
     return <div>Loading...</div>;
   }
 
-  const bgClass = categoryToBgClass[collection.category.categoryID];
-
   const handleUploadSuccess = async (message) => {
     setUploadMessage(message);
 
@@ -89,84 +116,103 @@ const CollectionPage = () => {
     }
   };
 
+  const handleFavoriteToggle = async (imageID) => {
+    try {
+      await toggleFavorite(user.username, imageID);
+      const updatedFavoriteImages = [...favoriteImages];
+      if (updatedFavoriteImages.some((img) => img.imageID === imageID)) {
+        // Remove from favorites
+        const index = updatedFavoriteImages.findIndex(
+          (img) => img.imageID === imageID
+        );
+        updatedFavoriteImages.splice(index, 1);
+      } else {
+        // Add to favorites
+        const image = images.find((img) => img.imageID === imageID);
+        updatedFavoriteImages.push(image);
+      }
+      setFavoriteImages(updatedFavoriteImages);
+    } catch (error) {
+      console.error("Failed to toggle favorite image:", error);
+    }
+  };
+
   return (
-    <tt>
-      <div className="category-page-container pt-5 full-screen">
-        <div className={`category-page-bg ${bgClass}`}>
-          <h1 className="category-page-name">
-            {collection.category.categoryName} - {collection.collectionName}
-          </h1>
-        </div>
-
-        <div className="text-white pt-2">
-          <Link
-            className="go-back-home p-3"
-            to={`/category/${collection.category.categoryID}`}
-          >
-            <FontAwesomeIcon icon={faCircleLeft} /> Return to{" "}
-            {collection.category.categoryName}
-          </Link>
-          <br />
-          <Link className="go-back-home p-3" to={"/"}>
-            <FontAwesomeIcon icon={faHouseChimney} /> Return Home
-          </Link>
-
-          <h3 className="mt-5 px-3 py-1 to-color">
-            All {collection.category.categoryName} - {collection.collectionName}{" "}
-            images{" "}
-            {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
-              <Button
-                className="add-image"
-                variant="outline-light"
-                onClick={openUploadModal}
-              >
-                <FontAwesomeIcon icon={faPlus} />
-              </Button>
-            )}
-          </h3>
-          <p className="px-3 h3-subtitle">
-            Click on an image to see the prompt{" "}
-          </p>
-
-          {uploadMessage && <Alert variant="success">{uploadMessage}</Alert>}
-
-          <ImageUploadModal
-            isOpen={isUploadModalOpen}
-            onClose={closeUploadModal}
-            onUploadSuccess={handleUploadSuccess}
-          />
-          <div className="image-container">
-            {images.length > 0 ? (
-              images.map((image) => (
-                <ImageCard
-                  image={image}
-                  key={image.imageID}
-                  handleImageClick={handleImageClick}
-                  handleCopyClick={handleCopyClick}
-                  copiedImageId={copiedImageId}
-                  selectedImages={selectedImages}
-                />
-              ))
-            ) : (
-              <div className="empty-collection-message p-5">
-                <h2>Ops! Looks like this collection is empty.</h2>
-              </div>
-            )}
-          </div>
-          <Link
-            className="go-back-home p-3"
-            to={`/category/${collection.category.categoryID}`}
-          >
-            <FontAwesomeIcon icon={faCircleLeft} /> Return to{" "}
-            {collection.category.categoryName}
-          </Link>
-          <br />
-          <Link className="go-back-home p-3" to={"/"}>
-            <FontAwesomeIcon icon={faHouseChimney} /> Return Home
-          </Link>
-        </div>
+    <div className="pt-5 full-screen">
+      <div className={`category-page-bg ${bgClass}`}>
+        <h1 className="category-page-name">
+          {collection.category.categoryName} - {collection.collectionName}
+        </h1>
       </div>
-    </tt>
+
+      <div className="category-page-container text-white pt-2">
+        <Link
+          className="go-back-home p-3"
+          to={`/category/${collection.category.categoryID}`}
+        >
+          <FontAwesomeIcon icon={faCircleLeft} /> Return to{" "}
+          {collection.category.categoryName}
+        </Link>
+        <br />
+        <Link className="go-back-home p-3" to={"/"}>
+          <FontAwesomeIcon icon={faHouseChimney} /> Return Home
+        </Link>
+
+        <h3 className="mt-5 px-3 py-1 to-color">
+          All {collection.category.categoryName} - {collection.collectionName}{" "}
+          images{" "}
+          {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
+            <Button
+              className="add-image"
+              variant="outline-light"
+              onClick={openUploadModal}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+            </Button>
+          )}
+        </h3>
+        <p className="px-3 h3-subtitle">Click on an image to see the prompt </p>
+
+        {uploadMessage && <Alert variant="success">{uploadMessage}</Alert>}
+
+        <ImageUploadModal
+          isOpen={isUploadModalOpen}
+          onClose={closeUploadModal}
+          onUploadSuccess={handleUploadSuccess}
+        />
+        <div className="image-container">
+          {images.length > 0 ? (
+            images.map((image) => (
+              <ImageCard
+                image={image}
+                key={image.imageID}
+                handleImageClick={handleImageClick}
+                handleCopyClick={handleCopyClick}
+                copiedImageId={copiedImageId}
+                selectedImages={selectedImages}
+                isFavorite={favoriteImageIds.includes(image.imageID)}
+                handleFavoriteToggle={handleFavoriteToggle}
+              />
+            ))
+          ) : (
+            <div className="empty-collection-message p-5">
+              <h2>Ops! Looks like this collection is empty.</h2>
+            </div>
+          )}
+        </div>
+        <Link
+          className="go-back-home p-3"
+          to={`/category/${collection.category.categoryID}`}
+        >
+          <FontAwesomeIcon icon={faCircleLeft} /> Return to{" "}
+          {collection.category.categoryName}
+        </Link>
+        <br />
+        <Link className="go-back-home p-3" to={"/"}>
+          <FontAwesomeIcon icon={faHouseChimney} /> Return Home
+        </Link>
+      </div>
+    </div>
   );
 };
 
