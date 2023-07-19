@@ -2,18 +2,6 @@
 
 The Game Render is a showcase website that presents a collection of AI-generated images using Midjourney. It provides developers with a wide range of prompts and assets for game development, including drafts, characters, environments, props, and various other resources
 
-## Technologies Used
-
-- Frontend:
-  - JavaScript
-  - React
-  - Bootstrap
-
-- Backend:
-  - Java
-  - Spring Boot
-  - PostgreSQL
-
 ## Features
 
 - Explore a vast collection of AI-generated images for game development.
@@ -51,6 +39,18 @@ The Game Render is a showcase website that presents a collection of AI-generated
   ```
 
 5. Access the application at `http://localhost:3000` in your web browser.
+
+## Technologies Used
+
+- Frontend:
+  - JavaScript
+  - React
+  - Bootstrap
+
+- Backend:
+  - Java
+  - Spring Boot
+  - PostgreSQL
 
 ## Contributing
 
