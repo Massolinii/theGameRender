@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
 .hero-section {
   background-color: #010d14;
@@ -28,16 +28,18 @@
 }
 
 .heroLogo {
-  height: auto;
-  margin: auto;
+  height: 30vw;
+  width: 30vw;
   max-height: 200px;
+  max-width: 200px;
+  margin: auto;
   opacity: 0;
   transform: translateX(-100%);
   transition: opacity 1.3s ease-in-out, transform 1.7s ease-in-out;
 }
 
 .heroTitle {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-size: clamp(2rem, 5vw, 6rem);
   color: rgb(204, 204, 204);
   padding: 0rem clamp(1rem, 2vw, 3rem);

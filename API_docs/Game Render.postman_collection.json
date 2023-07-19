@@ -1,0 +1,850 @@
+{
+	"info": {
+		"_postman_id": "844674a5-d020-47f8-90a7-4a5bc14e502b",
+		"name": "Game Render",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27810517"
+	},
+	"item": [
+		{
+			"name": "All Users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"lucy.parsons\",\r\n    \"password\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Admin",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"masso.lini\",\r\n    \"password\": \"root\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"gabr1\",\r\n    \"email\": \"gabro@gmail.com\",\r\n    \"password\": \"asdfgh\",\r\n    \"firstname\": \"Gabr\",\r\n    \"lastname\": \"Ele\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Categories",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Category",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/categories/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categories",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4OTA5MjQ5LCJleHAiOjE2ODk3NzMyNDl9.CTcvoDHQUqp6KPBlSLW0NJZ8ZBsCnCRrwJYKXZ0z0kwclToJxsI4urP-sTfVpnD1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryName\": \"sium\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4OTEyODUwLCJleHAiOjE2ODk3NzY4NTB9.1T3li57AQth5QQxA2AJyIpDfav9GIlcIsTY2BzgkTZm6B73sVMTtxOJXkrkn6ydt",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryName\": \"fire\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/categories/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categories",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Collections",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4Mzg1NzM3LCJleHAiOjE2ODkyNDk3Mzd9._wb4A6bVaClkHdXoA4-KTAiAfpScSUFJWcbrYzjIQ59KNEgAwnr0ZvdZEsyLSrs1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/collections",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"collections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Collection",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/collections/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"collections",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Collections",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4OTEyODUwLCJleHAiOjE2ODk3NzY4NTB9.1T3li57AQth5QQxA2AJyIpDfav9GIlcIsTY2BzgkTZm6B73sVMTtxOJXkrkn6ydt",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"collectionName\": \"La mia Prima Collection\",\r\n    \"category\": {\r\n        \"categoryID\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/collections",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"collections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Collections",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4OTEyODUwLCJleHAiOjE2ODk3NzY4NTB9.1T3li57AQth5QQxA2AJyIpDfav9GIlcIsTY2BzgkTZm6B73sVMTtxOJXkrkn6ydt",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryName\": \"Modificato1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/categories/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categories",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Images",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4MTU5MTU2LCJleHAiOjE2ODkwMjMxNTZ9.yE4KGNH_2dS7WeqbeKMQLq7ioTH39kK77Y48U2rm_s4UdzvrvqAITCX9QeysR1ZY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Gerry",
+							"type": "text"
+						},
+						{
+							"key": "promptText",
+							"value": "gerry scotti, naked",
+							"type": "text"
+						},
+						{
+							"key": "url",
+							"type": "file",
+							"src": "/C:/Users/massi/Desktop/homework/gerry-scotti-verissimo-2019.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/images",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Image",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4MTU5MTU2LCJleHAiOjE2ODkwMjMxNTZ9.yE4KGNH_2dS7WeqbeKMQLq7ioTH39kK77Y48U2rm_s4UdzvrvqAITCX9QeysR1ZY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Gerry",
+							"type": "text"
+						},
+						{
+							"key": "promptText",
+							"value": "gerry scotti, naked",
+							"type": "text"
+						},
+						{
+							"key": "url",
+							"type": "file",
+							"src": "/C:/Users/massi/Desktop/homework/gerry-scotti-verissimo-2019.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/images/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"images",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Image",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4MTU5MTU2LCJleHAiOjE2ODkwMjMxNTZ9.yE4KGNH_2dS7WeqbeKMQLq7ioTH39kK77Y48U2rm_s4UdzvrvqAITCX9QeysR1ZY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/massi/Desktop/generazione_immagini/obj_magichammer.jpg"
+						},
+						{
+							"key": "promptText",
+							"value": "polygonal 3d model of a game item, a big hammer, bright and vivid colorful, 2d game art, 3D rendering, C4D",
+							"type": "text"
+						},
+						{
+							"key": "collectionId",
+							"value": "6",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "magic, weapon, tool, kingdom hearts, spelunky",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/images",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Image",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/emart/OneDrive/Desktop/Massy/Capstone/theGameRender/game_render_backend/images/bg_stonetower.jpg"
+						},
+						{
+							"key": "prompt",
+							"value": "items_stone",
+							"type": "text"
+						},
+						{
+							"key": "collectionId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "fire, bello",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/images",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Tags",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4MTU5MTU2LCJleHAiOjE2ODkwMjMxNTZ9.yE4KGNH_2dS7WeqbeKMQLq7ioTH39kK77Y48U2rm_s4UdzvrvqAITCX9QeysR1ZY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Gerry",
+							"type": "text"
+						},
+						{
+							"key": "promptText",
+							"value": "gerry scotti, naked",
+							"type": "text"
+						},
+						{
+							"key": "url",
+							"type": "file",
+							"src": "/C:/Users/massi/Desktop/homework/gerry-scotti-verissimo-2019.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/images/tags",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"images",
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Images FROM Tag",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Gerry",
+							"type": "text"
+						},
+						{
+							"key": "promptText",
+							"value": "gerry scotti, naked",
+							"type": "text"
+						},
+						{
+							"key": "url",
+							"type": "file",
+							"src": "/C:/Users/massi/Desktop/homework/gerry-scotti-verissimo-2019.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/images/tags/cozy",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"images",
+						"tags",
+						"cozy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Images FROM Collection",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4MTU5MTU2LCJleHAiOjE2ODkwMjMxNTZ9.yE4KGNH_2dS7WeqbeKMQLq7ioTH39kK77Y48U2rm_s4UdzvrvqAITCX9QeysR1ZY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Gerry",
+							"type": "text"
+						},
+						{
+							"key": "promptText",
+							"value": "gerry scotti, naked",
+							"type": "text"
+						},
+						{
+							"key": "url",
+							"type": "file",
+							"src": "/C:/Users/massi/Desktop/homework/gerry-scotti-verissimo-2019.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/images/collection/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"images",
+						"collection",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Favorite FROM Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4MzIwNDI4LCJleHAiOjE2ODkxODQ0Mjh9.CJHg_ibGzWUmMjUyykNfGY_iJbuiWeRVJV5KJnu503d-VJXTAt3HyLtX2VFkTSpj",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/favorites/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"favorites",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Favorites",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4OTE2MTU2LCJleHAiOjE2ODk3ODAxNTZ9.NUntm1WleH4Xnd8dThr9MkDKeQCm2Hw7eqKEHlcAVIcLjhJMPkDfP8aKjO76mm9R",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/1/toggleFavorite/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"toggleFavorite",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzM4NCJ9"
+		}
+	]
+}

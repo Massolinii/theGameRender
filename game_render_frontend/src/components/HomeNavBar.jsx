@@ -14,17 +14,17 @@ function HomeNavBar({ show }) {
   const [isMdScreen, setIsMdScreen] = useState(window.innerWidth >= 768);
   const [isLgScreen, setIsLgScreen] = useState(window.innerWidth >= 1200);
 
-useEffect(() => {
-  const handleResize = () => {
-    setIsLgScreen(window.innerWidth >= 1200);
-    setIsMdScreen(window.innerWidth >= 768);
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLgScreen(window.innerWidth >= 1200);
+      setIsMdScreen(window.innerWidth >= 768);
+    };
 
-  window.addEventListener("resize", handleResize);
-  return () => {
-    window.removeEventListener("resize", handleResize);
-  };
-}, []);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const titleClasses = classnames("navbar-brand", "hidden", {
     "title-animation": isHomePage,
@@ -48,28 +48,29 @@ useEffect(() => {
         <Navbar.Brand href="/" className={titleClasses}>
           the game render
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-           {isMdScreen ? (
+        <Navbar.Toggle />
+        <Navbar.Collapse>
+          {isMdScreen ? (
             <>
-                      <Navbar.Brand href="/" className={separatorClasses}>
-            ||
-          </Navbar.Brand>
+              <Navbar.Brand href="/" className={separatorClasses}>
+                ||
+              </Navbar.Brand>
             </>
-           ) : (
-            <>
-            </>
-           )}
-
+          ) : (
+            <></>
+          )}
 
           <Nav className="mr-auto">
             <Nav.Link href="/" className={linkClasses(1)}>
               Home
             </Nav.Link>
             {isMdScreen ? (
-              <><Nav.Link className={separatorClasses}>|</Nav.Link></>
-            ) : (<></>)}
-
+              <>
+                <Nav.Link className={separatorClasses}>|</Nav.Link>
+              </>
+            ) : (
+              <></>
+            )}
 
             {/* Categories Dropdown */}
             {isLgScreen && (
@@ -89,9 +90,10 @@ useEffect(() => {
             )}
 
             {!isLgScreen && (
-              <NavDropdown title="Categories" className={classnames(linkClasses(2),
-                "dark-dropdown"
-              )}>
+              <NavDropdown
+                title="Categories"
+                className={classnames(linkClasses(2), "dark-dropdown")}
+              >
                 <NavDropdown.Item href="/category/1">
                   Environments
                 </NavDropdown.Item>
@@ -106,58 +108,61 @@ useEffect(() => {
           </Nav>
 
           <Nav className="ms-auto">
-          {user && !user.loading ? (
-            <>
-              {isMdScreen ? (
-                <>
-                  <Nav.Link className={linkClasses(5)}>{user.username}</Nav.Link>
-                  <Nav.Link className={separatorClasses}>|</Nav.Link>
-                  <Nav.Link className={linkClasses(6)} href="/favorites">
-                    Favorites
-                  </Nav.Link>
-                  <Nav.Link className={separatorClasses}>|</Nav.Link>
-                  <Nav.Link onClick={logout} className={linkClasses(6)}>
-                    Logout
-                  </Nav.Link>
-                </>
-              ) : (
-                <>
-                 <Nav.Link className={linkClasses(5)}>{user.username}</Nav.Link>
-                  <Nav.Link className={linkClasses(6)} href="/favorites">
-                    Favorites
-                  </Nav.Link>
-                  <Nav.Link onClick={logout} className={linkClasses(6)}>
-                    Logout
-                  </Nav.Link>
-                </>
-              )}
-            </>
-          ) : (
-            <>
-              {isMdScreen ? (
-                <>
-                  <Nav.Link href="/login" className={linkClasses(6)}>
-                    Login
-                  </Nav.Link>
-                  <Nav.Link className={separatorClasses}>|</Nav.Link>
-                  <Nav.Link href="/register" className={linkClasses(6)}>
-                    Register
-                  </Nav.Link>
-                </>
-              ) : (
-                <>
-                  <Nav.Link href="/login" className={linkClasses(6)}>
-                    Login
-                  </Nav.Link>
-                  <Nav.Link href="/register" className={linkClasses(6)}>
-                    Register
-                  </Nav.Link>
-                </>
-              )}
-            </>
-          )}
-         </Nav>
-
+            {user && !user.loading ? (
+              <>
+                {isMdScreen ? (
+                  <>
+                    <Nav.Link className={linkClasses(5)}>
+                      {user.username}
+                    </Nav.Link>
+                    <Nav.Link className={separatorClasses}>|</Nav.Link>
+                    <Nav.Link className={linkClasses(6)} href="/favorites">
+                      Favorites
+                    </Nav.Link>
+                    <Nav.Link className={separatorClasses}>|</Nav.Link>
+                    <Nav.Link onClick={logout} className={linkClasses(6)}>
+                      Logout
+                    </Nav.Link>
+                  </>
+                ) : (
+                  <>
+                    <Nav.Link className={linkClasses(5)}>
+                      {user.username}
+                    </Nav.Link>
+                    <Nav.Link className={linkClasses(6)} href="/favorites">
+                      Favorites
+                    </Nav.Link>
+                    <Nav.Link onClick={logout} className={linkClasses(6)}>
+                      Logout
+                    </Nav.Link>
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                {isMdScreen ? (
+                  <>
+                    <Nav.Link href="/login" className={linkClasses(6)}>
+                      Login
+                    </Nav.Link>
+                    <Nav.Link className={separatorClasses}>|</Nav.Link>
+                    <Nav.Link href="/register" className={linkClasses(6)}>
+                      Register
+                    </Nav.Link>
+                  </>
+                ) : (
+                  <>
+                    <Nav.Link href="/login" className={linkClasses(6)}>
+                      Login
+                    </Nav.Link>
+                    <Nav.Link href="/register" className={linkClasses(6)}>
+                      Register
+                    </Nav.Link>
+                  </>
+                )}
+              </>
+            )}
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
     </tt>

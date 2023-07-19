@@ -45,15 +45,15 @@
 }
 
 .obj-category-bg {
-  background-image: url("./wallpapers/category_wallpaper.object.jpg");
+  background-image: url("./wallpapers/category_wallpaper.object.webp");
 }
 
 .env-category-bg {
-  background-image: url("./wallpapers/category_wallpaper_environment.jpg");
+  background-image: url("./wallpapers/category_wallpaper_environment.webp");
 }
 
 .char-category-bg {
-  background-image: url("./wallpapers/category_wallpaper_characters.jpg");
+  background-image: url("./wallpapers/category_wallpaper_characters.webp");
   background-position: top;
   border-bottom: 4px solid black;
 }
