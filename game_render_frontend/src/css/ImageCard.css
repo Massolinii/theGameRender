@@ -1,0 +1,64 @@
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
+}
+
+.image-in-category {
+  max-height: 300px;
+  max-width: 300px;
+  aspect-ratio: 1/1;
+  padding: 10px;
+}
+
+.image-in-category:hover {
+  box-shadow: 0 0 50px 5px rgba(255, 255, 255, 0.1);
+}
+
+.prompt-text {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 280px;
+  margin: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  min-height: 1.5em;
+  opacity: 0;
+  max-height: 1.5em;
+  transition: opacity 0.5s ease-in-out, max-height 0s 0.5s;
+  overflow: hidden;
+}
+
+.prompt-text.visible {
+  opacity: 1;
+  max-height: 350px;
+  transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+}
+
+.copy-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+}
+
+.copy-icon {
+  position: relative;
+  left: 3px;
+}
+
+.copy-text {
+  position: relative;
+  left: 8px;
+}
+
+.copy-text:hover,
+.copy-icon:hover {
+  cursor: pointer;
+}
+
+.open-section {
+  text-decoration: none;
+}

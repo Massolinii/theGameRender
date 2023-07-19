@@ -29,9 +29,7 @@ function FavoritesPage() {
 
   useEffect(() => {
     if (user && user.username) {
-      fetchUserFavorites(user.username)
-        .then(setFavorites)
-        .catch(console.error);
+      fetchUserFavorites(user.username).then(setFavorites).catch(console.error);
     }
   }, [user]);
 
@@ -60,7 +58,7 @@ function FavoritesPage() {
     <tt>
       <div className="category-page-container pt-5 full-screen">
         <div>
-          <h1 className="p-5 text-white">Your Favorites</h1>
+          <h1 className="p-3 text-white">Your Favorites</h1>
         </div>
 
         <div className="text-white pt-2">

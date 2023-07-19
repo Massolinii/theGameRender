@@ -45,7 +45,7 @@ const LoginForm = () => {
       });
       setTimeout(() => {
         window.location.replace("/");
-      }, 3000);
+      }, 500);
     } else {
       console.log("Server error:", response.statusText);
       setError("Username or password are not correct");

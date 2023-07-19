@@ -38,6 +38,7 @@
   font-size: clamp(0.5rem, 1.2rem, 1.5rem);
   color: rgb(204, 204, 204);
   border-left: 2px solid rgb(204, 204, 204);
+  font-weight: bold;
 }
 
 @media (max-width: 545px) {

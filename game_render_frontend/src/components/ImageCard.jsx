@@ -8,6 +8,7 @@ import {
   faHeart as regularHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as outlineHeart } from "@fortawesome/free-regular-svg-icons";
+import "../css/ImageCard.css";
 
 const ImageCard = ({
   image,
