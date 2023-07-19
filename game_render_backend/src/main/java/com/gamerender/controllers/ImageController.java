@@ -94,6 +94,7 @@ public class ImageController {
         return new ResponseEntity<>(tags, HttpStatus.OK);
     }
     
+    @CrossOrigin(origins = "*")
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createImage(@RequestParam("image") MultipartFile imageFile, 

@@ -84,7 +84,10 @@ public class ImageService {
             newImage.setTags(new HashSet<String>(tags));
             newImage.setCollection(collection);
             
-            uploadResult = cloudinary.uploader().upload(imageFile.getBytes(), ObjectUtils.emptyMap());
+            uploadResult = cloudinary.uploader().upload(imageFile.getBytes(), ObjectUtils.asMap(
+                    "resource_type", "auto",
+                    "quality", "auto"
+                ));
             String imageUrl = (String) uploadResult.get("url");
             newImage.setUrl(imageUrl);
             

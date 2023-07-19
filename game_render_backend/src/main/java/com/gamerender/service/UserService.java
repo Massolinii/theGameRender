@@ -23,14 +23,14 @@ public class UserService {
 	
 	@Autowired private ImageRepository imageRepository;
 	
-	 public Set<Image> getUserFavoriteImages(Long id) {
-	        Optional<User> user = userRepository.findById(id);
-	        if (user.isPresent()) {
-	            return user.get().getFavoriteImages();
-	        } else {
-	            throw new UserNotFoundException("User not found with id: " + id);
-	        }
+	public Set<Image> getUserFavoriteImages(String username) {
+	    Optional<User> user = userRepository.findByUsername(username);
+	    if (user.isPresent()) {
+	        return user.get().getFavoriteImages();
+	    } else {
+	        throw new UserNotFoundException("User not found with username: " + username);
 	    }
+	}
 	
 	public User createUser(User user) {
 		 try {
@@ -69,8 +69,8 @@ public class UserService {
         return "Category removed";
     }
     
-    public User toggleFavoriteImage(Long userId, Long imageId) {
-        Optional<User> userOptional = userRepository.findById(userId);
+    public User toggleFavoriteImage(String username, Long imageId) {
+        Optional<User> userOptional = userRepository.findByUsername(username);
         Optional<Image> imageOptional = imageRepository.findById(imageId);
 
         if(userOptional.isPresent() && imageOptional.isPresent()) {
@@ -82,36 +82,6 @@ public class UserService {
             } else {
                 user.getFavoriteImages().add(image);
             }
-            return userRepository.save(user);
-        } else {
-            throw new RuntimeException("User or image not found");
-        }
-    }
-    
-    public User addFavoriteImage(Long userId, Long imageId) {
-        Optional<User> userOptional = userRepository.findById(userId);
-        Optional<Image> imageOptional = imageRepository.findById(imageId);
-
-        if(userOptional.isPresent() && imageOptional.isPresent()) {
-            User user = userOptional.get();
-            Image image = imageOptional.get();
-
-            user.getFavoriteImages().add(image);
-            return userRepository.save(user);
-        } else {
-            throw new RuntimeException("User or image not found");
-        }
-    }
- 
-    public User removeFavoriteImage(Long userId, Long imageId) {
-        Optional<User> userOptional = userRepository.findById(userId);
-        Optional<Image> imageOptional = imageRepository.findById(imageId);
-
-        if(userOptional.isPresent() && imageOptional.isPresent()) {
-            User user = userOptional.get();
-            Image image = imageOptional.get();
-
-            user.getFavoriteImages().remove(image);
             return userRepository.save(user);
         } else {
             throw new RuntimeException("User or image not found");
