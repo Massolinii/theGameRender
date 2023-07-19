@@ -18,3 +18,4 @@ buildNumber.properties
 game_render_backend/logs/application.log
 game_render_backend/logs/application.log
 **/*.log
+*.log
