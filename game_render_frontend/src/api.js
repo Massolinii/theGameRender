@@ -37,6 +37,13 @@ export async function fetchImagesFromCollection(id) {
   return response.json();
 }
 
+export async function fetchImagesByKeyword(keyword) {
+  const response = await fetch(
+    `http://localhost:8080/images/search/${keyword}`
+  );
+  return response.json();
+}
+
 export async function fetchUserFavorites(username) {
   const response = await fetch(
     `http://localhost:8080/users/favorites/${username}`

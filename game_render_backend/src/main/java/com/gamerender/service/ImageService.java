@@ -70,6 +70,10 @@ public class ImageService {
     public List<String> getAllUniqueTags() {
         return imageRepository.findAllUniqueTags();
     }
+    
+    public List<Image> getImagesByKeyword(String keyword) {
+        return imageRepository.findImagesByKeyword(keyword);
+    }
 
 	// POST
     public Image createImage(MultipartFile imageFile, String prompt, Collection collection, Set<String> tags) {

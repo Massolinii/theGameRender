@@ -5,6 +5,7 @@ import Quest from "./Quest";
 import HomeCategories from "./HomeCategories";
 import HomeNavBar from "./HomeNavBar";
 import LearnToWriteHome from "./LearnToWriteHome";
+import Search from "./Search";
 
 function HomePage() {
   const [showHero, setShowHero] = useState(false);
@@ -22,6 +23,7 @@ function HomePage() {
         <HomeNavBar show={showNavBar} />
         <Quest />
         <HomeCategories />
+        <Search />
         <LearnToWriteHome />
       </Container>
     </div>
