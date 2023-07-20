@@ -12,12 +12,14 @@ import CollectionPage from "./components/CollectionPage";
 import Footer from "./components/Footer";
 import FavoritesPage from "./components/FavoritesPage";
 import HowToWrite from "./components/HowToWrite";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <AuthProvider>
       <div className="App">
         <Router>
+          <ScrollToTop />
           <HomeNavBar />
           <Routes>
             <Route path="/" element={<HomePage />} />

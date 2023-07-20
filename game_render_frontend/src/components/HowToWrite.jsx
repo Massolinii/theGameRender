@@ -1,12 +1,18 @@
 import { Container } from "react-bootstrap";
 import "../css/HowToWrite.css";
 import elvishImage from "../css/wallpapers/env_elvishtownhall1-_1_.webp";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouseChimney } from "@fortawesome/free-solid-svg-icons";
 
 function HowToWrite() {
   return (
     <div className="category-page-container text-white py-5 px-3 full-screen">
+      <Link className="go-back-home p-3" to={"/"}>
+        <FontAwesomeIcon icon={faHouseChimney} /> Return Home
+      </Link>
       <tt>
-        <h1 className="pt-5 pb-3">Writing a Game Asset Prompt</h1>
+        <h1 className="pt-2 pb-3">Writing a Game Asset Prompt</h1>
         <p>
           Writing effective prompts on MidJourney for the development of game
           assets can be quite an engaging activity. Here are some key steps you
@@ -137,6 +143,9 @@ function HowToWrite() {
           what you had in mind!
         </p>
       </tt>
+      <Link className="go-back-home px-3" to={"/"}>
+        <FontAwesomeIcon icon={faHouseChimney} /> Return Home
+      </Link>
     </div>
   );
 }
