@@ -6,14 +6,14 @@
 }
 
 .image-in-category {
-  max-height: 300px;
-  max-width: 300px;
+  max-height: 330px;
+  max-width: 330px;
   aspect-ratio: 1/1;
-  padding: 10px;
+  padding: 5px;
 }
 
 .image-in-category:hover {
-  box-shadow: 0 0 50px 5px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 30px 15px rgba(255, 255, 255, 0.2);
 }
 
 .prompt-text {

@@ -7,9 +7,13 @@ function Footer() {
         <div className="text-center pb-3 pt-2 footer-background">
           <p className="display-6 mb-0 footer-text">THE_GAME_RENDER</p>
           <small className="text-white-50">
-            2023. Made by&nbsp;
+            2023. Made by Massimiliano Esposito -{" "}
             <a className="" href="https://github.com/Massolinii">
-              Massimiliano Esposito
+              GitHub
+            </a>{" "}
+            -{" "}
+            <a className="" href="https://www.linkedin.com/in/massolini/">
+              LinkedIn
             </a>
           </small>
         </div>
