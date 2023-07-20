@@ -12,7 +12,7 @@ The Game Render is a showcase website that presents a collection of AI-generated
 
 1. Clone the repository:
   ```
-  git clone https://github.com/your-username/the-game-render.git
+  git clone https://github.com/Massolinii/the-game-render.git
   ```
 2. Set up the frontend:
 - Navigate to the frontend directory:
