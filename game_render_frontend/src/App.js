@@ -11,12 +11,15 @@ import RegisterForm from "./components/RegisterForm";
 import CollectionPage from "./components/CollectionPage";
 import Footer from "./components/Footer";
 import FavoritesPage from "./components/FavoritesPage";
+import HowToWrite from "./components/HowToWrite";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <AuthProvider>
       <div className="App">
         <Router>
+          <ScrollToTop />
           <HomeNavBar />
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -25,6 +28,7 @@ function App() {
             <Route path="/category/:id" element={<CategoryPage />} />
             <Route path="/collection/:id" element={<CollectionPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
+            <Route path="/how-to-write-a-prompt" element={<HowToWrite />} />
           </Routes>
           <Footer />
         </Router>

@@ -94,6 +94,12 @@ public class ImageController {
         return new ResponseEntity<>(tags, HttpStatus.OK);
     }
     
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity<List<Image>> searchImages(@PathVariable String keyword) {
+        List<Image> images = imageService.getImagesByKeyword(keyword);
+        return new ResponseEntity<>(images, HttpStatus.OK);
+    }
+    
     @CrossOrigin(origins = "*")
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
