@@ -1,4 +1,6 @@
+import { Container } from "react-bootstrap";
 import "../css/HowToWrite.css";
+import elvishImage from "../css/wallpapers/env_elvishtownhall1-_1_.webp";
 
 function HowToWrite() {
   return (
@@ -84,7 +86,7 @@ function HowToWrite() {
             links to videos that show what you have in mind. Visual references
             can be very helpful in clarifying your intent.
           </li>
-          <pre className="code-block">
+          <pre className="code-block mb-2">
             <code>
               <span className="text-muted">
                 Design a Elvish Townhall, in a forest, with an ancient oak tree
@@ -95,6 +97,13 @@ function HowToWrite() {
               in the style of krenz cushart
             </code>
           </pre>
+          <Container className="d-flex justify-content-center p-0 m-0 mb-4">
+            <img
+              src={elvishImage}
+              alt="Elvish Townhall"
+              className="tutorial-elvish-image"
+            />
+          </Container>
 
           <li>
             <strong>Review and Refine:</strong> Finally, don't be afraid to
