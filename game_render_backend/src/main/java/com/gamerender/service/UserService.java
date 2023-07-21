@@ -66,7 +66,7 @@ public class UserService {
             throw new UserNotFoundException("User with ID " + id + " not found.");
         }
         userRepository.deleteById(id);
-        return "Category removed";
+        return "Goodbye friend.";
     }
     
     public User toggleFavoriteImage(String username, Long imageId) {
