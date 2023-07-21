@@ -16,13 +16,13 @@ function Quest() {
           All the image in this site were generated using a text prompt
           describing the image. Feel free to copy and modify the prompts you
           find here as they better suits you and create{" "}
-          <span className="color-1">sprites</span>,{" "}
-          <span className="color-2">references</span>,{" "}
-          <span className="color-3">character icons</span>,{" "}
-          <span className="color-4">monster-pedia sketches</span>,{" "}
-          <span className="color-5">backgrounds</span>,{" "}
-          <span className="color-6">textures</span>, and much, much{" "}
-          <span className="color-7">more</span>.
+          <span className="color-red">sprites</span>,{" "}
+          <span className="color-orange">references</span>,{" "}
+          <span className="color-yellow">character icons</span>,{" "}
+          <span className="color-green">monster-pedia sketches</span>,{" "}
+          <span className="color-blue">backgrounds</span>,{" "}
+          <span className="color-purple">textures</span>, and much, much{" "}
+          <span className="color-pink">more</span>.
         </p>
         <p className="quest-text px-3 pb-4">
           Q : Our mission?

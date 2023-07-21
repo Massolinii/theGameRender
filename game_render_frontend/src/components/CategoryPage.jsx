@@ -5,7 +5,6 @@ import {
   fetchCollectionsFromCategory,
   fetchImagesFromCategory,
   fetchUserFavorites,
-  toggleFavorite,
 } from "../api";
 import "../css/CategoryPage.css";
 import ImageUploadModal from "./ImageUploadModal";
@@ -16,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faHouseChimney } from "@fortawesome/free-solid-svg-icons";
 import CollectionCreateModal from "./CollectionCreateModal";
 import ImageCard from "./ImageCard";
+import { UseImageActions } from "../hooks/UseImageActions";
 
 const categoryToBgClass = {
   1: "env-category-bg",
@@ -34,34 +34,32 @@ function CategoryPage() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [uploadMessage, setUploadMessage] = useState(null);
   const { user } = useContext(AuthContext);
-  const [copiedImageId, setCopiedImageId] = useState(null);
-  const [favoriteImages, setFavoriteImages] = useState([]);
 
+  const {
+    favoriteImages,
+    setFavoriteImages,
+    copiedImageId,
+    handleCopyClick,
+    handleFavoriteToggle,
+  } = UseImageActions(user, images);
+
+  // Fetch category, collections and images on page load
   useEffect(() => {
     (async () => {
       try {
         const category = await fetchCategory(id);
         setCategory(category);
-      } catch (error) {
-        console.error("Failed to fetch category:", error);
-      }
-
-      try {
         const collections = await fetchCollectionsFromCategory(id);
         setCollections(collections);
-      } catch (error) {
-        console.error("Failed to fetch collections:", error);
-      }
-
-      try {
         const images = await fetchImagesFromCategory(id);
         setImages(images);
       } catch (error) {
-        console.error("Failed to fetch images:", error);
+        console.error("Failed to fetch data:", error);
       }
     })();
   }, [id]);
 
+  // Fetch user's favorite images on page load and when user updates
   useEffect(() => {
     (async () => {
       if (user && user.username) {
@@ -93,6 +91,7 @@ function CategoryPage() {
     setIsCollectionCreateModalOpen(false);
   };
 
+  // Toggle image selection
   const handleImageClick = (id) => {
     if (selectedImages.includes(id)) {
       setSelectedImages(selectedImages.filter((imageId) => imageId !== id));
@@ -101,16 +100,7 @@ function CategoryPage() {
     }
   };
 
-  const handleCopyClick = (text, id) => {
-    copy(text);
-    setCopiedImageId(id);
-    setTimeout(() => setCopiedImageId(null), 2500);
-  };
-
-  if (!category) {
-    return <div>Loading...</div>;
-  }
-
+  // Fetch images again after successful upload
   const handleUploadSuccess = async (message) => {
     setUploadMessage(message);
 
@@ -122,6 +112,7 @@ function CategoryPage() {
     }
   };
 
+  // Fetch collections again after successful creation
   const handleCollectionCreateSuccess = async (message) => {
     try {
       const collections = await fetchCollectionsFromCategory(id);
@@ -131,26 +122,9 @@ function CategoryPage() {
     }
   };
 
-  const handleFavoriteToggle = async (imageID) => {
-    try {
-      await toggleFavorite(user.username, imageID);
-      const updatedFavoriteImages = [...favoriteImages];
-      if (updatedFavoriteImages.some((img) => img.imageID === imageID)) {
-        // Remove from favorites
-        const index = updatedFavoriteImages.findIndex(
-          (img) => img.imageID === imageID
-        );
-        updatedFavoriteImages.splice(index, 1);
-      } else {
-        // Add to favorites
-        const image = images.find((img) => img.imageID === imageID);
-        updatedFavoriteImages.push(image);
-      }
-      setFavoriteImages(updatedFavoriteImages);
-    } catch (error) {
-      console.error("Failed to toggle favorite image:", error);
-    }
-  };
+  if (!category) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="pt-5 full-screen">

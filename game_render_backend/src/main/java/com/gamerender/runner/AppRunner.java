@@ -189,11 +189,11 @@ public class AppRunner implements ApplicationRunner {
 	    }
 
 	 // Add favorite images to user's collections
-        User admin = userRepository.findByEmail("masso.lini@epicode.com").orElseThrow(() -> new RuntimeException("Admin not found"));
-        User user = userRepository.findByEmail("lucy.parsons@epicode.com").orElseThrow(() -> new RuntimeException("User not found"));
-        admin.setFavoriteImages(new HashSet<>(Arrays.asList(image1, image2, image3)));
-        user.setFavoriteImages(new HashSet<>(Arrays.asList(image4, image5, image6)));
-        userRepository.saveAll(Arrays.asList(admin, user));
+//        User admin = userRepository.findByEmail("masso.lini@epicode.com").orElseThrow(() -> new RuntimeException("Admin not found"));
+//        User user = userRepository.findByEmail("lucy.parsons@epicode.com").orElseThrow(() -> new RuntimeException("User not found"));
+//        admin.setFavoriteImages(new HashSet<>(Arrays.asList(image1, image2, image3)));
+//        user.setFavoriteImages(new HashSet<>(Arrays.asList(image4, image5, image6)));
+//        userRepository.saveAll(Arrays.asList(admin, user));
 	    
 	    // Log in console
 	    System.out.println("Database successfully initialized");    

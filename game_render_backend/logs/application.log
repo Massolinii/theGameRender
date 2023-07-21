@@ -3541,3 +3541,99 @@ org.springframework.security.authentication.BadCredentialsException: Invalid use
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.10.jar:10.1.10]
 	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
 18:13:26.031 [http-nio-8080-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.security.authentication.BadCredentialsException: Invalid username or password]
+20:31:11.076 [restartedMain] INFO  c.gamerender.GameRenderApplication - Starting GameRenderApplication using Java 17.0.7 with PID 9852 (C:\Users\massi\Desktop\Programmazione\the_game_render\theGameRender\game_render_backend\target\classes started by massi in C:\Users\massi\Desktop\Programmazione\the_game_render\theGameRender\game_render_backend)
+20:31:11.078 [restartedMain] INFO  c.gamerender.GameRenderApplication - No active profile set, falling back to 1 default profile: "default"
+20:31:11.111 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+20:31:11.112 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+20:31:11.757 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+20:31:11.825 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 62 ms. Found 5 JPA repository interfaces.
+20:31:12.320 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+20:31:12.327 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+20:31:12.327 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.10]
+20:31:12.382 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+20:31:12.382 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1270 ms
+20:31:12.493 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+20:31:12.535 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.5.Final
+20:31:12.537 [restartedMain] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+20:31:12.647 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+20:31:12.749 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+20:31:12.762 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+20:31:12.929 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1dce3862
+20:31:12.930 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+20:31:13.161 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+20:31:13.720 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+20:31:13.877 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+20:31:14.228 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+20:31:14.581 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+20:31:14.828 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@11ec671e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@30752e9e, org.springframework.security.web.context.SecurityContextHolderFilter@1d342b3e, org.springframework.security.web.header.HeaderWriterFilter@53f58b4c, org.springframework.web.filter.CorsFilter@24391831, org.springframework.security.web.authentication.logout.LogoutFilter@5fb493f9, com.gamerender.security.security.JwtAuthenticationFilter@216f5942, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7146055e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@54834d8a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7c0ae96e, org.springframework.security.web.session.SessionManagementFilter@46bfc625, org.springframework.security.web.access.ExceptionTranslationFilter@21755699, org.springframework.security.web.access.intercept.AuthorizationFilter@112603ce]
+20:31:14.938 [restartedMain] WARN  o.s.b.a.t.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration - Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+20:31:15.045 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+20:31:15.077 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+20:31:15.086 [restartedMain] INFO  c.gamerender.GameRenderApplication - Started GameRenderApplication in 4.295 seconds (process running for 5.019)
+20:31:15.176 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+20:31:15.176 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+20:31:15.177 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+22:31:38.957 [restartedMain] INFO  c.gamerender.GameRenderApplication - Starting GameRenderApplication using Java 17.0.7 with PID 10152 (C:\Users\massi\Desktop\Programmazione\the_game_render\theGameRender\game_render_backend\target\classes started by massi in C:\Users\massi\Desktop\Programmazione\the_game_render\theGameRender\game_render_backend)
+22:31:38.959 [restartedMain] INFO  c.gamerender.GameRenderApplication - No active profile set, falling back to 1 default profile: "default"
+22:31:38.993 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+22:31:38.993 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+22:31:39.469 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+22:31:39.522 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 48 ms. Found 5 JPA repository interfaces.
+22:31:39.991 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+22:31:39.998 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+22:31:39.998 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.10]
+22:31:40.049 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+22:31:40.049 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1055 ms
+22:31:40.152 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+22:31:40.195 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.5.Final
+22:31:40.197 [restartedMain] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+22:31:40.295 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+22:31:40.386 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+22:31:40.399 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+22:31:40.555 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@726e3067
+22:31:40.555 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+22:31:40.780 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+22:31:41.315 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+22:31:41.466 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+22:31:41.790 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+22:31:42.153 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+22:31:42.384 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@330fb4b4, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@28fe2d4, org.springframework.security.web.context.SecurityContextHolderFilter@59baca91, org.springframework.security.web.header.HeaderWriterFilter@5ab59473, org.springframework.web.filter.CorsFilter@764aa78e, org.springframework.security.web.authentication.logout.LogoutFilter@3937824c, com.gamerender.security.security.JwtAuthenticationFilter@30b7da60, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2c210516, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7ea75cd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3bd3bada, org.springframework.security.web.session.SessionManagementFilter@10848aae, org.springframework.security.web.access.ExceptionTranslationFilter@38c107ec, org.springframework.security.web.access.intercept.AuthorizationFilter@623a6160]
+22:31:42.484 [restartedMain] WARN  o.s.b.a.t.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration - Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+22:31:42.590 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+22:31:42.621 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+22:31:42.629 [restartedMain] INFO  c.gamerender.GameRenderApplication - Started GameRenderApplication in 3.955 seconds (process running for 4.666)
+22:32:05.124 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+22:32:05.125 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+22:32:05.126 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+22:54:19.167 [restartedMain] INFO  c.gamerender.GameRenderApplication - Starting GameRenderApplication using Java 17.0.7 with PID 21416 (C:\Users\massi\Desktop\Programmazione\the_game_render\theGameRender\game_render_backend\target\classes started by massi in C:\Users\massi\Desktop\Programmazione\the_game_render\theGameRender\game_render_backend)
+22:54:19.169 [restartedMain] INFO  c.gamerender.GameRenderApplication - No active profile set, falling back to 1 default profile: "default"
+22:54:19.205 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+22:54:19.205 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+22:54:19.714 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+22:54:19.768 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 48 ms. Found 5 JPA repository interfaces.
+22:54:20.255 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+22:54:20.263 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+22:54:20.263 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.10]
+22:54:20.315 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+22:54:20.315 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1109 ms
+22:54:20.415 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+22:54:20.459 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.5.Final
+22:54:20.462 [restartedMain] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+22:54:20.560 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+22:54:20.653 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+22:54:20.666 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+22:54:20.799 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4912701d
+22:54:20.801 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+22:54:21.004 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+22:54:21.550 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+22:54:21.665 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+22:54:21.986 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+22:54:22.343 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+22:54:22.568 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1d73a2e3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1b1d67b5, org.springframework.security.web.context.SecurityContextHolderFilter@2f7bdc7f, org.springframework.security.web.header.HeaderWriterFilter@6bdf9151, org.springframework.web.filter.CorsFilter@7ced4294, org.springframework.security.web.authentication.logout.LogoutFilter@4b890fda, com.gamerender.security.security.JwtAuthenticationFilter@176852b4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@430966ac, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@75185460, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3955175, org.springframework.security.web.session.SessionManagementFilter@3a60f53b, org.springframework.security.web.access.ExceptionTranslationFilter@55b84bcf, org.springframework.security.web.access.intercept.AuthorizationFilter@521a8e46]
+22:54:22.669 [restartedMain] WARN  o.s.b.a.t.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration - Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+22:54:22.775 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+22:54:22.805 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+22:54:22.813 [restartedMain] INFO  c.gamerender.GameRenderApplication - Started GameRenderApplication in 3.947 seconds (process running for 4.602)
+22:54:40.384 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+22:54:40.384 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+22:54:40.386 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms

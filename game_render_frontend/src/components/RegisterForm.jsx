@@ -13,18 +13,12 @@ const RegisterForm = () => {
 
   const { login } = useContext(AuthContext);
 
-  const handleUsername = (event) => {
-    setUsername(event.target.value);
-  };
+  // Update username, email, and password states on input change
+  const handleUsername = (event) => setUsername(event.target.value);
+  const handleEmail = (event) => setEmail(event.target.value);
+  const handlePassword = (event) => setPassword(event.target.value);
 
-  const handleEmail = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePassword = (event) => {
-    setPassword(event.target.value);
-  };
-
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -41,7 +35,6 @@ const RegisterForm = () => {
     });
 
     if (response.ok) {
-      setError(null);
       setSuccessMessage("User registered successfully! Logging in...");
 
       response = await fetch("http://localhost:8080/api/auth/login", {
@@ -67,15 +60,12 @@ const RegisterForm = () => {
           window.location.replace("/");
         }, 2500);
       } else {
-        const errorMessage = await response.text();
-        setError(errorMessage);
+        setError(await response.text());
       }
     } else {
-      const errorMessage = await response.text();
-      setError(errorMessage);
+      setError(await response.text());
     }
   };
-
   return (
     <div className="d-flex flex-column align-items-center justify-content-center login-form-background">
       <img

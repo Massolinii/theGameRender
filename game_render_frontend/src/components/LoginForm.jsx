@@ -8,16 +8,13 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handlePassword = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleUsername = (event) => {
-    setUsername(event.target.value);
-  };
-
   const { login } = useContext(AuthContext);
 
+  // Update username and password states on input change
+  const handleUsername = (event) => setUsername(event.target.value);
+  const handlePassword = (event) => setPassword(event.target.value);
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -35,9 +32,6 @@ const LoginForm = () => {
     if (response.ok) {
       const data = await response.json();
       setError(null);
-
-      console.log(data);
-
       login({
         token: data.accessToken,
         username: data.username,
@@ -47,7 +41,6 @@ const LoginForm = () => {
         window.location.replace("/");
       }, 500);
     } else {
-      console.log("Server error:", response.statusText);
       setError("Username or password are not correct");
     }
   };
