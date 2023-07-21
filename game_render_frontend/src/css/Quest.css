@@ -63,30 +63,30 @@ span[class^="color-"] {
   padding: 1px;
 }
 
-.color-1 {
+.color-red {
   background-color: #b95153;
 }
 
-.color-2 {
+.color-orange {
   background-color: #ce9d41;
 }
 
-.color-3 {
+.color-yellow {
   background-color: #f7eb71;
 }
 
-.color-4 {
+.color-green {
   background-color: #b5ec67;
 }
 
-.color-5 {
+.color-blue {
   background-color: #3f5e9b;
 }
 
-.color-6 {
+.color-purple {
   background-color: #6b57bd;
 }
 
-.color-7 {
+.color-pink {
   background-color: #a466d3;
 }

@@ -1,56 +1,27 @@
-import React, { useEffect, useState, useContext } from "react";
-import { fetchUserFavorites, toggleFavorite } from "../api";
+import React, { useEffect, useContext, useState } from "react";
 import { AuthContext } from "../AuthContext";
-import copy from "clipboard-copy";
 import ImageCard from "./ImageCard";
 import { Link } from "react-router-dom";
 import { faHouseChimney } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { UseImageActions } from "../hooks/UseImageActions";
 
 function FavoritesPage() {
-  const [favorites, setFavorites] = useState([]);
   const { user } = useContext(AuthContext);
   const [selectedImages, setSelectedImages] = useState([]);
-  const [copiedImageId, setCopiedImageId] = useState(null);
+
+  const {
+    favoriteImages,
+    copiedImageId,
+    handleCopyClick,
+    handleFavoriteToggle,
+  } = UseImageActions(user);
 
   const handleImageClick = (id) => {
     if (selectedImages.includes(id)) {
       setSelectedImages(selectedImages.filter((imageId) => imageId !== id));
     } else {
       setSelectedImages([...selectedImages, id]);
-    }
-  };
-
-  const handleCopyClick = (text, id) => {
-    copy(text);
-    setCopiedImageId(id);
-    setTimeout(() => setCopiedImageId(null), 2500);
-  };
-
-  useEffect(() => {
-    if (user && user.username) {
-      fetchUserFavorites(user.username).then(setFavorites).catch(console.error);
-    }
-  }, [user]);
-
-  const handleFavoriteToggle = async (imageID) => {
-    try {
-      await toggleFavorite(user.username, imageID);
-      const updatedFavorites = [...favorites];
-      if (updatedFavorites.some((img) => img.imageID === imageID)) {
-        // Remove from favorites
-        const index = updatedFavorites.findIndex(
-          (img) => img.imageID === imageID
-        );
-        updatedFavorites.splice(index, 1);
-      } else {
-        // Add to favorites
-        const image = updatedFavorites.find((img) => img.imageID === imageID);
-        updatedFavorites.push(image);
-      }
-      setFavorites(updatedFavorites);
-    } catch (error) {
-      console.error("Failed to toggle favorite image:", error);
     }
   };
 
@@ -66,7 +37,7 @@ function FavoritesPage() {
             <FontAwesomeIcon icon={faHouseChimney} /> Return Home
           </Link>
 
-          {Array.isArray(favorites) && favorites.length > 0 ? (
+          {Array.isArray(favoriteImages) && favoriteImages.length > 0 ? (
             <>
               <h3 className="mt-5 px-3 py-1 to-color">
                 Your Favorite images :
@@ -75,7 +46,7 @@ function FavoritesPage() {
                 Click on an image to see the prompt{" "}
               </p>
               <div className="image-container">
-                {favorites.map((image) => (
+                {favoriteImages.map((image) => (
                   <ImageCard
                     image={image}
                     key={image.imageID}

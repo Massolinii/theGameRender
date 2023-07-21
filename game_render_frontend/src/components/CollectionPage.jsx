@@ -20,6 +20,7 @@ import {
   faHouseChimney,
 } from "@fortawesome/free-solid-svg-icons";
 import ImageCard from "./ImageCard";
+import { UseImageActions } from "../hooks/UseImageActions";
 
 const categoryToBgClass = {
   1: "env-category-bg",
@@ -35,28 +36,30 @@ const CollectionPage = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [uploadMessage, setUploadMessage] = useState(null);
   const { user } = useContext(AuthContext);
-  const [copiedImageId, setCopiedImageId] = useState(null);
-  const [favoriteImages, setFavoriteImages] = useState([]);
   const [favoriteImageIds, setFavoriteImageIds] = useState([]);
+  const {
+    favoriteImages,
+    setFavoriteImages,
+    copiedImageId,
+    handleCopyClick,
+    handleFavoriteToggle,
+  } = UseImageActions(user, images);
 
+  // Fetch collection and images on page load
   useEffect(() => {
     (async () => {
       try {
         const collection = await fetchCollection(id);
         setCollection(collection);
-      } catch (error) {
-        console.error("Failed to fetch collection:", error);
-      }
-
-      try {
         const images = await fetchImagesFromCollection(id);
         setImages(images);
       } catch (error) {
-        console.error("Failed to fetch images:", error);
+        console.error("Failed to fetch data:", error);
       }
     })();
   }, [id]);
 
+  // Fetch user's favorite images on page load and when user updates
   useEffect(() => {
     (async () => {
       if (user && user.username) {
@@ -87,6 +90,7 @@ const CollectionPage = () => {
     setIsUploadModalOpen(false);
   };
 
+  // Toggle image selection
   const handleImageClick = (id) => {
     if (selectedImages.includes(id)) {
       setSelectedImages(selectedImages.filter((imageId) => imageId !== id));
@@ -95,16 +99,11 @@ const CollectionPage = () => {
     }
   };
 
-  const handleCopyClick = (text, id) => {
-    copy(text);
-    setCopiedImageId(id);
-    setTimeout(() => setCopiedImageId(null), 3200);
-  };
-
   if (!collection) {
     return <div>Loading...</div>;
   }
 
+  // Fetch images again after successful upload
   const handleUploadSuccess = async (message) => {
     setUploadMessage(message);
 
@@ -113,27 +112,6 @@ const CollectionPage = () => {
       setImages(images);
     } catch (error) {
       console.error("Failed to fetch images:", error);
-    }
-  };
-
-  const handleFavoriteToggle = async (imageID) => {
-    try {
-      await toggleFavorite(user.username, imageID);
-      const updatedFavoriteImages = [...favoriteImages];
-      if (updatedFavoriteImages.some((img) => img.imageID === imageID)) {
-        // Remove from favorites
-        const index = updatedFavoriteImages.findIndex(
-          (img) => img.imageID === imageID
-        );
-        updatedFavoriteImages.splice(index, 1);
-      } else {
-        // Add to favorites
-        const image = images.find((img) => img.imageID === imageID);
-        updatedFavoriteImages.push(image);
-      }
-      setFavoriteImages(updatedFavoriteImages);
-    } catch (error) {
-      console.error("Failed to toggle favorite image:", error);
     }
   };
 
@@ -190,7 +168,9 @@ const CollectionPage = () => {
                 handleCopyClick={handleCopyClick}
                 copiedImageId={copiedImageId}
                 selectedImages={selectedImages}
-                isFavorite={favoriteImageIds.includes(image.imageID)}
+                isFavorite={favoriteImages.some(
+                  (img) => img.imageID === image.imageID
+                )}
                 handleFavoriteToggle={handleFavoriteToggle}
               />
             ))
