@@ -13,13 +13,7 @@ import { Alert, Button } from "react-bootstrap";
 import { AuthContext } from "../AuthContext";
 import copy from "clipboard-copy";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCopy,
-  faPlus,
-  faCheck,
-  faHouseChimney,
-  faExternalLinkAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faHouseChimney } from "@fortawesome/free-solid-svg-icons";
 import CollectionCreateModal from "./CollectionCreateModal";
 import ImageCard from "./ImageCard";
 
@@ -170,16 +164,7 @@ function CategoryPage() {
         </Link>
 
         <h3 className="mt-4 px-3 py-1 to-color">
-          {category.categoryName} Themes
-          {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
-            <Button
-              className="add-collection ms-2 ps-2 pe-2 pt-1 pb-1"
-              variant="outline-light"
-              onClick={openCollectionCreateModal}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-            </Button>
-          )}
+          {category.categoryName} themes
         </h3>
         <CollectionCreateModal
           isOpen={isCollectionCreateModalOpen}
@@ -187,7 +172,7 @@ function CategoryPage() {
           onCreateSuccess={handleCollectionCreateSuccess}
         />
         <p className="px-3 h3-subtitle">Select a theme </p>
-        <ul className="list-unstyled ps-3">
+        <ul className="list-unstyled ps-2">
           {collections.map((collection) => (
             <li key={collection.collectionID} className="p-2">
               <Link
@@ -199,21 +184,30 @@ function CategoryPage() {
             </li>
           ))}
         </ul>
+        {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
+          <Button
+            className="add-collection mx-4 px-2 py-1"
+            variant="outline-light"
+            onClick={openCollectionCreateModal}
+          >
+            <FontAwesomeIcon icon={faPlus} /> Add Theme
+          </Button>
+        )}
 
         <h3 className="mt-4 px-3 py-1 to-color">
           All {category.categoryName} images{" "}
-          {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
-            <Button
-              className="add-image ps-2 pe-2 pt-1 pb-1"
-              variant="outline-light"
-              onClick={openUploadModal}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-            </Button>
-          )}
         </h3>
         <p className="px-3 h3-subtitle">Click on an image to see the prompt </p>
 
+        {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
+          <Button
+            className="add-image mx-4 mb-3 px-2 py-1"
+            variant="outline-light"
+            onClick={openUploadModal}
+          >
+            <FontAwesomeIcon icon={faPlus} /> Add Image
+          </Button>
+        )}
         {uploadMessage && <Alert variant="success">{uploadMessage}</Alert>}
 
         <ImageUploadModal

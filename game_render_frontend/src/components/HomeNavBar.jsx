@@ -80,7 +80,7 @@ function HomeNavBar({ show }) {
                 </Nav.Link>
                 <Nav.Link className={separatorClasses}>|</Nav.Link>
                 <Nav.Link href="/category/2" className={linkClasses(3)}>
-                  Objects and Tools
+                  Items
                 </Nav.Link>
                 <Nav.Link className={separatorClasses}>|</Nav.Link>
                 <Nav.Link href="/category/3" className={linkClasses(4)}>
@@ -97,9 +97,7 @@ function HomeNavBar({ show }) {
                 <NavDropdown.Item href="/category/1">
                   Environments
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/category/2">
-                  Objects and Tools
-                </NavDropdown.Item>
+                <NavDropdown.Item href="/category/2">Items</NavDropdown.Item>
                 <NavDropdown.Item href="/category/3">
                   Characters
                 </NavDropdown.Item>

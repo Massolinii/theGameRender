@@ -90,7 +90,8 @@ public class ImageService {
             
             uploadResult = cloudinary.uploader().upload(imageFile.getBytes(), ObjectUtils.asMap(
                     "resource_type", "auto",
-                    "quality", "auto"
+                    "quality", "auto",
+                    "format", "webp"
                 ));
             String imageUrl = (String) uploadResult.get("url");
             newImage.setUrl(imageUrl);

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.gamerender.exceptions.CategoryNotFoundException;
 import com.gamerender.exceptions.CollectionAlreadyExistsException;
 import com.gamerender.exceptions.CollectionNotFoundException;
 import com.gamerender.models.Category;
@@ -68,7 +67,6 @@ public class CollectionService {
     // PUT
     public Collection updateCollection(Collection collection) {
         if (collectionRepository.existsById(collection.getCollectionID())) {
-        	validateCategory(collection.getCategory());
         	return collectionRepository.save(collection);
         } else {
             throw new CollectionNotFoundException("Collection not found with ID: " + collection.getCollectionID());
@@ -83,11 +81,5 @@ public class CollectionService {
         } else {
             throw new CollectionNotFoundException("Collection not found with ID: " + id);
         }       
-    }
-
-    private void validateCategory(Category category) {
-        if (category == null || !categoryService.existsById(category.getCategoryID())) {
-            throw new CategoryNotFoundException("Invalid category.");
-        }
     }
 }

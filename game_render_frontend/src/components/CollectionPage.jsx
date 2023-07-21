@@ -158,21 +158,21 @@ const CollectionPage = () => {
           <FontAwesomeIcon icon={faHouseChimney} /> Return Home
         </Link>
 
-        <h3 className="mt-5 px-3 py-1 to-color">
+        <h3 className="mt-3 px-3 py-1 to-color">
           All {collection.category.categoryName} - {collection.collectionName}{" "}
           images{" "}
-          {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
-            <Button
-              className="add-image"
-              variant="outline-light"
-              onClick={openUploadModal}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-            </Button>
-          )}
         </h3>
         <p className="px-3 h3-subtitle">Click on an image to see the prompt </p>
 
+        {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
+          <Button
+            className="add-image mx-4 mb-3 px-2 py-1"
+            variant="outline-light"
+            onClick={openUploadModal}
+          >
+            <FontAwesomeIcon icon={faPlus} /> Add Images
+          </Button>
+        )}
         {uploadMessage && <Alert variant="success">{uploadMessage}</Alert>}
 
         <ImageUploadModal

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheck,
   faCopy,
   faExternalLinkAlt,
   faHeart as solidHeart,
-  faHeart as regularHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as outlineHeart } from "@fortawesome/free-regular-svg-icons";
 import "../css/ImageCard.css";
@@ -19,23 +19,27 @@ const ImageCard = ({
   isFavorite,
   handleFavoriteToggle,
 }) => {
+  const { user } = useContext(AuthContext);
+
   return (
     <div key={image.imageID}>
       <img
         src={image.url}
-        alt=""
+        alt={image.promptText}
         className="image-in-category"
         onClick={() => handleImageClick(image.imageID)}
       />
-      <div
-        className="heart-icon"
-        onClick={(e) => {
-          e.stopPropagation();
-          handleFavoriteToggle(image.imageID);
-        }}
-      >
-        <FontAwesomeIcon icon={isFavorite ? solidHeart : outlineHeart} />
-      </div>
+      {user && user.roles && (
+        <div
+          className="heart-icon"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleFavoriteToggle(image.imageID);
+          }}
+        >
+          <FontAwesomeIcon icon={isFavorite ? solidHeart : outlineHeart} />
+        </div>
+      )}
       <div
         className={`prompt-text ${
           selectedImages.includes(image.imageID) ? "visible" : ""

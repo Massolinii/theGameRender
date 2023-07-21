@@ -8,6 +8,7 @@ import {
 import { AuthContext } from "../AuthContext.js";
 import copy from "clipboard-copy";
 import "../css/ImageCard.css";
+import { Button } from "react-bootstrap";
 
 const Search = () => {
   const [input, setInput] = useState("");
@@ -98,7 +99,9 @@ const Search = () => {
             onChange={(e) => setInput(e.target.value)}
             className="mx-3 mb-3"
           />
-          <button type="submit">Search</button>
+          <Button type="submit" className="variant-success">
+            Search
+          </Button>
           {imageList.length > 0 && (
             <button type="button" onClick={handleClearResults}>
               Clear Results

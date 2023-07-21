@@ -36,8 +36,8 @@ function HowToWrite() {
           </li>
           <pre className="code-block">
             <code>
-              Design a Elvish Townhall, in a forest{" "}
-              <span className="text-muted">. . . . .</span>{" "}
+              {" "}
+              <b>Design a Elvish Townhall, in a forest </b>. . . . .
             </code>
           </pre>
           <li>
@@ -51,8 +51,10 @@ function HowToWrite() {
               <span className="text-muted">
                 Design a Elvish Townhall, in a forest,{" "}
               </span>
-              with an ancient oak tree erupting from the center, a lot of people
-              and wooden forniture,{" "}
+              <b>
+                with an ancient oak tree erupting from the center, a lot of
+                people and wooden forniture,{" "}
+              </b>{" "}
               <span className="text-muted">. . . . .</span>{" "}
             </code>
           </pre>
@@ -70,8 +72,10 @@ function HowToWrite() {
                 Design a Elvish Townhall, in a forest, with an ancient oak tree
                 erupting from the center, a lot of people and wooden forniture,{" "}
               </span>
-              the Townhall showcase magical advanced engineering and a sense of
-              tranquility and peace.
+              <b>
+                the Townhall showcase magical advanced engineering and a sense
+                of tranquility and peace.{" "}
+              </b>
               <span className="text-muted">. . . . .</span>{" "}
             </code>
           </pre>
@@ -82,7 +86,7 @@ function HowToWrite() {
                 Design a Elvish Townhall, in a forest, with an ancient oak tree
                 erupting from the center, a lot of people and wooden forniture,{" "}
               </span>
-              magic steampunk, tranquility, muted colors, hazy
+              <b>magic steampunk, tranquility, muted colors, hazy</b>
               <span className="text-muted">. . . . .</span>{" "}
             </code>
           </pre>
@@ -100,7 +104,7 @@ function HowToWrite() {
                 the townhall showcase magical advanced engineering and a sense
                 of tranquility and peace{" "}
               </span>
-              in the style of krenz cushart
+              <b>in the style of krenz cushart</b>
             </code>
           </pre>
           <Container className="d-flex justify-content-center p-0 m-0 mb-4">
@@ -124,7 +128,7 @@ function HowToWrite() {
                 the townhall showcase magical advanced engineering and a sense
                 of tranquility and peace in the style of krenz cushart
               </span>{" "}
-              Make a sandwich that swears to people, a lot.
+              <b>Make a sandwich that swears to people, a lot.</b>
             </code>
           </pre>
         </ul>

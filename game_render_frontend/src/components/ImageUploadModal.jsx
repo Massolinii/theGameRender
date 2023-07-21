@@ -1,6 +1,6 @@
 import { readAndCompressImage } from "browser-image-resizer";
 import React, { useEffect, useState } from "react";
-import { Alert, Button, Form, Modal } from "react-bootstrap";
+import { Alert, Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { fetchCollections, uploadImage } from "../api.js";
 
@@ -29,18 +29,7 @@ const ImageUploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
-    const config = {
-      quality: 0.8,
-      maxWidth: 800,
-      maxHeight: 800,
-      debug: true,
-    };
-    try {
-      const compressedFile = await readAndCompressImage(file, config);
-      setSelectedFile(compressedFile);
-    } catch (err) {
-      console.error(err);
-    }
+    await handleFileSelect(file);
   };
 
   const handleUpload = async (e) => {
@@ -68,12 +57,46 @@ const ImageUploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
     }
   };
 
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      const file = e.dataTransfer.files[0];
+      await handleFileSelect(file);
+    }
+  };
+
+  const handleFileSelect = async (file) => {
+    const config = {
+      quality: 0.9,
+      maxWidth: 1024,
+      maxHeight: 1024,
+      debug: true,
+    };
+    try {
+      const compressedFile = await readAndCompressImage(file, config);
+      setSelectedFile(compressedFile);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setSelectedFile(null);
+  };
+
   return (
     <Modal show={isOpen} onHide={onClose}>
       <Modal.Header closeButton>
         <Modal.Title>Upload Image </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body onDragOver={handleDragOver} onDrop={handleDrop}>
         <Form className="" onSubmit={handleUpload}>
           <Form.Group>
             <Form.Label>Image</Form.Label>
@@ -82,6 +105,22 @@ const ImageUploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
               accept="image/*"
               onChange={handleFileChange}
             />
+            {selectedFile && (
+              <Row className="mt-3">
+                <Col>
+                  <img
+                    src={URL.createObjectURL(selectedFile)}
+                    alt="Selected"
+                    className="w-75 h-auto"
+                  />
+                </Col>
+                <Col xs="auto" className="d-flex align-items-center">
+                  <Button variant="danger" onClick={handleRemoveImage}>
+                    Remove
+                  </Button>
+                </Col>
+              </Row>
+            )}
           </Form.Group>
           <hr />
           <Form.Group>
@@ -115,6 +154,9 @@ const ImageUploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
               value={selectedCollection}
               onChange={(e) => setSelectedCollection(e.target.value)}
             >
+              <option value="" disabled>
+                Choose a category
+              </option>
               {collections.map((collection, index) => (
                 <option
                   key={collection.collectionID}

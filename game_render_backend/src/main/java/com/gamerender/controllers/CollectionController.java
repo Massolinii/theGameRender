@@ -92,7 +92,6 @@ public class CollectionController {
     }
 
     @PutMapping("/{id}")
-    @ResponseBody
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Collection> updateCollection(@PathVariable Long id, @Valid @RequestBody Collection collection) {
         try {

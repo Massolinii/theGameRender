@@ -78,10 +78,9 @@
 
 .categories-bg:hover .category-name::after {
   content: url("/public/arrow-removebg-preview-md.png");
-  transform: scalex(-1);
   position: absolute;
   animation: move-arrow 2s linear infinite;
-  right: -60%;
+  left: 140%;
   top: 15%;
   pointer-events: none;
 }
