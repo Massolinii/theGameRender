@@ -21,3 +21,4 @@ game_render_backend/logs/application.log
 
 # Log file
 *.log
+*.gz
