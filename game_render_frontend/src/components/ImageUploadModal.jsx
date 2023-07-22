@@ -1,7 +1,6 @@
 import { readAndCompressImage } from "browser-image-resizer";
 import React, { useEffect, useState } from "react";
 import { Alert, Button, Col, Form, Modal, Row } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
 import { fetchCollections, uploadImage } from "../api.js";
 
 const ImageUploadModal = ({ isOpen, onClose, onUploadSuccess }) => {

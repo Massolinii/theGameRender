@@ -4,18 +4,14 @@ import {
   fetchCollection,
   fetchImagesFromCollection,
   fetchUserFavorites,
-  toggleFavorite,
 } from "../api";
 import "../css/CategoryPage.css";
 import ImageUploadModal from "./ImageUploadModal";
 import { Alert, Button } from "react-bootstrap";
 import { AuthContext } from "../AuthContext";
-import copy from "clipboard-copy";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCopy,
   faPlus,
-  faCheck,
   faCircleLeft,
   faHouseChimney,
 } from "@fortawesome/free-solid-svg-icons";
@@ -37,6 +33,7 @@ const CollectionPage = () => {
   const [uploadMessage, setUploadMessage] = useState(null);
   const { user } = useContext(AuthContext);
   const [favoriteImageIds, setFavoriteImageIds] = useState([]);
+
   const {
     favoriteImages,
     setFavoriteImages,
@@ -71,7 +68,7 @@ const CollectionPage = () => {
         }
       }
     })();
-  }, [user]);
+  }, [user, setFavoriteImages]);
 
   useEffect(() => {
     if (favoriteImages.length > 0) {
