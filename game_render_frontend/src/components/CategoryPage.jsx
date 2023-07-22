@@ -10,7 +10,6 @@ import "../css/CategoryPage.css";
 import ImageUploadModal from "./ImageUploadModal";
 import { Alert, Button } from "react-bootstrap";
 import { AuthContext } from "../AuthContext";
-import copy from "clipboard-copy";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faHouseChimney } from "@fortawesome/free-solid-svg-icons";
 import CollectionCreateModal from "./CollectionCreateModal";
@@ -71,7 +70,7 @@ function CategoryPage() {
         }
       }
     })();
-  }, [user]);
+  }, [user, setFavoriteImages]);
 
   const bgClass = categoryToBgClass[id];
 

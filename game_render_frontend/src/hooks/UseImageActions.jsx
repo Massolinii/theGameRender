@@ -48,6 +48,7 @@ export const UseImageActions = (user, images) => {
 
   return {
     favoriteImages,
+    setFavoriteImages,
     copiedImageId,
     handleCopyClick,
     handleFavoriteToggle,
