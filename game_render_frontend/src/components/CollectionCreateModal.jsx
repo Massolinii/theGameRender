@@ -20,17 +20,21 @@ const CollectionCreateModal = ({ isOpen, onClose, onCreateSuccess }) => {
       return;
     }
 
-    const response = await createCollection({
-      name: collectionName,
-      categoryId: selectedCategory,
-    });
+    const collectionData = {
+      collectionName: collectionName,
+      category: {
+        categoryID: selectedCategory,
+      },
+    };
 
-    if (response.ok) {
+    try {
+      const createdCollection = await createCollection(collectionData);
       onClose();
-      onCreateSuccess("The collection was created successfully");
-    } else {
-      const data = await response.json();
-      setError(data.message || "An error occurred during creation");
+      onCreateSuccess(
+        `The collection "${createdCollection.collectionName}" was created successfully`
+      );
+    } catch (error) {
+      setError(error.message || "An error occurred during creation");
     }
   };
 

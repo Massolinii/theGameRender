@@ -2,8 +2,6 @@ package com.gamerender.controllers;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +35,7 @@ public class CategoryController {
             List<Category> categories = categoryService.getAllCategories();
             return new ResponseEntity<>(categories, HttpStatus.OK);
         } catch(Exception e) {
-            throw new CategoryNotFoundException("Categories not found" + e);
+            throw new CategoryNotFoundException(HttpStatus.NOT_FOUND, "Categories not found" + e);
         }
     }
  

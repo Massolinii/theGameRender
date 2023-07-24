@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Form, Alert } from "react-bootstrap";
-import { updateCollection } from "../api.js";
+import { updateCollection, deleteCollection } from "../api.js";
 
 const CollectionEditModal = ({
   isOpen,
@@ -27,16 +27,33 @@ const CollectionEditModal = ({
       return;
     }
 
-    const response = await updateCollection(collection.collectionID, {
-      name: collectionName,
-    });
+    const collectionData = {
+      collectionName: collectionName,
+    };
 
-    if (response.ok) {
+    try {
+      const updatedCollection = await updateCollection(
+        collection.collectionID,
+        collectionData
+      );
       onClose();
-      onUpdateSuccess("The collection was updated successfully");
-    } else {
-      const data = await response.json();
-      setError(data.message || "An error occurred during updating");
+      onUpdateSuccess(
+        `The collection "${updatedCollection.collectionName}" was updated successfully`
+      );
+    } catch (error) {
+      setError(error.message || "An error occurred during updating");
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteCollection(collection.collectionID);
+      onClose();
+      onUpdateSuccess(
+        `The collection "${collection.collectionName}" was deleted successfully`
+      );
+    } catch (error) {
+      setError(error.message || "An error occurred during deletion");
     }
   };
 
@@ -57,7 +74,10 @@ const CollectionEditModal = ({
             />
           </Form.Group>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Button type="submit">Update</Button>
+          <Button type="submit">Update</Button>{" "}
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
         </Form>
       </Modal.Body>
       <Modal.Footer>
