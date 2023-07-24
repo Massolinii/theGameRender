@@ -2,11 +2,9 @@ package com.gamerender.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,7 +74,7 @@ public class ImageService {
     }
 
 	// POST
-    public Image createImage(MultipartFile imageFile, String prompt, Collection collection, Set<String> tags) {
+    public Image createImage(MultipartFile imageFile, String prompt, Collection collection) {
         validateCollection(collection);
         @SuppressWarnings("rawtypes")
 		Map uploadResult = null;
@@ -85,7 +83,6 @@ public class ImageService {
             Image newImage = new Image();
               
             newImage.setPromptText(prompt);
-            newImage.setTags(new HashSet<String>(tags));
             newImage.setCollection(collection);
             
             uploadResult = cloudinary.uploader().upload(imageFile.getBytes(), ObjectUtils.asMap(
@@ -107,8 +104,9 @@ public class ImageService {
  // PUT
     public Image updateImage(Image image) {
         if (imageRepository.existsById(image.getImageID())) {
-        	validateCollection(image.getCollection());
-        	return imageRepository.save(image);
+        	Image existingImage = imageRepository.findById(image.getImageID()).get();
+            existingImage.setPromptText(image.getPromptText());
+            return imageRepository.save(existingImage);
         } else {
             throw new ImageNotFoundException("Image not found with ID: " + image.getImageID());
         }

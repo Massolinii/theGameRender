@@ -2,8 +2,6 @@ package com.gamerender.controllers;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,8 +31,6 @@ import jakarta.validation.Valid;
 @RequestMapping("/collections")
 public class CollectionController {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @Autowired CollectionService collectionService;
     @Autowired CategoryService categoryService;
 
@@ -47,7 +42,7 @@ public class CollectionController {
             List<Collection> collections = collectionService.getAllCollections();
             return new ResponseEntity<>(collections, HttpStatus.OK);
         } catch(Exception e) {
-            throw new CollectionNotFoundException(HttpStatus.NOT_FOUND, "Collections not found");
+            throw new CollectionNotFoundException(HttpStatus.NOT_FOUND, "Collections not found" + e);
         }
     }
 
@@ -58,7 +53,7 @@ public class CollectionController {
             Collection collection = collectionService.getCollectionById(id);
             return new ResponseEntity<>(collection, HttpStatus.OK);
         } catch(Exception e) {
-            throw new CollectionNotFoundException(HttpStatus.NOT_FOUND, "Collection not found");
+            throw new CollectionNotFoundException(HttpStatus.NOT_FOUND, "Collection not found" + e);
         }
     }
 
@@ -72,7 +67,7 @@ public class CollectionController {
             List<Collection> collections = collectionService.getCollectionsByCategory(category);
             return new ResponseEntity<>(collections, HttpStatus.OK);
         } catch(Exception e) {
-            throw new CategoryNotFoundException(HttpStatus.NOT_FOUND, "Category not found");
+            throw new CategoryNotFoundException(HttpStatus.NOT_FOUND, "Category not found" + e);
         }
     }
 
@@ -100,20 +95,19 @@ public class CollectionController {
             Collection updatedCollection = collectionService.updateCollection(collection);
             return new ResponseEntity<>(updatedCollection, HttpStatus.OK);
         } catch(Exception e) {
-            throw new CollectionNotFoundException(HttpStatus.BAD_REQUEST, "Collection could not be updated");
+            throw new CollectionNotFoundException(HttpStatus.BAD_REQUEST, "Collection could not be updated" + e);
         }
     }
 
 
     @DeleteMapping("/{id}")
-    @ResponseBody
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteCollection(@PathVariable Long id) {
         try {
             collectionService.deleteCollection(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch(Exception e) {
-            throw new CollectionNotFoundException(HttpStatus.NOT_FOUND, "Collection not found, so could not be deleted");
+            throw new CollectionNotFoundException(HttpStatus.NOT_FOUND, "Collection not found, so could not be deleted" + e);
         }
     }
 }

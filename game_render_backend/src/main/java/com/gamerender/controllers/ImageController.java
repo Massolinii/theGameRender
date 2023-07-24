@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -105,11 +104,10 @@ public class ImageController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createImage(@RequestParam("image") MultipartFile imageFile, 
                                          @RequestParam("promptText") String promptText, 
-                                         @RequestParam("collectionId") Long collectionId,
-                                         @RequestParam("tags") Set<String> tags) throws IOException {
+                                         @RequestParam("collectionId") Long collectionId) throws IOException {
     	 try {
              Collection collection = collectionService.getCollectionById(collectionId);
-             Image createdImage = imageService.createImage(imageFile, promptText, collection, tags);
+             Image createdImage = imageService.createImage(imageFile, promptText, collection);
              return new ResponseEntity<>(createdImage, HttpStatus.CREATED);
          } catch (Exception e) {
              throw new ImageAlreadyExistsException("Image already exists" + e);
