@@ -11,8 +11,13 @@ import ImageUploadModal from "./ImageUploadModal";
 import { Alert, Button } from "react-bootstrap";
 import { AuthContext } from "../AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faHouseChimney } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faHouseChimney,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import CollectionCreateModal from "./CollectionCreateModal";
+import CollectionEditModal from "./CollectionEditModal";
 import ImageCard from "./ImageCard";
 import { UseImageActions } from "../hooks/UseImageActions";
 
@@ -33,6 +38,9 @@ function CategoryPage() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [uploadMessage, setUploadMessage] = useState(null);
   const { user } = useContext(AuthContext);
+  const [isCollectionEditModalOpen, setIsCollectionEditModalOpen] =
+    useState(false);
+  const [selectedCollection, setSelectedCollection] = useState(null);
 
   const {
     favoriteImages,
@@ -90,6 +98,15 @@ function CategoryPage() {
     setIsCollectionCreateModalOpen(false);
   };
 
+  const openCollectionEditModal = (collection) => {
+    setSelectedCollection(collection);
+    setIsCollectionEditModalOpen(true);
+  };
+
+  const closeCollectionEditModal = () => {
+    setIsCollectionEditModalOpen(false);
+  };
+
   // Toggle image selection
   const handleImageClick = (id) => {
     if (selectedImages.includes(id)) {
@@ -119,6 +136,13 @@ function CategoryPage() {
     } catch (error) {
       console.error("Failed to fetch collections:", error);
     }
+  };
+
+  const handleCollectionUpdateSuccess = async (message) => {
+    // Close modal and refresh collections
+    setIsCollectionEditModalOpen(false);
+    const collections = await fetchCollectionsFromCategory(id);
+    setCollections(collections);
   };
 
   if (!category) {
@@ -154,6 +178,21 @@ function CategoryPage() {
               >
                 {collection.collectionName}
               </Link>
+              {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
+                <Button
+                  className="add-collection mx-4 px-2 py-1"
+                  variant="outline-light"
+                  onClick={() => openCollectionEditModal(collection)}
+                >
+                  <FontAwesomeIcon icon={faPenToSquare} />
+                </Button>
+              )}
+              <CollectionEditModal
+                isOpen={isCollectionEditModalOpen}
+                onClose={closeCollectionEditModal}
+                collection={selectedCollection}
+                onUpdateSuccess={handleCollectionUpdateSuccess}
+              />
             </li>
           ))}
         </ul>

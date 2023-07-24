@@ -180,3 +180,25 @@ export async function toggleFavorite(username, imageId) {
     throw error;
   }
 }
+
+// PUT
+export async function updateCollection(id, { name }) {
+  try {
+    const response = await fetch(`${URL}/collections/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ collectionName: name }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response;
+  } catch (error) {
+    console.error("Failed to update collection:", error);
+    throw error;
+  }
+}
