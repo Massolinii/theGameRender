@@ -1,0 +1,41 @@
+input[type="text"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  width: 300px;
+  font-size: 16px;
+}
+
+.search-button,
+.search-clear-button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  border: none;
+
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.search-button {
+  background-color: #008cba;
+}
+
+.search-clear-button {
+  background-color: rgb(134, 104, 84);
+}
+
+.search-button:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.search-clear-button:hover {
+  background-color: #b94636;
+  color: white;
+}

@@ -10,10 +10,17 @@
   max-width: 330px;
   aspect-ratio: 1/1;
   padding: 5px;
+  transition: box-shadow 0.7s ease-in-out;
 }
 
 .image-in-category:hover {
   box-shadow: 0 0 30px 15px rgba(255, 255, 255, 0.2);
+  transition: box-shadow 0.4s ease-in-out;
+}
+
+.image-icons {
+  display: flex;
+  justify-content: space-between;
 }
 
 .prompt-text {

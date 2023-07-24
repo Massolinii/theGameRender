@@ -61,37 +61,35 @@ const CollectionEditModal = ({
 
   return (
     <Modal show={isOpen} onHide={onClose} className="dark-modal">
-      <tt>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Collection</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleUpdate}>
-            <Form.Group>
-              <Form.Label>Collection Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Collection Name"
-                value={collectionName}
-                onChange={(e) => setCollectionName(e.target.value)}
-              />
-            </Form.Group>
-            {error && (
-              <Alert variant="danger" className="m-3">
-                You must delete all the image in this collection before!
-              </Alert>
-            )}
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button type="submit" className="my-2" onClick={handleUpdate}>
-            Update
-          </Button>{" "}
-          <Button variant="danger" onClick={handleDelete}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </tt>
+      <Modal.Header closeButton>
+        <Modal.Title>Edit Collection</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={handleUpdate}>
+          <Form.Group>
+            <Form.Label>Collection Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Collection Name"
+              value={collectionName}
+              onChange={(e) => setCollectionName(e.target.value)}
+            />
+          </Form.Group>
+          {error && (
+            <Alert variant="danger" className="m-3">
+              You must delete all the image in this collection before!
+            </Alert>
+          )}
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button type="submit" className="my-2" onClick={handleUpdate}>
+          Update
+        </Button>{" "}
+        <Button variant="danger" onClick={handleDelete}>
+          Delete
+        </Button>
+      </Modal.Footer>
     </Modal>
   );
 };

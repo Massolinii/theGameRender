@@ -1,14 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheck,
   faCopy,
   faExternalLinkAlt,
+  faPencil,
   faHeart as solidHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as outlineHeart } from "@fortawesome/free-regular-svg-icons";
 import "../css/ImageCard.css";
+import ImageEditModal from "./ImageEditModal";
+import { updateImage } from "../api";
 
 const ImageCard = ({
   image,
@@ -20,6 +23,24 @@ const ImageCard = ({
   handleFavoriteToggle,
 }) => {
   const { user } = useContext(AuthContext);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const openEditModal = () => {
+    setIsEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+  };
+
+  const handleImageUpdate = async (imageId, imageData) => {
+    try {
+      await updateImage(imageId, imageData);
+      console.log("The image was updated successfully");
+    } catch (error) {
+      console.error("Failed to update image:", error);
+    }
+  };
 
   return (
     <div key={image.imageID}>
@@ -29,18 +50,31 @@ const ImageCard = ({
         className="image-in-category"
         onClick={() => handleImageClick(image.imageID)}
       />
-      {user && user.roles && (
-        <div
-          className="heart-icon"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleFavoriteToggle(image.imageID);
-          }}
-        >
-          <FontAwesomeIcon icon={isFavorite ? solidHeart : outlineHeart} />
-        </div>
-      )}
-      {user && user.roles && user.roles.includes("ROLE_ADMIN") && <p></p>}
+      <div className="image-icons">
+        {user && user.roles && (
+          <div
+            className="heart-icon"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleFavoriteToggle(image.imageID);
+            }}
+          >
+            <FontAwesomeIcon icon={isFavorite ? solidHeart : outlineHeart} />
+          </div>
+        )}
+        {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
+          <div className="modify-icon">
+            <FontAwesomeIcon icon={faPencil} onClick={openEditModal} />
+          </div>
+        )}
+        <ImageEditModal
+          isOpen={isEditModalOpen}
+          onClose={closeEditModal}
+          image={image}
+          onUpdateSuccess={(message) => console.log(message)}
+          handleImageUpdate={handleImageUpdate}
+        />
+      </div>
       <div
         className={`prompt-text ${
           selectedImages.includes(image.imageID) ? "visible" : ""

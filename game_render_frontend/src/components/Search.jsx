@@ -7,7 +7,7 @@ import {
 } from "../api.js";
 import { AuthContext } from "../AuthContext.js";
 import copy from "clipboard-copy";
-import "../css/ImageCard.css";
+import "../css/Search.css";
 import { Button } from "react-bootstrap";
 
 const Search = () => {
@@ -90,45 +90,48 @@ const Search = () => {
 
   return (
     <div className="category-page-container text-white">
-      <tt>
-        <h2 className="p-3 "> Or search any image : </h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="mx-3 mb-3"
-          />
-          <Button type="submit" className="variant-success">
-            Search
+      <h2 className="p-3 "> Or search any image : </h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          className="mx-3 mb-3"
+          placeholder="Search..."
+        />
+        <Button type="submit" className="search-button">
+          Search
+        </Button>
+        {imageList.length > 0 && (
+          <Button
+            type="button"
+            className="search-clear-button"
+            onClick={handleClearResults}
+          >
+            Clear Results
           </Button>
-          {imageList.length > 0 && (
-            <button type="button" onClick={handleClearResults}>
-              Clear Results
-            </button>
-          )}
-        </form>
-        <div className="image-container">
-          {imageList.length > 0 ? (
-            imageList.map((image) => (
-              <ImageCard
-                image={image}
-                key={image.imageID}
-                handleImageClick={handleImageClick}
-                handleCopyClick={handleCopyClick}
-                copiedImageId={copiedImageId}
-                selectedImages={selectedImages}
-                isFavorite={favoriteImages.some(
-                  (img) => img.imageID === image.imageID
-                )}
-                handleFavoriteToggle={handleFavoriteToggle}
-              />
-            ))
-          ) : searchMade ? (
-            <p>Ops! No image found for this description. Try something else?</p>
-          ) : null}
-        </div>
-      </tt>
+        )}
+      </form>
+      <div className="image-container">
+        {imageList.length > 0 ? (
+          imageList.map((image) => (
+            <ImageCard
+              image={image}
+              key={image.imageID}
+              handleImageClick={handleImageClick}
+              handleCopyClick={handleCopyClick}
+              copiedImageId={copiedImageId}
+              selectedImages={selectedImages}
+              isFavorite={favoriteImages.some(
+                (img) => img.imageID === image.imageID
+              )}
+              handleFavoriteToggle={handleFavoriteToggle}
+            />
+          ))
+        ) : searchMade ? (
+          <p>Ops! No image found for this description. Try something else?</p>
+        ) : null}
+      </div>
     </div>
   );
 };

@@ -4,7 +4,6 @@ import {
   fetchCollection,
   fetchImagesFromCollection,
   fetchUserFavorites,
-  fetchCollectionsFromCategory,
 } from "../api";
 import "../css/CategoryPage.css";
 import ImageUploadModal from "./ImageUploadModal";
