@@ -40,7 +40,7 @@ const ImageCard = ({
           <FontAwesomeIcon icon={isFavorite ? solidHeart : outlineHeart} />
         </div>
       )}
-      {user && user.roles && user.roles.includes("ROLE_ADMIN") && <p>la</p>}
+      {user && user.roles && user.roles.includes("ROLE_ADMIN") && <p></p>}
       <div
         className={`prompt-text ${
           selectedImages.includes(image.imageID) ? "visible" : ""
