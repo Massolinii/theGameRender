@@ -21,3 +21,5 @@ game_render_backend/logs/application.log
 
 # Log file
 *.log
+game_render_backend/logs/application.log
+*.log
