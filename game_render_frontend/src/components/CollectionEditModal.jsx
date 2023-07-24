@@ -74,15 +74,14 @@ const CollectionEditModal = ({
             />
           </Form.Group>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Button type="submit">Update</Button>{" "}
-          <Button variant="danger" onClick={handleDelete}>
-            Delete
-          </Button>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
-          Close
+        <Button type="submit" className="my-2">
+          Update
+        </Button>{" "}
+        <Button variant="danger" onClick={handleDelete}>
+          Delete
         </Button>
       </Modal.Footer>
     </Modal>
