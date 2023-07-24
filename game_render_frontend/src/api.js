@@ -239,12 +239,12 @@ export async function deleteCollection(collectionId) {
     throw error;
   }
 }
-
 export async function deleteImage(imageId) {
   try {
     const response = await fetch(`${URL}/images/${imageId}`, {
       method: "DELETE",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
@@ -253,7 +253,7 @@ export async function deleteImage(imageId) {
     }
     return response;
   } catch (error) {
-    console.error("Failed to delete collection:", error);
+    console.error("Failed to delete image:", error);
     throw error;
   }
 }

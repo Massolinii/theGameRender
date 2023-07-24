@@ -43,28 +43,33 @@ const ImageEditModal = ({
 
   return (
     <Modal show={isOpen} onHide={onClose} className="dark-modal">
-      <Modal.Header closeButton>
-        <Modal.Title>Edit Prompt Text</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={handleUpdate}>
-          <Form.Group>
-            <Form.Label>Prompt Text</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Prompt Text"
-              value={promptText}
-              onChange={(e) => setPromptText(e.target.value)}
-            />
-          </Form.Group>
-          {error && <div className="text-danger mb-2">{error}</div>}
-          <Modal.Footer>
-            <Button variant="primary" type="submit">
-              Update
-            </Button>
-          </Modal.Footer>
-        </Form>
-      </Modal.Body>
+      <tt>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Image</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleUpdate}>
+            <Form.Group>
+              <Form.Label>Modify Prompt Text</Form.Label>
+              <Form.Control
+                type="text"
+                as="textarea"
+                rows={4}
+                placeholder="Prompt Text"
+                className="my-2"
+                value={promptText}
+                onChange={(e) => setPromptText(e.target.value)}
+              />
+            </Form.Group>
+            {error && <div className="text-danger mb-2">{error}</div>}
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" type="submit">
+            Update
+          </Button>
+        </Modal.Footer>
+      </tt>
     </Modal>
   );
 };
