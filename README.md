@@ -10,35 +10,49 @@ The Game Render is a showcase website that presents a collection of AI-generated
 
 ## Installation
 
-1. Clone the repository:
+### 1. Clone the repository:
   ```
-  git clone https://github.com/Massolinii/the-game-render.git
+  git clone https://github.com/Massolinii/theGameRender
   ```
-2. Set up the frontend:
+### 2. Set up the frontend:
 - Navigate to the frontend directory:
   ```
-  cd the-game-render/frontend
+  cd theGameRender/game_render_frontend
   ```
 - Install dependencies:
   ```
   npm install
   ```
 
-3. Set up the backend:
+### 3. Set up the backend:
 - Navigate to the backend directory:
   ```
-  cd the-game-render/backend
+  cd theGameRender/game_render_backend
   ```
 - Configure the PostgreSQL database connection in `application.properties`.
+  <br />
+- Restore the database from backup (OPTIONAL, strongly recommended):
+
+  Download the backup file from this link :
+    ```
+    https://www.dropbox.com/scl/fi/hvxcq9sn0cnafr4dawnl4/game_render_backup_25-7-23?rlkey=cfqkcooujl9rprpj472jq9p1m&dl=0
+    ```
+  Restore your PostgreSQL database using the downloaded backup file. You can do this using pgAdmin:
+
+  Open pgAdmin and connect to your database.
+  Right-click on your database name in the browser panel and select "Restore..."
+  In the "Filename" field, click on the "..." button and select the downloaded backup file.
+  Click "Restore" to start the restore process.
+
 - Build and run the backend server.
 
-4. Start the frontend:
+### 4. Start the frontend:
 - Inside the frontend directory, start the development server:
   ```
   npm start
   ```
 
-5. Access the application at `http://localhost:3000` in your web browser.
+### 5. Access the application at `http://localhost:3000` in your web browser.
 
 ## Technologies Used
 
