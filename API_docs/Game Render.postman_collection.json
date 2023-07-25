@@ -7,58 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "All Users",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8080/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "User",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/users/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Login User",
 			"request": {
 				"auth": {
@@ -134,7 +82,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"gabr1\",\r\n    \"email\": \"gabro@gmail.com\",\r\n    \"password\": \"asdfgh\",\r\n    \"firstname\": \"Gabr\",\r\n    \"lastname\": \"Ele\"\r\n}",
+					"raw": "{\r\n    \"username\": \"gabr1\",\r\n    \"email\": \"gabro@gmail.com\",\r\n    \"password\": \"asdfgh\",\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -152,6 +100,123 @@
 						"api",
 						"auth",
 						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"gabr1\",\r\n    \"email\": \"gabro@gmail.com\",\r\n    \"password\": \"asdfgh\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						""
 					]
 				}
 			},
@@ -280,6 +345,45 @@
 			"response": []
 		},
 		{
+			"name": "Category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg5OTQ5Nzc5LCJleHAiOjE2OTA4MTM3Nzl9.kHxwC1BNz1xs5QvNGlskAUt7bCQ3ao201kExVim_EkqUlF6jCw4BpPdrOxSqooUO",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryName\": \"fire\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/categories/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categories",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "All Collections",
 			"request": {
 				"auth": {
@@ -339,7 +443,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4OTEyODUwLCJleHAiOjE2ODk3NzY4NTB9.1T3li57AQth5QQxA2AJyIpDfav9GIlcIsTY2BzgkTZm6B73sVMTtxOJXkrkn6ydt",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg5NTkzMzcwLCJleHAiOjE2OTA0NTczNzB9.DFKQ4-XXb0fO5j27A9lWlqOTJsIt11ayCHJ7tkcY7E5UZayH16J0NCnUKX1yzUFV",
 							"type": "string"
 						}
 					]
@@ -348,7 +452,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"collectionName\": \"La mia Prima Collection\",\r\n    \"category\": {\r\n        \"categoryID\": 1\r\n    }\r\n}",
+					"raw": "{\r\n    \"collectionName\": \"Collection Try in Env\",\r\n    \"category\": {\r\n        \"categoryID\": 1\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -377,12 +481,51 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4OTEyODUwLCJleHAiOjE2ODk3NzY4NTB9.1T3li57AQth5QQxA2AJyIpDfav9GIlcIsTY2BzgkTZm6B73sVMTtxOJXkrkn6ydt",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg5OTQ5Nzc5LCJleHAiOjE2OTA4MTM3Nzl9.kHxwC1BNz1xs5QvNGlskAUt7bCQ3ao201kExVim_EkqUlF6jCw4BpPdrOxSqooUO",
 							"type": "string"
 						}
 					]
 				},
 				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"collectionName\": \"Items\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/collections/16",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"collections",
+						"16"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Collections",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg5OTQzNTc5LCJleHAiOjE2OTA4MDc1Nzl9.qPrxKXpEQD2w0V_wvFv-wFqxN8CuYIoThWQ9NZTrGBDpRpt25I1G1RGRRVi1l9ww",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -394,7 +537,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/categories/1",
+					"raw": "http://localhost:8080/categories/10",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -402,7 +545,7 @@
 					"port": "8080",
 					"path": [
 						"categories",
-						"1"
+						"10"
 					]
 				}
 			},
@@ -410,6 +553,58 @@
 		},
 		{
 			"name": "All Images",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4MTU5MTU2LCJleHAiOjE2ODkwMjMxNTZ9.yE4KGNH_2dS7WeqbeKMQLq7ioTH39kK77Y48U2rm_s4UdzvrvqAITCX9QeysR1ZY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Gerry",
+							"type": "text"
+						},
+						{
+							"key": "promptText",
+							"value": "gerry scotti, naked",
+							"type": "text"
+						},
+						{
+							"key": "url",
+							"type": "file",
+							"src": "/C:/Users/massi/Desktop/homework/gerry-scotti-verissimo-2019.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/images",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Images Search",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -615,6 +810,61 @@
 			"response": []
 		},
 		{
+			"name": "Image",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjkwMjEzMTIxLCJleHAiOjE2OTEwNzcxMjF9.xFdbgmWPbzIk_XPjxtePzz-cRXiWGrEm_60pMBNNPyVt1hJIDIYJFA4dEdnQ0rgb",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/emart/OneDrive/Desktop/Massy/Capstone/theGameRender/game_render_backend/images/bg_stonetower.jpg"
+						},
+						{
+							"key": "prompt",
+							"value": "items_stone",
+							"type": "text"
+						},
+						{
+							"key": "collectionId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "fire, bello",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/images/66",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"images",
+						"66"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "All Tags",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -776,7 +1026,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg4MzIwNDI4LCJleHAiOjE2ODkxODQ0Mjh9.CJHg_ibGzWUmMjUyykNfGY_iJbuiWeRVJV5KJnu503d-VJXTAt3HyLtX2VFkTSpj",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYXNzby5saW5pQGVwaWNvZGUuY29tIiwiaWF0IjoxNjg5NjkzMDc4LCJleHAiOjE2OTA1NTcwNzh9.HSpWdHrcY2o5UkQ8tFZfFULT1M0vhfxPz1rt1h-l_Ky7_ig4UfdTC1Tpi_--IsBJ\"",
 							"type": "string"
 						}
 					]
@@ -784,7 +1034,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/users/favorites/1",
+					"raw": "http://localhost:8080/users/favorites/masso.lini",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -793,7 +1043,7 @@
 					"path": [
 						"users",
 						"favorites",
-						"1"
+						"masso.lini"
 					]
 				}
 			},
