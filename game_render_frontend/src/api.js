@@ -152,7 +152,7 @@ export async function createCollection(collectionData) {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    return response;
+    return response.json();
   } catch (error) {
     console.error("Failed to create collection:", error);
     throw error;
@@ -177,6 +177,83 @@ export async function toggleFavorite(username, imageId) {
     return await response.json();
   } catch (error) {
     console.error("Failed to toggle favorite:", error);
+    throw error;
+  }
+}
+
+export async function updateCollection(collectionId, collectionData) {
+  try {
+    const response = await fetch(`${URL}/collections/${collectionId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(collectionData),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  } catch (error) {
+    console.error("Failed to update collection:", error);
+    throw error;
+  }
+}
+
+export async function updateImage(imageId, imageData) {
+  try {
+    const response = await fetch(`${URL}/images/${imageId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(imageData),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response;
+  } catch (error) {
+    console.error("Failed to update image:", error);
+    throw error;
+  }
+}
+
+// DELETE
+export async function deleteCollection(collectionId) {
+  try {
+    const response = await fetch(`${URL}/collections/${collectionId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response;
+  } catch (error) {
+    console.error("Failed to delete collection:", error);
+    throw error;
+  }
+}
+export async function deleteImage(imageId) {
+  try {
+    const response = await fetch(`${URL}/images/${imageId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response;
+  } catch (error) {
+    console.error("Failed to delete image:", error);
     throw error;
   }
 }

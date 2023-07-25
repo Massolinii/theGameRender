@@ -2,8 +2,6 @@ package com.gamerender.controllers;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +27,6 @@ import jakarta.validation.Valid;
 @RequestMapping("/categories")
 public class CategoryController {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @Autowired CategoryService categoryService;
 
     @GetMapping
@@ -39,7 +35,7 @@ public class CategoryController {
             List<Category> categories = categoryService.getAllCategories();
             return new ResponseEntity<>(categories, HttpStatus.OK);
         } catch(Exception e) {
-            throw new CategoryNotFoundException("Categories not found");
+            throw new CategoryNotFoundException(HttpStatus.NOT_FOUND, "Categories not found" + e);
         }
     }
  
@@ -50,7 +46,7 @@ public class CategoryController {
             Category category = categoryService.getCategoryById(id);
             return new ResponseEntity<>(category, HttpStatus.OK);
         } catch(Exception e) {
-            throw new CategoryNotFoundException("Category not found");
+            throw new CategoryNotFoundException("Category not found" + e);
         }
     }
 
@@ -85,7 +81,7 @@ public class CategoryController {
             Category updatedCategory = categoryService.updateCategory(category);
             return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
         } catch(Exception e) {
-            throw new CategoryNotFoundException("Category could not be updated");
+            throw new CategoryNotFoundException("Category could not be updated" + e);
         }
     }
 
@@ -96,7 +92,7 @@ public class CategoryController {
             categoryService.deleteCategory(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch(Exception e) {
-            throw new CategoryNotFoundException("Category not found, so could not be deleted");
+            throw new CategoryNotFoundException("Category not found, so could not be deleted" + e);
         }
     }
 }

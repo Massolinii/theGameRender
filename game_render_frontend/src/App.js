@@ -18,20 +18,22 @@ function App() {
   return (
     <AuthProvider>
       <div className="App">
-        <Router>
-          <ScrollToTop />
-          <HomeNavBar />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/register" element={<RegisterForm />} />
-            <Route path="/category/:id" element={<CategoryPage />} />
-            <Route path="/collection/:id" element={<CollectionPage />} />
-            <Route path="/favorites" element={<FavoritesPage />} />
-            <Route path="/how-to-write-a-prompt" element={<HowToWrite />} />
-          </Routes>
-          <Footer />
-        </Router>
+        <tt>
+          <Router>
+            <ScrollToTop />
+            <HomeNavBar />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/register" element={<RegisterForm />} />
+              <Route path="/category/:id" element={<CategoryPage />} />
+              <Route path="/collection/:id" element={<CollectionPage />} />
+              <Route path="/favorites" element={<FavoritesPage />} />
+              <Route path="/how-to-write-a-prompt" element={<HowToWrite />} />
+            </Routes>
+            <Footer />
+          </Router>
+        </tt>
       </div>
     </AuthProvider>
   );

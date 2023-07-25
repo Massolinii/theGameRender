@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Alert, Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { fetchCollections, uploadImage } from "../api.js";
 
+import "../css/Modals.css";
+
 const ImageUploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState("");
@@ -91,7 +93,7 @@ const ImageUploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
   };
 
   return (
-    <Modal show={isOpen} onHide={onClose}>
+    <Modal show={isOpen} onHide={onClose} className="dark-modal">
       <Modal.Header closeButton>
         <Modal.Title>Upload Image </Modal.Title>
       </Modal.Header>
@@ -135,26 +137,14 @@ const ImageUploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
           </Form.Group>
           <hr />
           <Form.Group>
-            <Form.Label>
-              Tags <span className="text-muted">(separated by " ; ")</span>
-            </Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Tags"
-              value={tags}
-              onChange={(e) => setTags(e.target.value)}
-            />
-          </Form.Group>
-          <hr />
-          <Form.Group>
-            <Form.Label>Collection</Form.Label>
+            <Form.Label>Theme</Form.Label>
             <Form.Control
               as="select"
               value={selectedCollection}
               onChange={(e) => setSelectedCollection(e.target.value)}
             >
               <option value="" disabled>
-                Choose a category
+                - - - SELECT A THEME - - -
               </option>
               {collections.map((collection, index) => (
                 <option

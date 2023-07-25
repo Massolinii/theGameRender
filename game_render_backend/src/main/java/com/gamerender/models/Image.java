@@ -50,4 +50,10 @@ public class Image {
         this.collection = collection;
         this.tags = tags;
     }
+    
+    public Image(String url, String promptText, Collection collection) {
+        this.url = url;
+        this.promptText = promptText;
+        this.collection = collection;
+    }
 }

@@ -67,11 +67,14 @@ public class CollectionService {
     // PUT
     public Collection updateCollection(Collection collection) {
         if (collectionRepository.existsById(collection.getCollectionID())) {
-        	return collectionRepository.save(collection);
+            Collection existingCollection = collectionRepository.findById(collection.getCollectionID()).get();
+            existingCollection.setCollectionName(collection.getCollectionName());
+            return collectionRepository.save(existingCollection);
         } else {
             throw new CollectionNotFoundException("Collection not found with ID: " + collection.getCollectionID());
         }
     }
+
 
     // DELETE
     public String deleteCollection(Long id) {
