@@ -41,35 +41,47 @@ const ImageEditModal = ({
     }
   };
 
+  const handleImageDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this image?")) {
+      try {
+        await deleteImage(image.imageID);
+        console.log("The image was deleted successfully");
+        onClose();
+      } catch (error) {
+        setError("An error occurred during deleting" + error);
+      }
+    }
+  };
+
   return (
     <Modal show={isOpen} onHide={onClose} className="dark-modal">
-      <tt>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Image</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleUpdate}>
-            <Form.Group>
-              <Form.Label>Modify Prompt Text</Form.Label>
-              <Form.Control
-                type="text"
-                as="textarea"
-                rows={4}
-                placeholder="Prompt Text"
-                className="my-2"
-                value={promptText}
-                onChange={(e) => setPromptText(e.target.value)}
-              />
-            </Form.Group>
-            {error && <div className="text-danger mb-2">{error}</div>}
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" type="submit">
-            Update
-          </Button>
-        </Modal.Footer>
-      </tt>
+      <Modal.Header closeButton>
+        <Modal.Title>Edit Image</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={handleUpdate}>
+          <Form.Group>
+            <Form.Label>Modify Prompt Text</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={4}
+              placeholder="Prompt Text"
+              className="my-2"
+              value={promptText}
+              onChange={(e) => setPromptText(e.target.value)}
+            />
+          </Form.Group>
+          {error && <div className="text-danger mb-2">{error}</div>}
+          <Modal.Footer>
+            <Button variant="primary" type="submit">
+              Update
+            </Button>
+            <Button variant="danger" onClick={handleImageDelete}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal.Body>
     </Modal>
   );
 };

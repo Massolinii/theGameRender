@@ -99,17 +99,17 @@ const Search = () => {
           className="mx-3 mb-3"
           placeholder="Search..."
         />
-        <Button type="submit" className="search-button">
+        <button type="submit" className="search-button">
           Search
-        </Button>
+        </button>
         {imageList.length > 0 && (
-          <Button
+          <button
             type="button"
             className="search-clear-button"
             onClick={handleClearResults}
           >
             Clear Results
-          </Button>
+          </button>
         )}
       </form>
       <div className="image-container">

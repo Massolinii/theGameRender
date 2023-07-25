@@ -1,6 +1,9 @@
 import { Container } from "react-bootstrap";
 import "../css/HowToWrite.css";
-import elvishImage from "../css/wallpapers/env_elvishtownhall1-_1_.webp";
+import elvishImage1 from "../css/images/elvish1.webp";
+import elvishImage2 from "../css/images/elvish2.webp";
+import elvishImage3 from "../css/images/elvish3.webp";
+import elvishImage4 from "../css/images/elvish4.webp";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouseChimney } from "@fortawesome/free-solid-svg-icons";
@@ -38,6 +41,13 @@ function HowToWrite() {
             <b>Design a Elvish Townhall, in a forest </b>. . . . .
           </code>
         </pre>
+        <Container className="d-flex justify-content-center p-0 m-0 mb-4">
+          <img
+            src={elvishImage1}
+            alt="Elvish Townhall"
+            className="tutorial-elvish-image"
+          />
+        </Container>
         <li>
           <strong>Provide a Clear and Concise Description:</strong> A good
           prompt should be easy to understand but detailed enough to give a good
@@ -56,6 +66,13 @@ function HowToWrite() {
             <span className="text-muted">. . . . .</span>{" "}
           </code>
         </pre>
+        <Container className="d-flex justify-content-center p-0 m-0 mb-4">
+          <img
+            src={elvishImage2}
+            alt="Elvish Townhall"
+            className="tutorial-elvish-image"
+          />
+        </Container>
         <li>
           <strong>Use Appropriate Language:</strong> The language you use in
           your prompt should be appropriate for your target audience. If you're
@@ -88,6 +105,13 @@ function HowToWrite() {
             <span className="text-muted">. . . . .</span>{" "}
           </code>
         </pre>
+        <Container className="d-flex justify-content-center p-0 m-0 mb-4">
+          <img
+            src={elvishImage3}
+            alt="Elvish Townhall"
+            className="tutorial-elvish-image"
+          />
+        </Container>
         <li>
           <strong>Include Visual References:</strong> If possible, include
           visual references in your prompt. These can be images, sketches, or
@@ -107,7 +131,7 @@ function HowToWrite() {
         </pre>
         <Container className="d-flex justify-content-center p-0 m-0 mb-4">
           <img
-            src={elvishImage}
+            src={elvishImage4}
             alt="Elvish Townhall"
             className="tutorial-elvish-image"
           />

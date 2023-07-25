@@ -137,14 +137,14 @@ const ImageUploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
           </Form.Group>
           <hr />
           <Form.Group>
-            <Form.Label>Collection</Form.Label>
+            <Form.Label>Theme</Form.Label>
             <Form.Control
               as="select"
               value={selectedCollection}
               onChange={(e) => setSelectedCollection(e.target.value)}
             >
               <option value="" disabled>
-                - - - SELECT A COLLECTION - - -
+                - - - SELECT A THEME - - -
               </option>
               {collections.map((collection, index) => (
                 <option
