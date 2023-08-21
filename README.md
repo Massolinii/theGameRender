@@ -82,8 +82,7 @@ The Game Render is released under the [MIT License](https://opensource.org/licen
 
 ## Acknowledgments
 
-We would like to express our gratitude to the developers and contributors of the following technologies and libraries used in this project, but especially to Midjourney's developers for their amazing works which insipired this project.
-
+I would like to express our gratitude to the developers and contributors of the technologies and libraries used in this project, but especially to Midjourney's developers for their amazing works which insipired this project.
 
 ## Contact
 
