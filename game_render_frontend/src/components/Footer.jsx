@@ -4,7 +4,9 @@ function Footer() {
   return (
     <footer>
       <div className="text-center pb-3 pt-2 footer-background">
-        <p className="display-6 mb-0 footer-text">THE_GAME_RENDER</p>
+        <a className="" href="https://github.com/Massolinii/theGameRender">
+          <p className="display-6 mb-0 footer-text">THE__GAME__RENDER</p>
+        </a>{" "}
         <small className="text-white-50">
           2023. Made by Massimiliano Esposito -{" "}
           <a className="" href="https://github.com/Massolinii">
